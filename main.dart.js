@@ -1,0 +1,1 @@
+// Simulazione del file JS compilato
