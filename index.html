@@ -1,115 +1,76 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Signalyx</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module">
-      // Firebase import
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signalyx – Piani Abbonamento</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
+      authDomain: "signalyx-web.firebaseapp.com",
+      projectId: "signalyx-web",
+      storageBucket: "signalyx-web.firebaseapp.com",
+      messagingSenderId: "276327742476",
+      appId: "1:276327742476:web:5fde294924542ddae10229",
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    window.addEventListener('load', () => {
+      onAuthStateChanged(auth, user => {
+        if (!user) location.reload();
+      });
+    });
+  </script>
+  <style>
+    body { background: #0d0d0d; color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 1rem; }
+    h1 { text-align: center; margin-bottom: 1rem; }
+    .plan { background: #1a1a1a; padding: 1rem; margin-bottom: 1rem; border-radius: 6px; }
+    .plan h2 { margin: 0; font-size: 1.4rem; }
+    .plan p { font-size: .9rem; margin: .5rem 0; }
+    .plan button { background: #00cc66; color: #000; border:none; padding: .5rem 1rem; border-radius:4px; cursor:pointer; }
+    .plan button:hover { background: #00b353; }
+  </style>
+</head>
+<body>
+  <h1>Piani di abbonamento Signalyx</h1>
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
-        authDomain: "signalyx-web.firebaseapp.com",
-        projectId: "signalyx-web",
-        storageBucket: "signalyx-web.firebasestorage.app",
-        messagingSenderId: "276327742476",
-        appId: "1:276327742476:web:5fde294924542ddae10229",
-        measurementId: "G-9C6GY4132W"
-      };
+  <div class="plan">
+    <h2>Free con ADS</h2>
+    <p>1 segnale al giorno • Pubblicità leggera • Gratis per sempre</p>
+    <button onclick="alert('Sei già nel piano Free con ADS')">Sei già qui!</button>
+  </div>
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
+  <div class="plan">
+    <h2>Free</h2>
+    <p>1 segnale al giorno • No ads</p>
+    <button onclick="alert('Funzione “Sblocca Free” in arrivo')">Sblocca Free</button>
+  </div>
 
-      window.onload = () => {
-        const form = document.getElementById("loginForm");
-        const logoutBtn = document.getElementById("logout");
-        const userStatus = document.getElementById("userStatus");
+  <div class="plan">
+    <h2>Base</h2>
+    <p>2 segnali al giorno • Crypto + Azioni • 4,99 €/mese</p>
+    <button onclick="alert('In arrivo: Upgrade a Base')">Attiva Base</button>
+  </div>
 
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            userStatus.innerHTML = `✅ Benvenuto, ${user.email} <br><button id="logout">Logout</button>`;
-            document.getElementById("loginForm").style.display = "none";
-            document.getElementById("dashboard").style.display = "block";
+  <div class="plan">
+    <h2>Pro</h2>
+    <p>5 segnali al giorno • Crypto, Azioni, Token • 9,99 €/mese</p>
+    <button onclick="alert('In arrivo: Upgrade a Pro')">Attiva Pro</button>
+  </div>
 
-            document.getElementById("logout").onclick = () => {
-              signOut(auth);
-              location.reload();
-            };
-          } else {
-            document.getElementById("loginForm").style.display = "block";
-            document.getElementById("dashboard").style.display = "none";
-          }
-        });
+  <div class="plan">
+    <h2>Elite</h2>
+    <p>Segnali illimitati • Crypto, Azioni, Token • 19,99 €/mese</p>
+    <button onclick="alert('In arrivo: Upgrade a Elite')">Attiva Elite</button>
+  </div>
 
-        form.onsubmit = (e) => {
-          e.preventDefault();
-          const email = form.email.value;
-          const password = form.password.value;
-          const mode = form.mode.value;
+  <div class="plan">
+    <h2>Istituzionale (VEROS)</h2>
+    <p>Tutto incluso + analisi geopolitica, climatica, on-chain • 49,99 €/mese</p>
+    <button onclick="alert('In arrivo: Upgrade a Istituzionale')">Attiva VEROS</button>
+  </div>
 
-          if (mode === "login") {
-            signInWithEmailAndPassword(auth, email, password)
-              .catch((err) => alert("Errore login: " + err.message));
-          } else {
-            createUserWithEmailAndPassword(auth, email, password)
-              .catch((err) => alert("Errore registrazione: " + err.message));
-          }
-        };
-      };
-    </script>
-
-    <style>
-      body {
-        background-color: #000;
-        color: #fff;
-        font-family: sans-serif;
-        text-align: center;
-        padding: 30px;
-      }
-
-      input, select, button {
-        margin: 8px;
-        padding: 10px;
-        font-size: 16px;
-        border-radius: 6px;
-        border: none;
-      }
-
-      button {
-        background-color: #00cc66;
-        color: white;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background-color: #00a357;
-      }
-
-      #dashboard {
-        display: none;
-      }
-    </style>
-  </head>
-
-  <body>
-    <h1>Signalyx</h1>
-    <p id="userStatus"></p>
-
-    <form id="loginForm">
-      <input type="email" name="email" placeholder="Email" required /><br />
-      <input type="password" name="password" placeholder="Password" required /><br />
-      <select name="mode">
-        <option value="login">Login</option>
-        <option value="register">Registrati</option>
-      </select><br />
-      <button type="submit">Continua</button>
-    </form>
-
-    <div id="dashboard">
-      <h2>✅ Accesso effettuato</h2>
-      <p>Benvenuto nella dashboard!</p>
-    </div>
-  </body>
+</body>
 </html>
