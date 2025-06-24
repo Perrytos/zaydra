@@ -2,13 +2,12 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signalyx</title>
-
-    <!-- Firebase SDK -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-      import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      // Firebase import
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
@@ -22,47 +21,95 @@
 
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
+
+      window.onload = () => {
+        const form = document.getElementById("loginForm");
+        const logoutBtn = document.getElementById("logout");
+        const userStatus = document.getElementById("userStatus");
+
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            userStatus.innerHTML = `✅ Benvenuto, ${user.email} <br><button id="logout">Logout</button>`;
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("dashboard").style.display = "block";
+
+            document.getElementById("logout").onclick = () => {
+              signOut(auth);
+              location.reload();
+            };
+          } else {
+            document.getElementById("loginForm").style.display = "block";
+            document.getElementById("dashboard").style.display = "none";
+          }
+        });
+
+        form.onsubmit = (e) => {
+          e.preventDefault();
+          const email = form.email.value;
+          const password = form.password.value;
+          const mode = form.mode.value;
+
+          if (mode === "login") {
+            signInWithEmailAndPassword(auth, email, password)
+              .catch((err) => alert("Errore login: " + err.message));
+          } else {
+            createUserWithEmailAndPassword(auth, email, password)
+              .catch((err) => alert("Errore registrazione: " + err.message));
+          }
+        };
+      };
     </script>
 
     <style>
       body {
-        background-color: #0d0d0d;
-        color: white;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
+        background-color: #000;
+        color: #fff;
+        font-family: sans-serif;
         text-align: center;
+        padding: 30px;
       }
-      h1 {
-        font-size: 2.5em;
-        margin-bottom: 0.2em;
-      }
-      p {
-        font-size: 1.2em;
-        margin-bottom: 1em;
-      }
-      button {
-        background-color: #00d084;
-        border: none;
-        color: black;
-        padding: 12px 24px;
-        font-size: 1em;
+
+      input, select, button {
+        margin: 8px;
+        padding: 10px;
+        font-size: 16px;
         border-radius: 6px;
+        border: none;
+      }
+
+      button {
+        background-color: #00cc66;
+        color: white;
         cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #00a357;
+      }
+
+      #dashboard {
+        display: none;
       }
     </style>
   </head>
 
   <body>
-    <h1>Benvenuto su Signalyx</h1>
-    <p>
-      L'app è in fase di sviluppo. Presto potrai ricevere segnali, gestire il
-      tuo profilo e tanto altro!
-    </p>
-    <button onclick="alert('Funzione non ancora attiva')">Vai alla dashboard</button>
+    <h1>Signalyx</h1>
+    <p id="userStatus"></p>
+
+    <form id="loginForm">
+      <input type="email" name="email" placeholder="Email" required /><br />
+      <input type="password" name="password" placeholder="Password" required /><br />
+      <select name="mode">
+        <option value="login">Login</option>
+        <option value="register">Registrati</option>
+      </select><br />
+      <button type="submit">Continua</button>
+    </form>
+
+    <div id="dashboard">
+      <h2>✅ Accesso effettuato</h2>
+      <p>Benvenuto nella dashboard!</p>
+    </div>
   </body>
 </html>
