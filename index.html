@@ -3,177 +3,146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <title>Signalyx – Think Less. Trade Best.</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to bottom right, #0f111a, #161b2e);
-      color: white;
-      overflow: hidden;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background: #0c0f16; color: #fff; text-align: center; }
+
     .splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-color: #0f111a;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 999;
-      animation: fadeOut 2.5s forwards;
+      height: 100vh;
+      background-color: #0c0f16;
+      animation: fadeOut 2s ease forwards;
+      animation-delay: 1.5s;
     }
-    .splash img {
-      width: 160px;
-      opacity: 0;
-      animation: fadeIn 1s ease-in-out forwards;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+
     @keyframes fadeOut {
-      0% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { opacity: 0; display: none; visibility: hidden; }
+      to { opacity: 0; visibility: hidden; }
     }
 
-    .container {
-      padding: 80px 20px 100px 20px;
+    .logo {
+      width: 180px;
+      height: auto;
+      animation: fadeIn 1s ease-in-out;
     }
 
-    h1 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; margin-bottom: 10px; }
+    main {
+      display: none;
+      padding-top: 80px;
+    }
+
     .card {
-      background: #1d2333;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px #00000033;
-    }
-    .signal-card {
-      border-left: 5px solid #00ff99;
-    }
-
-    .profile {
-      text-align: center;
+      background: #1a1f2e;
+      margin: 15px;
       padding: 20px;
-    }
-    .avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background-color: #444;
-      margin: 0 auto 10px;
+      border-radius: 12px;
+      text-align: left;
     }
 
-    .bottom-nav {
+    .nav {
       position: fixed;
       bottom: 0;
-      left: 0;
       width: 100%;
-      background: #121827;
       display: flex;
       justify-content: space-around;
+      background: #111;
+      border-top: 1px solid #333;
       padding: 10px 0;
-      border-top: 1px solid #222;
     }
-    .bottom-nav button {
+
+    .nav button {
       background: none;
       border: none;
-      color: #aaa;
-      font-size: 14px;
+      color: #888;
+      font-size: 16px;
     }
-    .bottom-nav button.active {
-      color: #00ff99;
+
+    .nav button.active {
+      color: #00ff88;
       font-weight: bold;
     }
 
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #121827;
-      padding: 12px;
-      text-align: center;
-      font-weight: bold;
+    #header {
       font-size: 18px;
-      border-bottom: 1px solid #222;
+      padding: 15px;
+      background: #111;
+      font-weight: bold;
     }
+
   </style>
 </head>
 <body>
-  <div class="splash">
-    <img src="logo.PNG" alt="Logo" />
+
+  <div class="splash" id="splash">
+    <img src="logo.PNG" alt="Logo" class="logo" />
   </div>
 
-  <div class="topbar">Signalyx – Think Less. Trade Best.</div>
+  <main id="app">
+    <div id="header">Signalyx – Think Less. Trade Best.</div>
 
-  <div class="container" id="mainContent">
-    <!-- Default page: Dashboard -->
-    <div class="card signal-card">
-      <h1>📈 BTC/USDT</h1>
-      <p>Segnale: BUY</p>
-      <p>Target: $72,000</p>
-      <p>Stop: $66,500</p>
-      <p>Stato: Attivo</p>
+    <div id="content">
+      <!-- SEZIONI DINAMICHE QUI -->
     </div>
 
-    <div class="card signal-card">
-      <h1>📉 ETH/USDT</h1>
-      <p>Segnale: SELL</p>
-      <p>Target: $3,150</p>
-      <p>Stop: $3,350</p>
-      <p>Stato: In attesa</p>
+    <div class="nav">
+      <button onclick="show('signals')" id="nav-signals" class="active">Segnali</button>
+      <button onclick="show('news')" id="nav-news">Notizie</button>
+      <button onclick="show('profile')" id="nav-profile">Profilo</button>
     </div>
-  </div>
-
-  <div class="bottom-nav">
-    <button onclick="showSection('signals')" class="active">Segnali</button>
-    <button onclick="showSection('news')">Notizie</button>
-    <button onclick="showSection('profile')">Profilo</button>
-  </div>
+  </main>
 
   <script>
-    function showSection(section) {
-      const content = document.getElementById('mainContent');
-      document.querySelectorAll(".bottom-nav button").forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+    const splash = document.getElementById('splash');
+    const app = document.getElementById('app');
+    const content = document.getElementById('content');
 
+    setTimeout(() => {
+      splash.style.display = 'none';
+      app.style.display = 'block';
+      show('signals');
+    }, 2500);
+
+    function show(section) {
+      const buttons = document.querySelectorAll('.nav button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.getElementById('nav-' + section).classList.add('active');
+
+      let html = '';
       if (section === 'signals') {
-        content.innerHTML = `
-          <div class="card signal-card">
-            <h1>📈 BTC/USDT</h1>
-            <p>Segnale: BUY</p>
-            <p>Target: $72,000</p>
-            <p>Stop: $66,500</p>
-            <p>Stato: Attivo</p>
-          </div>
-          <div class="card signal-card">
-            <h1>📉 ETH/USDT</h1>
-            <p>Segnale: SELL</p>
-            <p>Target: $3,150</p>
-            <p>Stop: $3,350</p>
-            <p>Stato: In attesa</p>
-          </div>`;
-      } else if (section === 'news') {
-        content.innerHTML = `
+        html += `
           <div class="card">
-            <h1>📰 Ultime Notizie</h1>
-            <p>La FED mantiene i tassi: i mercati reagiscono positivamente.</p>
-            <p>ETF su Ethereum approvati. Volume in crescita.</p>
-          </div>`;
+            <h2>📈 BTC/USDT</h2>
+            <p>Segnale: BUY<br/>Target: $72,000<br/>Stop: $66,500<br/>Stato: Attivo</p>
+          </div>
+          <div class="card">
+            <h2>📉 ETH/USDT</h2>
+            <p>Segnale: SELL<br/>Target: $3,150<br/>Stop: $3,350<br/>Stato: In attesa</p>
+          </div>
+        `;
+      } else if (section === 'news') {
+        html += `
+          <div class="card">
+            <h2>📰 Ultime Notizie</h2>
+            <p>La FED mantiene i tassi: i mercati reagiscono positivamente.<br/>
+            ETF su Ethereum approvati. Volume in crescita.</p>
+          </div>
+        `;
       } else if (section === 'profile') {
-        content.innerHTML = `
-          <div class="profile">
-            <div class="avatar"></div>
+        html += `
+          <div class="card" style="text-align: center;">
             <h2>Utente: Marco</h2>
-            <p>Piano attivo: <b>Free + Ads</b></p>
-            <p>Lingua: Italiano 🇮🇹</p>
-            <p>Valuta: EUR €</p>
-          </div>`;
+            <p>Piano attivo: <strong>Free + Ads</strong><br/>
+            Lingua: Italiano 🇮🇹<br/>
+            Valuta: EUR €</p>
+          </div>
+        `;
       }
+
+      content.innerHTML = html;
     }
   </script>
+
 </body>
 </html>
