@@ -3,144 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx – Think Less. Trade Best.</title>
+  <title>Signalyx</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-    body { background: #0c0f16; color: #fff; text-align: center; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0a0a;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
 
-    .splash {
+    #splash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0a0a0a;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      background-color: #0c0f16;
-      animation: fadeOut 2s ease forwards;
-      animation-delay: 1.5s;
+      animation: fadeOut 1.8s ease forwards;
     }
 
     @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
+      0% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
     }
 
     .logo {
-      width: 180px;
-      height: auto;
-      animation: fadeIn 1s ease-in-out;
+      max-width: 220px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1.2s;
     }
 
-    main {
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .tagline {
+      margin-top: 16px;
+      font-size: 16px;
+      color: #ccc;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1.8s;
+    }
+
+    .main-content {
       display: none;
-      padding-top: 80px;
+      animation: appear 0.5s ease forwards 2.2s;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .card {
-      background: #1a1f2e;
-      margin: 15px;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: left;
+    @keyframes appear {
+      to { display: flex; }
     }
 
-    .nav {
+    nav {
       position: fixed;
       bottom: 0;
       width: 100%;
+      background: #111;
       display: flex;
       justify-content: space-around;
-      background: #111;
-      border-top: 1px solid #333;
       padding: 10px 0;
+      border-top: 1px solid #333;
     }
 
-    .nav button {
+    nav button {
       background: none;
       border: none;
-      color: #888;
-      font-size: 16px;
+      color: #ccc;
+      font-size: 14px;
     }
 
-    .nav button.active {
-      color: #00ff88;
-      font-weight: bold;
-    }
-
-    #header {
-      font-size: 18px;
-      padding: 15px;
-      background: #111;
-      font-weight: bold;
+    .section {
+      padding: 20px;
+      text-align: center;
+      max-width: 90%;
     }
 
   </style>
 </head>
 <body>
 
-  <div class="splash" id="splash">
-    <img src="logo.PNG" alt="Logo" class="logo" />
+  <div id="splash">
+    <img src="assets/logo.PNG" alt="Logo" class="logo" />
   </div>
 
-  <main id="app">
-    <div id="header">Signalyx – Think Less. Trade Best.</div>
-
-    <div id="content">
-      <!-- SEZIONI DINAMICHE QUI -->
+  <div class="main-content" id="main">
+    <div class="tagline">Think Less. Trade Best.</div>
+    <div class="section" id="dashboard">
+      <h2>Dashboard</h2>
+      <p>Benvenuto su Signalyx. Il cuore della tua operatività è qui.</p>
     </div>
+  </div>
 
-    <div class="nav">
-      <button onclick="show('signals')" id="nav-signals" class="active">Segnali</button>
-      <button onclick="show('news')" id="nav-news">Notizie</button>
-      <button onclick="show('profile')" id="nav-profile">Profilo</button>
-    </div>
-  </main>
+  <nav>
+    <button onclick="showSection('dashboard')">Console</button>
+    <button onclick="showSection('piani')">Piani</button>
+    <button onclick="showSection('notizie')">Notizie</button>
+    <button onclick="showSection('profilo')">Profilo</button>
+  </nav>
+
+  <!-- Sezioni simulate -->
+  <div class="section" id="piani" style="display:none">
+    <h2>Piani Abbonamento</h2>
+    <p>Free, Base, Pro, Elite, Verus...</p>
+  </div>
+
+  <div class="section" id="notizie" style="display:none">
+    <h2>Notizie Geopolitiche</h2>
+    <p>Ultimi aggiornamenti e analisi globali.</p>
+  </div>
+
+  <div class="section" id="profilo" style="display:none">
+    <h2>Profilo Utente</h2>
+    <p>Email: marco@signalyx.com<br>Lingua: Italiano<br>Valuta: EUR</p>
+  </div>
 
   <script>
-    const splash = document.getElementById('splash');
-    const app = document.getElementById('app');
-    const content = document.getElementById('content');
-
     setTimeout(() => {
-      splash.style.display = 'none';
-      app.style.display = 'block';
-      show('signals');
-    }, 2500);
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('main').style.display = 'flex';
+    }, 2000);
 
-    function show(section) {
-      const buttons = document.querySelectorAll('.nav button');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      document.getElementById('nav-' + section).classList.add('active');
-
-      let html = '';
-      if (section === 'signals') {
-        html += `
-          <div class="card">
-            <h2>📈 BTC/USDT</h2>
-            <p>Segnale: BUY<br/>Target: $72,000<br/>Stop: $66,500<br/>Stato: Attivo</p>
-          </div>
-          <div class="card">
-            <h2>📉 ETH/USDT</h2>
-            <p>Segnale: SELL<br/>Target: $3,150<br/>Stop: $3,350<br/>Stato: In attesa</p>
-          </div>
-        `;
-      } else if (section === 'news') {
-        html += `
-          <div class="card">
-            <h2>📰 Ultime Notizie</h2>
-            <p>La FED mantiene i tassi: i mercati reagiscono positivamente.<br/>
-            ETF su Ethereum approvati. Volume in crescita.</p>
-          </div>
-        `;
-      } else if (section === 'profile') {
-        html += `
-          <div class="card" style="text-align: center;">
-            <h2>Utente: Marco</h2>
-            <p>Piano attivo: <strong>Free + Ads</strong><br/>
-            Lingua: Italiano 🇮🇹<br/>
-            Valuta: EUR €</p>
-          </div>
-        `;
-      }
-
-      content.innerHTML = html;
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(sec => sec.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
     }
   </script>
 
