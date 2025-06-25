@@ -2,140 +2,180 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Signalyx – Think Less. Trade Best.</title>
   <style>
+    :root {
+      --bg: #121212;
+      --fg: #ffffff;
+      --accent: #1e90ff;
+      --card: #1f1f1f;
+      --button: #0f0;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+      color: var(--fg);
+    }
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0d0d0d;
-      color: #ffffff;
+      background-color: var(--bg);
     }
-    header {
-      background-color: #111;
-      padding: 1rem;
+    #splash {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      animation: fadeOut 2s ease-out 2s forwards;
+      background-color: var(--bg);
+    }
+    #splash h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
       text-align: center;
-      font-size: 1.6rem;
-      font-weight: bold;
-      border-bottom: 1px solid #333;
+    }
+    #splash img {
+      width: 160px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    #mainApp {
+      display: none;
+      padding: 16px;
+    }
+    .card {
+      background: var(--card);
+      padding: 16px;
+      margin-bottom: 16px;
+      border-radius: 10px;
+    }
+    h2 {
+      margin-top: 0;
     }
     nav {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: #1a1a1a;
       display: flex;
       justify-content: space-around;
-      padding: 0.5rem 0;
-      border-top: 1px solid #333;
+      background: #000;
+      padding: 12px 0;
     }
     nav button {
       background: none;
       border: none;
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
+      color: var(--fg);
+      font-size: 14px;
     }
-    main {
-      padding: 1rem;
-      padding-bottom: 4rem;
+    .tab-content {
+      display: none;
     }
-    select, input {
-      background-color: #222;
-      color: white;
-      border: 1px solid #444;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      width: 100%;
-      margin-bottom: 1rem;
+    .tab-content.active {
+      display: block;
     }
-    .card {
-      background-color: #1a1a1a;
-      border: 1px solid #333;
-      padding: 1rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-    .button {
-      background-color: #007bff;
+    button.activate {
+      background: var(--button);
+      color: black;
       border: none;
-      color: white;
-      padding: 0.75rem;
-      width: 100%;
-      font-size: 1rem;
+      padding: 6px 12px;
       border-radius: 5px;
-      cursor: pointer;
-    }
-    .button:hover {
-      background-color: #0056b3;
+      margin-left: 8px;
     }
   </style>
 </head>
 <body>
 
-  <header>Signalyx – Think Less. Trade Best.</header>
+<div id="splash">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Bitcoin.png/240px-Bitcoin.png" alt="Logo" />
+  <h1>Signalyx<br />Think Less. Trade Best.</h1>
+</div>
 
-  <main>
+<div id="mainApp">
+  <div id="piani" class="tab-content active">
     <div class="card">
-      <h2>Profilo Utente</h2>
-      <label for="language">Lingua</label>
-      <select id="language">
-        <option>Italiano</option>
-        <option>English</option>
-        <option>Español</option>
-        <option>Deutsch</option>
-        <option>Français</option>
-        <option>Русский</option>
-        <option>中文</option>
-        <option>العربية</option>
-      </select>
-
-      <label for="currency">Valuta</label>
-      <select id="currency">
-        <option>€ Euro</option>
-        <option>$ USD</option>
-        <option>£ GBP</option>
-        <option>¥ JPY</option>
-        <option>₿ Bitcoin</option>
-        <option>Ξ Ethereum</option>
-      </select>
-
-      <label for="plan">Piano Attivo</label>
-      <select id="plan">
-        <option>Free con ADS</option>
-        <option>Free senza ADS – 1,99€</option>
-        <option>Base – 9,99€</option>
-        <option>Pro – 24,99€</option>
-        <option>Elite – 49,99€</option>
-        <option>Verus – 149€</option>
-        <option>Verus Black – 299€</option>
-      </select>
-
-      <button class="button">Salva Preferenze</button>
+      <h2>I Tuoi Piani</h2>
+      <div>Free con ADS – €0.00 <button class="activate">Attiva</button></div>
+      <div>Free (no ADS) – €1.99 <button class="activate">Attiva</button></div>
+      <div>Base – €9.99 <button class="activate">Attiva</button></div>
+      <div>Pro – €24.99 <button class="activate">Attiva</button></div>
+      <div>Elite – €49.99 <button class="activate">Attiva</button></div>
+      <div>Istituzionale (Verus) – €119.00 <button class="activate">Attiva</button></div>
     </div>
+  </div>
 
+  <div id="console" class="tab-content">
     <div class="card">
       <h2>Console</h2>
       <p>Grafico interattivo (simulato)</p>
-      <p>Ultimo Segnale: <strong>BTC Buy – Target 74.800€</strong></p>
+      <p><strong>Ultimo Segnale:</strong> BTC Buy – Target 74.800€</p>
     </div>
+  </div>
 
+  <div id="notizie" class="tab-content">
     <div class="card">
       <h2>Notizie</h2>
       <ul>
-        <li>📈 La BCE conferma il taglio dei tassi – 24 giugno 2025</li>
+        <li>📉 La BCE conferma il taglio dei tassi – 24 giugno 2025</li>
         <li>🌐 Ethereum L2: Starknet domina il traffico DeFi</li>
         <li>⚠️ Crisi geopolitica in Asia orientale: effetto su valute e oro</li>
       </ul>
     </div>
-  </main>
+  </div>
 
-  <nav>
-    <button onclick="alert('Vai ai Piani')">📊 Piani</button>
-    <button onclick="alert('Vai alla Console')">🧠 Console</button>
-    <button onclick="alert('Vai alle Notizie')">📰 Notizie</button>
-    <button onclick="alert('Profilo Utente')">👤 Profilo</button>
-  </nav>
+  <div id="profilo" class="tab-content">
+    <div class="card">
+      <h2>Profilo Utente</h2>
+      <label>Lingua</label><br />
+      <select>
+        <option>Italiano</option>
+        <option>English</option>
+        <option>Español</option>
+      </select><br /><br />
+      <label>Valuta</label><br />
+      <select>
+        <option>€ Euro</option>
+        <option>$ USD</option>
+        <option>₿ Bitcoin</option>
+      </select><br /><br />
+      <label>Piano Attivo</label><br />
+      <select>
+        <option>Free con ADS</option>
+        <option>Pro</option>
+      </select><br /><br />
+      <button class="activate">Salva Preferenze</button>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <button onclick="switchTab('piani')">📊 Piani</button>
+  <button onclick="switchTab('console')">🧠 Console</button>
+  <button onclick="switchTab('notizie')">🗞️ Notizie</button>
+  <button onclick="switchTab('profilo')">👤 Profilo</button>
+</nav>
+
+<script>
+  setTimeout(() => {
+    document.getElementById("splash").style.display = "none";
+    document.getElementById("mainApp").style.display = "block";
+  }, 4000);
+
+  function switchTab(id) {
+    document.querySelectorAll(".tab-content").forEach((tab) => {
+      tab.classList.remove("active");
+    });
+    document.getElementById(id).classList.add("active");
+  }
+</script>
 
 </body>
 </html>
