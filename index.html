@@ -1,93 +1,99 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx – Think Less. Trade Best.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signalyx</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0d1117;
-      color: #f0f6fc;
+      font-family: sans-serif;
+      background-color: #0a0f1a;
+      color: white;
+      text-align: center;
     }
+
     #splash {
       position: fixed;
-      background: #0d1117;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: #0a0f1a;
       display: flex;
-      align-items: center;
       justify-content: center;
-      z-index: 10;
-      animation: fadeOut 2.2s ease-in-out forwards;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      animation: fadeOut 2s ease 3s forwards;
     }
+
     #splash img {
-      width: 280px;
-      animation: zoomIn 1.5s ease-out;
+      width: 200px;
+      animation: zoomOut 2s ease 1s forwards;
     }
-    @keyframes zoomIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+
+    #s-only {
+      display: none;
+      font-size: 10rem;
+      color: #00e676;
+      font-weight: bold;
+      animation: flashIn 0.8s ease-in-out forwards 2.5s;
     }
+
+    @keyframes zoomOut {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
     @keyframes fadeOut {
-      0% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; visibility: hidden; }
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    @keyframes flashIn {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     header {
-      text-align: center;
-      padding: 1rem;
-      font-size: 1.3rem;
-      background-color: #161b22;
-      border-bottom: 1px solid #30363d;
+      font-size: 1.5rem;
+      margin-top: 20px;
     }
 
     nav {
       position: fixed;
       bottom: 0;
+      left: 0;
       width: 100%;
+      background-color: #111;
+      padding: 10px 0;
       display: flex;
-      background-color: #161b22;
-      border-top: 1px solid #30363d;
+      justify-content: space-around;
+      border-top: 1px solid #333;
     }
-    nav button {
-      flex: 1;
-      padding: 1rem;
+
+    button {
       background: none;
       border: none;
-      color: #f0f6fc;
+      color: white;
       font-size: 1rem;
-    }
-    nav button:hover {
-      background-color: #21262d;
     }
 
     #app {
-      padding: 1rem;
-      margin-bottom: 70px;
-    }
-
-    select, button.upgrade {
-      margin-top: 10px;
-      background: #238636;
-      border: none;
-      padding: 0.5rem 1rem;
-      color: white;
-      border-radius: 4px;
+      padding: 2rem;
+      margin-bottom: 60px;
     }
   </style>
 </head>
 <body>
   <div id="splash">
-    <img src="assets/logo.PNG" alt="Signalyx Logo" />
+    <img src="assets/logo.PNG" alt="Signalyx Logo">
+    <div id="s-only">S</div>
+    <audio id="introSound" src="assets/sound.mp3" autoplay></audio>
   </div>
 
   <header id="pageTitle">Console</header>
 
   <div id="app">
-    <!-- contenuto dinamico qui -->
+    <!-- contenuto dinamico -->
   </div>
 
   <nav>
@@ -98,93 +104,15 @@
   </nav>
 
   <script>
-    let piano = localStorage.getItem("piano") || "Free con ADS";
-    let lingua = localStorage.getItem("lingua") || "Italiano";
-    let valuta = localStorage.getItem("valuta") || "EUR";
-
-    function navigate(sezione) {
-      document.getElementById("pageTitle").innerText = sezione.charAt(0).toUpperCase() + sezione.slice(1);
-      const app = document.getElementById("app");
-      if (sezione === "console") {
-        app.innerHTML = `
-          <h2>Benvenuto in Signalyx!</h2>
-          <p><strong>Piano attivo:</strong> ${piano}</p>
-          ${piano.includes("Free") ? `
-            <p>🔥 Pubblicità simulata: <em>“Scopri il Piano PRO con il 40% di sconto!”</em></p>
-            <p>📉 Segnale gratuito: BTC probabile rimbalzo su RSI 30 (supporto 59.000€)</p>
-            <p>🔒 Analisi avanzate disponibili con upgrade.</p>
-          ` : `
-            <p>📊 Grafico ciclico | 🌍 News geopolitiche | ✅ Previsioni AI disponibili</p>
-            <p>🧠 Omen Analysis attiva solo per Founder</p>
-          `}
-        `;
-      } else if (sezione === "notizie") {
-        app.innerHTML = `
-          <h2>Ultime notizie</h2>
-          <ul>
-            <li>🌍 Summit BRICS: possibile cambio valute estere</li>
-            <li>📉 FED: Tassi stabili fino a Q2 2026?</li>
-            <li>💰 ETF Spot Bitcoin: nuovi ingressi record</li>
-          </ul>
-        `;
-      } else if (sezione === "piani") {
-        app.innerHTML = `
-          <h2>Piani disponibili</h2>
-          <ul>
-            <li><strong>Free con ADS</strong> – 0€/mese</li>
-            <li><strong>Free senza ADS</strong> – 1,99€/mese</li>
-            <li><strong>Base</strong> – 9,99€/mese</li>
-            <li><strong>Pro</strong> – 24,99€/mese</li>
-            <li><strong>Elite</strong> – 49,99€/mese</li>
-            <li><strong>Verus (Istituzionale)</strong> – 149€/mese</li>
-          </ul>
-          <button class="upgrade" onclick="upgrade()">Esegui upgrade simulato</button>
-        `;
-      } else if (sezione === "profilo") {
-        app.innerHTML = `
-          <h2>Profilo utente</h2>
-          <p>Email: perrym@hotmail.it</p>
-          <p>Piano attuale: ${piano}</p>
-          <label>Lingua: 
-            <select onchange="setLingua(this.value)">
-              <option ${lingua==='Italiano'?'selected':''}>Italiano</option>
-              <option ${lingua==='English'?'selected':''}>English</option>
-            </select>
-          </label><br>
-          <label>Valuta: 
-            <select onchange="setValuta(this.value)">
-              <option ${valuta==='EUR'?'selected':''}>EUR</option>
-              <option ${valuta==='USD'?'selected':''}>USD</option>
-              <option ${valuta==='BTC'?'selected':''}>BTC</option>
-            </select>
-          </label>
-        `;
-      }
+    function navigate(page) {
+      document.getElementById("pageTitle").innerText = page.charAt(0).toUpperCase() + page.slice(1);
+      document.getElementById("app").innerHTML = `<p>Contenuto di <strong>${page}</strong> in arrivo...</p>`;
     }
 
-    function upgrade() {
-      piano = "Pro";
-      localStorage.setItem("piano", piano);
-      alert("Upgrade completato! Ora sei nel piano PRO.");
-      navigate("console");
-    }
-
-    function setLingua(val) {
-      lingua = val;
-      localStorage.setItem("lingua", val);
-      navigate("profilo");
-    }
-
-    function setValuta(val) {
-      valuta = val;
-      localStorage.setItem("valuta", val);
-      navigate("profilo");
-    }
-
-    // Avvia su console
+    // Mostra la "S" dopo 2.5s
     setTimeout(() => {
-      navigate("console");
-    }, 2300);
+      document.getElementById('s-only').style.display = 'block';
+    }, 2500);
   </script>
 </body>
 </html>
