@@ -2,103 +2,88 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Signalyx Beta – Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signalyx – Dashboard</title>
   <style>
-    body { font-family: sans-serif; margin:0; padding:0; background:#111; color:#eee; }
-    header { background:#222; padding:15px; text-align:center; font-size:1.4rem; }
-    .container { padding:20px; }
-    .card { background:#222; margin-bottom:15px; padding:15px; border-radius:8px; }
-    .card h2 { margin:0 0 10px; }
-    .btn { background:#0a0; color:#fff; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; }
-    .btn + .btn { margin-left:10px; }
-    .signal, .news { background:#181818; padding:10px; margin:10px 0; border-radius:4px; }
-    .ads { background:#333; padding:10px; margin:10px 0; text-align:center; color:#aaa; font-size:.9rem; }
+    body { background: #121212; color: #fff; font-family: sans-serif; margin:0; padding:0;}
+    header, footer { background: #1f1f1f; padding: 10px; text-align:center; }
+    .container { padding: 20px; }
+    .profile, .notifications, .stats, .plans { margin-bottom: 20px; }
+    button { background: #0f9d58; color: #fff; border:none; padding:10px 20px; cursor:pointer; }
+    .plans { display:none; /* nascosta all'avvio */ }
+    .item { border:1px solid #333; padding:10px; margin-bottom:10px; }
   </style>
 </head>
 <body>
   <header>
-    Signalyx – Dashboard
-    <div style="font-size:0.9rem; margin-top:5px;">
-      Benvenuto, <span id="userEmail">utente@test.it</span> – <span id="now"></span>
-    </div>
+    <h1>Signalyx – Dashboard</h1>
+    <button onclick="togglePlans()">🔧 Piani abbonamento</button>
   </header>
+
   <div class="container">
-    <!-- Sezione Piani -->
-    <div id="plans">
-      <!-- I tuoi piani caricati via JavaScript -->
-    </div>
+    <!-- Sezione Profilo -->
+    <section class="profile item">
+      <h2>Profilo utente</h2>
+      <p>🌐 Lingua: <strong>Italiano</strong> <button onclick="alert('Cambia lingua!')">Modifica</button></p>
+      <p>💱 Valuta: <strong>EUR</strong> <button onclick="alert('Cambia valuta!')">Modifica</button></p>
+    </section>
 
-    <!-- Sezione Simulazione ADS -->
-    <div id="adsSection"></div>
+    <!-- Sezione Console con segnali, grafici, notizie -->
+    <section class="dashboard item">
+      <h2>Console</h2>
+      <div class="stats">
+        <h3>📊 Grafici (simulati)</h3>
+        <div style="height:100px; background:#333; margin-bottom:10px;"></div>
+      </div>
+      <div class="signals">
+        <h3>Segnali del giorno</h3>
+        <ul>
+          <li>🚀 Compra Bitcoin a €30.000</li>
+          <li>📈 Vendi Azioni XYZ per +5%</li>
+        </ul>
+      </div>
+      <div class="news">
+        <h3>Approfondimenti</h3>
+        <ul>
+          <li>🌍 Notizia geopolitica: summit clima G7</li>
+          <li>🤖 AI news: nuovo modello open‑source</li>
+        </ul>
+      </div>
+    </section>
 
-    <!-- Sezione Simulata: segnali + notizie -->
-    <h3>Contenuti giornalieri</h3>
-    <div id="signals"></div>
-    <div id="news"></div>
+    <!-- Sezione piani -->
+    <section class="plans item">
+      <h2>Piani di abbonamento</h2>
+      <div class="item">
+        <strong>Free con ADS</strong><br>1 segnale/die + pubblicità<br><button onclick="alert('Sei già qui!')">Rimani</button>
+      </div>
+      <div class="item">
+        <strong>Free (no ADS)</strong><br>1 segnale/die + pubblicità rimossa<br><button onclick="alert('Piano simulato: 1.99€/mese')">Attiva</button>
+      </div>
+      <div class="item">
+        <strong>Base</strong><br>2 segnali/die su crypto, azioni, metalli · 9.99€/mese<br><button onclick="alert('Piano simulato: 9.99€/mese')">Attiva</button>
+      </div>
+      <div class="item">
+        <strong>Pro</strong><br>5 segnali/die + token + ETF/GTF · 24.99€/mese<br><button onclick="alert('Piano simulato: 24.99€/mese')">Attiva</button>
+      </div>
+      <div class="item">
+        <strong>Elite</strong><br>Segnali illimitati su tutti gli asset · 49.99€/mese<br><button onclick="alert('Piano simulato: 49.99€/mese')">Attiva</button>
+      </div>
+      <div class="item">
+        <strong>Istituzionale (Verus)</strong><br>Crypto, azioni, titoli, token, ETF, metalli, geopolitica, clima, AI · 119€/mese<br><button onclick="alert('Piano simulato: 119€/mese')">Attiva</button>
+      </div>
+    </section>
   </div>
 
+  <footer>
+    <p>© 2025 Signalyx</p>
+  </footer>
+
   <script>
-    // Ora italiana
-    setInterval(() => {
-      document.getElementById('now').textContent = new Date().toLocaleTimeString('it-IT');
-    }, 1000);
-
-    // Email utente simulata
-    const userEmail = 'test@utente.it';
-    document.getElementById('userEmail').textContent = userEmail;
-
-    // Definizione piani
-    const plans = [
-      { id: 'freeAds', name: 'Free con ADS', desc: '1 segnale/die + pubblicità', price: '€0', ads: true },
-      { id: 'freeNoAds', name: 'Free (no ADS)', desc: '1 segnale/die + pubblicità rimossa', price: '€1,99/mese', ads: false },
-      { id: 'base', name: 'Base', desc: '2 segnali/die su crypto, azioni, metalli', price: '€9,99/mese' },
-      { id: 'pro', name: 'Pro', desc: '5 segnali/die + token + ETF/GTF', price: '€24,99/mese' },
-      { id: 'elite', name: 'Elite', desc: 'Segnali illimitati su tutti gli asset', price: '€49,99/mese' },
-      { id: 'istituzionale', name: 'Istituzionale (Verus)', desc: 'Crypto, azioni, titoli, token, ETF, metalli, geopolitica, clima, AI', price: '€119/mese' },
-    ];
-
-    let currentPlan = plans[0].id;
-
-    const plansContainer = document.getElementById('plans');
-    plans.forEach(p => {
-      const c = document.createElement('div');
-      c.className = 'card';
-      c.innerHTML = `
-        <h2>${p.name} - <small>${p.price}</small></h2>
-        <p>${p.desc}</p>
-        <button class="btn" id="btn-${p.id}">${p.id === currentPlan ? 'Rimani qui' : 'Attiva'}</button>
-      `;
-      plansContainer.appendChild(c);
-      document.getElementById(`btn-${p.id}`).onclick = () => {
-        currentPlan = p.id;
-        alert(`Piano selezionato: ${p.name} (${p.price}) – simulato`);
-        render();
-      };
-    });
-
-    // Simula contenuti
-    function render() {
-      const plan = plans.find(p => p.id === currentPlan);
-
-      const adsDiv = document.getElementById('adsSection');
-      if (plan.ads) {
-        adsDiv.innerHTML = `<div class="ads">🎬 Pubblicità leggera... <small>Rimuovila con "Free (no ADS)"</small></div>`;
-      } else {
-        adsDiv.innerHTML = '';
-      }
-
-      document.getElementById('signals').innerHTML = `
-        <div class="signal">🚀 Segnale oggi: Acquista Bitcoin a €30.000</div>
-        <div class="signal">📈 Segnale oggi: Vendi Azioni XYZ per +5%</div>
-      `;
-      document.getElementById('news').innerHTML = plan.id === 'istituzionale' ? `
-        <div class="news">🌍 Notizia geopolitica: summit clima G7</div>
-        <div class="news">🧠 AI news: nuovo modello open-source avanzato</div>
-      ` : '';
+    function togglePlans() {
+      const p = document.querySelector('.plans');
+      p.style.display = p.style.display === 'block' ? 'none' : 'block';
     }
-
-    render();
   </script>
 </body>
 </html>
