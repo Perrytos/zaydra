@@ -1,118 +1,179 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signalyx</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #0a0f1a;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom right, #0f111a, #161b2e);
       color: white;
-      text-align: center;
+      overflow: hidden;
     }
-
-    #splash {
+    .splash {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background-color: #0a0f1a;
+      background-color: #0f111a;
       display: flex;
-      justify-content: center;
       align-items: center;
-      flex-direction: column;
-      z-index: 9999;
-      animation: fadeOut 2s ease 3s forwards;
+      justify-content: center;
+      z-index: 999;
+      animation: fadeOut 2.5s forwards;
     }
-
-    #splash img {
-      width: 200px;
-      animation: zoomOut 2s ease 1s forwards;
+    .splash img {
+      width: 160px;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
     }
-
-    #s-only {
-      display: none;
-      font-size: 10rem;
-      color: #00e676;
-      font-weight: bold;
-      animation: flashIn 0.8s ease-in-out forwards 2.5s;
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
-
-    @keyframes zoomOut {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(1.5); opacity: 0; }
-    }
-
     @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
+      0% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; display: none; visibility: hidden; }
     }
 
-    @keyframes flashIn {
-      0% { opacity: 0; transform: scale(0.5); }
-      100% { opacity: 1; transform: scale(1); }
+    .container {
+      padding: 80px 20px 100px 20px;
     }
 
-    header {
-      font-size: 1.5rem;
-      margin-top: 20px;
+    h1 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; margin-bottom: 10px; }
+    .card {
+      background: #1d2333;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #00000033;
+    }
+    .signal-card {
+      border-left: 5px solid #00ff99;
     }
 
-    nav {
+    .profile {
+      text-align: center;
+      padding: 20px;
+    }
+    .avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: #444;
+      margin: 0 auto 10px;
+    }
+
+    .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      background-color: #111;
-      padding: 10px 0;
+      background: #121827;
       display: flex;
       justify-content: space-around;
-      border-top: 1px solid #333;
+      padding: 10px 0;
+      border-top: 1px solid #222;
     }
-
-    button {
+    .bottom-nav button {
       background: none;
       border: none;
-      color: white;
-      font-size: 1rem;
+      color: #aaa;
+      font-size: 14px;
+    }
+    .bottom-nav button.active {
+      color: #00ff99;
+      font-weight: bold;
     }
 
-    #app {
-      padding: 2rem;
-      margin-bottom: 60px;
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #121827;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      border-bottom: 1px solid #222;
     }
   </style>
 </head>
 <body>
-  <div id="splash">
-    <img src="assets/logo.PNG" alt="Signalyx Logo">
-    <div id="s-only">S</div>
-    <audio id="introSound" src="assets/sound.mp3" autoplay></audio>
+  <div class="splash">
+    <img src="logo.PNG" alt="Logo" />
   </div>
 
-  <header id="pageTitle">Console</header>
+  <div class="topbar">Signalyx – Think Less. Trade Best.</div>
 
-  <div id="app">
-    <!-- contenuto dinamico -->
+  <div class="container" id="mainContent">
+    <!-- Default page: Dashboard -->
+    <div class="card signal-card">
+      <h1>📈 BTC/USDT</h1>
+      <p>Segnale: BUY</p>
+      <p>Target: $72,000</p>
+      <p>Stop: $66,500</p>
+      <p>Stato: Attivo</p>
+    </div>
+
+    <div class="card signal-card">
+      <h1>📉 ETH/USDT</h1>
+      <p>Segnale: SELL</p>
+      <p>Target: $3,150</p>
+      <p>Stop: $3,350</p>
+      <p>Stato: In attesa</p>
+    </div>
   </div>
 
-  <nav>
-    <button onclick="navigate('console')">Console</button>
-    <button onclick="navigate('notizie')">Notizie</button>
-    <button onclick="navigate('piani')">Piani</button>
-    <button onclick="navigate('profilo')">Profilo</button>
-  </nav>
+  <div class="bottom-nav">
+    <button onclick="showSection('signals')" class="active">Segnali</button>
+    <button onclick="showSection('news')">Notizie</button>
+    <button onclick="showSection('profile')">Profilo</button>
+  </div>
 
   <script>
-    function navigate(page) {
-      document.getElementById("pageTitle").innerText = page.charAt(0).toUpperCase() + page.slice(1);
-      document.getElementById("app").innerHTML = `<p>Contenuto di <strong>${page}</strong> in arrivo...</p>`;
-    }
+    function showSection(section) {
+      const content = document.getElementById('mainContent');
+      document.querySelectorAll(".bottom-nav button").forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
 
-    // Mostra la "S" dopo 2.5s
-    setTimeout(() => {
-      document.getElementById('s-only').style.display = 'block';
-    }, 2500);
+      if (section === 'signals') {
+        content.innerHTML = `
+          <div class="card signal-card">
+            <h1>📈 BTC/USDT</h1>
+            <p>Segnale: BUY</p>
+            <p>Target: $72,000</p>
+            <p>Stop: $66,500</p>
+            <p>Stato: Attivo</p>
+          </div>
+          <div class="card signal-card">
+            <h1>📉 ETH/USDT</h1>
+            <p>Segnale: SELL</p>
+            <p>Target: $3,150</p>
+            <p>Stop: $3,350</p>
+            <p>Stato: In attesa</p>
+          </div>`;
+      } else if (section === 'news') {
+        content.innerHTML = `
+          <div class="card">
+            <h1>📰 Ultime Notizie</h1>
+            <p>La FED mantiene i tassi: i mercati reagiscono positivamente.</p>
+            <p>ETF su Ethereum approvati. Volume in crescita.</p>
+          </div>`;
+      } else if (section === 'profile') {
+        content.innerHTML = `
+          <div class="profile">
+            <div class="avatar"></div>
+            <h2>Utente: Marco</h2>
+            <p>Piano attivo: <b>Free + Ads</b></p>
+            <p>Lingua: Italiano 🇮🇹</p>
+            <p>Valuta: EUR €</p>
+          </div>`;
+      }
+    }
   </script>
 </body>
 </html>
