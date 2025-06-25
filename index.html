@@ -1,89 +1,121 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Signalyx – Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { background: #121212; color: #fff; font-family: sans-serif; margin:0; padding:0;}
-    header, footer { background: #1f1f1f; padding: 10px; text-align:center; }
-    .container { padding: 20px; }
-    .profile, .notifications, .stats, .plans { margin-bottom: 20px; }
-    button { background: #0f9d58; color: #fff; border:none; padding:10px 20px; cursor:pointer; }
-    .plans { display:none; /* nascosta all'avvio */ }
-    .item { border:1px solid #333; padding:10px; margin-bottom:10px; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .section {
+      background-color: #222;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    .btn {
+      background-color: #16a34a;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    canvas {
+      background-color: #000;
+      border-radius: 6px;
+      width: 100%;
+      height: 200px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #999;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Signalyx – Dashboard</h1>
-    <button onclick="togglePlans()">🔧 Piani abbonamento</button>
-  </header>
 
-  <div class="container">
-    <!-- Sezione Profilo -->
-    <section class="profile item">
-      <h2>Profilo utente</h2>
-      <p>🌐 Lingua: <strong>Italiano</strong> <button onclick="alert('Cambia lingua!')">Modifica</button></p>
-      <p>💱 Valuta: <strong>EUR</strong> <button onclick="alert('Cambia valuta!')">Modifica</button></p>
-    </section>
+  <h1>Signalyx – Dashboard</h1>
 
-    <!-- Sezione Console con segnali, grafici, notizie -->
-    <section class="dashboard item">
-      <h2>Console</h2>
-      <div class="stats">
-        <h3>📊 Grafici (simulati)</h3>
-        <div style="height:100px; background:#333; margin-bottom:10px;"></div>
-      </div>
-      <div class="signals">
-        <h3>Segnali del giorno</h3>
-        <ul>
-          <li>🚀 Compra Bitcoin a €30.000</li>
-          <li>📈 Vendi Azioni XYZ per +5%</li>
-        </ul>
-      </div>
-      <div class="news">
-        <h3>Approfondimenti</h3>
-        <ul>
-          <li>🌍 Notizia geopolitica: summit clima G7</li>
-          <li>🤖 AI news: nuovo modello open‑source</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Sezione piani -->
-    <section class="plans item">
-      <h2>Piani di abbonamento</h2>
-      <div class="item">
-        <strong>Free con ADS</strong><br>1 segnale/die + pubblicità<br><button onclick="alert('Sei già qui!')">Rimani</button>
-      </div>
-      <div class="item">
-        <strong>Free (no ADS)</strong><br>1 segnale/die + pubblicità rimossa<br><button onclick="alert('Piano simulato: 1.99€/mese')">Attiva</button>
-      </div>
-      <div class="item">
-        <strong>Base</strong><br>2 segnali/die su crypto, azioni, metalli · 9.99€/mese<br><button onclick="alert('Piano simulato: 9.99€/mese')">Attiva</button>
-      </div>
-      <div class="item">
-        <strong>Pro</strong><br>5 segnali/die + token + ETF/GTF · 24.99€/mese<br><button onclick="alert('Piano simulato: 24.99€/mese')">Attiva</button>
-      </div>
-      <div class="item">
-        <strong>Elite</strong><br>Segnali illimitati su tutti gli asset · 49.99€/mese<br><button onclick="alert('Piano simulato: 49.99€/mese')">Attiva</button>
-      </div>
-      <div class="item">
-        <strong>Istituzionale (Verus)</strong><br>Crypto, azioni, titoli, token, ETF, metalli, geopolitica, clima, AI · 119€/mese<br><button onclick="alert('Piano simulato: 119€/mese')">Attiva</button>
-      </div>
-    </section>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button class="btn" onclick="window.location.href='#piani'">🔧 Piani abbonamento</button>
   </div>
 
-  <footer>
-    <p>© 2025 Signalyx</p>
-  </footer>
+  <div class="section">
+    <h2>Profilo utente</h2>
+    🌐 Lingua: <strong>Italiano</strong> <button class="btn">Modifica</button><br /><br />
+    💱 Valuta: <strong>EUR</strong> <button class="btn">Modifica</button>
+  </div>
+
+  <div class="section">
+    <h2>Console</h2>
+    📊 <strong>Grafici (simulati)</strong><br /><br />
+    <canvas id="chartSim"></canvas>
+  </div>
+
+  <div class="section">
+    <h2>Segnali del giorno</h2>
+    • 🚀 Compra Bitcoin a €30.000<br />
+    • 📉 Vendi Azioni XYZ per +5%
+  </div>
+
+  <div class="section">
+    <h2>Approfondimenti</h2>
+    • 🌍 Notizia geopolitica: summit clima G7<br />
+    • 🤖 AI news: nuovo modello open-source
+  </div>
+
+  <div id="piani" class="section">
+    <h2>Piani abbonamento</h2>
+    <ul>
+      <li>Free con ADS – 0€</li>
+      <li>Free (no ADS) – 1,99€</li>
+      <li>Base – 9,99€</li>
+      <li>Pro – 24,99€</li>
+      <li>Elite – 49,99€</li>
+      <li>Istituzionale (Verus) – 119€</li>
+    </ul>
+  </div>
+
+  <footer>© 2025 Signalyx</footer>
 
   <script>
-    function togglePlans() {
-      const p = document.querySelector('.plans');
-      p.style.display = p.style.display === 'block' ? 'none' : 'block';
-    }
+    const ctx = document.getElementById('chartSim').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
+        datasets: [{
+          label: 'Valore portafoglio (€)',
+          data: [1000, 1020, 1010, 1050, 1030, 1080, 1120],
+          borderColor: 'limegreen',
+          backgroundColor: 'rgba(0,255,0,0.2)',
+          tension: 0.4
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        },
+        scales: {
+          x: { ticks: { color: 'white' } },
+          y: { ticks: { color: 'white' } }
+        }
+      }
+    });
   </script>
+
 </body>
 </html>
