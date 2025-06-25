@@ -2,120 +2,85 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Signalyx – Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: white;
-      margin: 0;
-      padding: 20px;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    .section {
-      background-color: #222;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-    }
-    .btn {
-      background-color: #16a34a;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 15px;
-    }
-    canvas {
-      background-color: #000;
-      border-radius: 6px;
-      width: 100%;
-      height: 200px;
-    }
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 14px;
-      color: #999;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background: #121212; color: #eee; }
+    header { padding: 20px; background: #1f1f1f; text-align: center; }
+    .btn { display: inline-block; margin: 10px auto; padding: 10px 20px; color: #fff; background: #00b674; border: none; cursor: pointer; border-radius: 4px; font-size: 16px; }
+    .container { padding: 20px; }
+    .card { background: #1f1f1f; padding: 15px; margin-bottom: 20px; border-radius: 6px; }
+    .chart { width: 100%; height: 200px; background: #333; border-radius: 4px; position: relative; }
+    .chart svg { position: absolute; top: 0; left: 0; }
+    ul { padding-left: 20px; }
   </style>
 </head>
 <body>
-
-  <h1>Signalyx – Dashboard</h1>
-
-  <div style="text-align: center; margin-bottom: 20px;">
-    <button class="btn" onclick="window.location.href='#piani'">🔧 Piani abbonamento</button>
+  <header>
+    <h1>Signalyx – Dashboard</h1>
+  </header>
+  <div class="container">
+    <!-- Profilo utente -->
+    <div class="card">
+      <h2>Profilo</h2>
+      <p>Lingua: Italiano <button class="btn">Modifica</button></p>
+      <p>Valuta: EUR <button class="btn">Modifica</button></p>
+    </div>
+    <!-- Console -->
+    <div class="card">
+      <h2>Console</h2>
+      <div class="chart" id="lineChart"></div>
+      <h3>Segnali del giorno</h3>
+      <ul>
+        <li>🚀 Compra Bitcoin a €30.000</li>
+        <li>📉 Vendi Azioni XYZ per +5%</li>
+      </ul>
+      <h3>Approfondimenti</h3>
+      <ul>
+        <li>🌍 Notizia geopolitica: summit clima G7</li>
+        <li>🤖 AI news: nuovo modello open‑source</li>
+      </ul>
+    </div>
+    <!-- Piani abbonamento -->
+    <div class="card">
+      <h2>Piani di abbonamento</h2>
+      <ul>
+        <li>Free con ADS – 0 €</li>
+        <li>Free (no ADS) – 1,99 €</li>
+        <li>Base – 9,99 €</li>
+        <li>Pro – 24,99 €</li>
+        <li>Elite – 49,99 €</li>
+        <li>Istituzionale (Verus) – 119 €</li>
+      </ul>
+      <button class="btn" onclick="alert('Piano PRO (24,99€/mese simulati)')">Attiva Pro</button>
+    </div>
   </div>
-
-  <div class="section">
-    <h2>Profilo utente</h2>
-    🌐 Lingua: <strong>Italiano</strong> <button class="btn">Modifica</button><br /><br />
-    💱 Valuta: <strong>EUR</strong> <button class="btn">Modifica</button>
-  </div>
-
-  <div class="section">
-    <h2>Console</h2>
-    📊 <strong>Grafici (simulati)</strong><br /><br />
-    <canvas id="chartSim"></canvas>
-  </div>
-
-  <div class="section">
-    <h2>Segnali del giorno</h2>
-    • 🚀 Compra Bitcoin a €30.000<br />
-    • 📉 Vendi Azioni XYZ per +5%
-  </div>
-
-  <div class="section">
-    <h2>Approfondimenti</h2>
-    • 🌍 Notizia geopolitica: summit clima G7<br />
-    • 🤖 AI news: nuovo modello open-source
-  </div>
-
-  <div id="piani" class="section">
-    <h2>Piani abbonamento</h2>
-    <ul>
-      <li>Free con ADS – 0€</li>
-      <li>Free (no ADS) – 1,99€</li>
-      <li>Base – 9,99€</li>
-      <li>Pro – 24,99€</li>
-      <li>Elite – 49,99€</li>
-      <li>Istituzionale (Verus) – 119€</li>
-    </ul>
-  </div>
-
-  <footer>© 2025 Signalyx</footer>
 
   <script>
-    const ctx = document.getElementById('chartSim').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
-        datasets: [{
-          label: 'Valore portafoglio (€)',
-          data: [1000, 1020, 1010, 1050, 1030, 1080, 1120],
-          borderColor: 'limegreen',
-          backgroundColor: 'rgba(0,255,0,0.2)',
-          tension: 0.4
-        }]
-      },
-      options: {
-        plugins: {
-          legend: { labels: { color: 'white' } }
-        },
-        scales: {
-          x: { ticks: { color: 'white' } },
-          y: { ticks: { color: 'white' } }
-        }
-      }
-    });
+    // Disegna grafico lineare semplice
+    (function() {
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const chart = document.getElementById('lineChart');
+      const w = chart.clientWidth, h = chart.clientHeight;
+      const data = [1000,1020,1005,1040,1030,1080,1120];
+      const mx = Math.max(...data), mn = Math.min(...data);
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('width', w);
+      svg.setAttribute('height', h);
+      let path = 'M0,' + (h - ((data[0]-mn)/(mx-mn))*h);
+      data.forEach((v,i) => {
+        const x = (i/(data.length-1))*w;
+        const y = h - ((v-mn)/(mx-mn))*h;
+        path += ' L' + x + ',' + y;
+      });
+      const el = document.createElementNS(svgNS,'path');
+      el.setAttribute('d', path);
+      el.setAttribute('stroke', '#00b674');
+      el.setAttribute('fill', 'none');
+      el.setAttribute('stroke-width', '3');
+      svg.appendChild(el);
+      chart.appendChild(svg);
+    })();
   </script>
-
 </body>
 </html>
