@@ -3,139 +3,188 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx</title>
+  <title>Signalyx – Think Less. Trade Best.</title>
   <style>
     body {
       margin: 0;
-      background-color: #111;
-      color: white;
       font-family: 'Segoe UI', sans-serif;
-      text-align: center;
+      background-color: #0d1117;
+      color: #f0f6fc;
     }
-    .splash {
+    #splash {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: #000;
+      background: #0d1117;
+      width: 100%;
+      height: 100%;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 999;
-      animation: fadeOut 2s ease 2s forwards;
+      z-index: 10;
+      animation: fadeOut 2.2s ease-in-out forwards;
     }
-    .splash img {
-      width: 180px;
-      height: auto;
+    #splash img {
+      width: 280px;
+      animation: zoomIn 1.5s ease-out;
+    }
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
     @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
     }
-    .tab-bar {
+
+    header {
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.3rem;
+      background-color: #161b22;
+      border-bottom: 1px solid #30363d;
+    }
+
+    nav {
       position: fixed;
-      bottom: 0; left: 0;
+      bottom: 0;
       width: 100%;
-      background: #000;
-      border-top: 1px solid #333;
       display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
+      background-color: #161b22;
+      border-top: 1px solid #30363d;
     }
-    .tab-bar button {
+    nav button {
+      flex: 1;
+      padding: 1rem;
       background: none;
-      color: white;
       border: none;
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      color: #f0f6fc;
+      font-size: 1rem;
     }
-    section {
-      display: none;
-      padding-bottom: 60px;
-      max-width: 600px;
-      margin: 0 auto;
+    nav button:hover {
+      background-color: #21262d;
     }
-    section.active {
-      display: block;
+
+    #app {
+      padding: 1rem;
+      margin-bottom: 70px;
     }
-    .card {
-      background: #222;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px;
-    }
-    select, button {
-      padding: 8px;
-      border-radius: 5px;
-      border: none;
+
+    select, button.upgrade {
       margin-top: 10px;
-    }
-    button {
-      background-color: limegreen;
-      color: black;
-      font-weight: bold;
+      background: #238636;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: white;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
-  <div class="splash">
-    <img src="https://raw.githubusercontent.com/Perrytos/signalyx-web/main/logo.png" alt="Signalyx" />
-    <h2>Signalyx</h2>
-    <p>Think Less. Trade Best.</p>
+  <div id="splash">
+    <img src="assets/logo.PNG" alt="Signalyx Logo" />
   </div>
 
-  <section id="piani" class="active">
-    <div class="card">
-      <h2>I Tuoi Piani</h2>
-      <ul style="list-style: none; padding: 0;">
-        <li>Free con ADS – €0.00 <button>Attiva</button></li>
-        <li>Free (no ADS) – €1.99 <button>Attiva</button></li>
-        <li>Base – €9.99 <button>Attiva</button></li>
-        <li>Pro – €24.99 <button>Attiva</button></li>
-        <li>Elite – €49.99 <button>Attiva</button></li>
-        <li>Istituzionale (Verus) – €119.00 <button>Attiva</button></li>
-      </ul>
-    </div>
-  </section>
+  <header id="pageTitle">Console</header>
 
-  <section id="console">
-    <div class="card">
-      <h2>Console</h2>
-      <p>Grafico interattivo (simulato)</p>
-      <p><strong>Ultimo Segnale:</strong> BTC Buy – Target 74.800€</p>
-    </div>
-  </section>
-
-  <section id="notizie">
-    <div class="card">
-      <h2>Notizie</h2>
-      <p>Prossimamente aggiornamenti geopolitici e macroeconomici...</p>
-    </div>
-  </section>
-
-  <section id="profilo">
-    <div class="card">
-      <h2>Profilo Utente</h2>
-      <label>Lingua<br/><select><option>Italiano</option><option>English</option></select></label><br/>
-      <label>Valuta<br/><select><option>€ Euro</option><option>$ USD</option></select></label><br/>
-      <label>Piano Attivo<br/><select><option>Free con ADS</option></select></label><br/>
-      <button>Salva Preferenze</button>
-    </div>
-  </section>
-
-  <div class="tab-bar">
-    <button onclick="showTab('piani')">📊<br/>Piani</button>
-    <button onclick="showTab('console')">🧠<br/>Console</button>
-    <button onclick="showTab('notizie')">🗞️<br/>Notizie</button>
-    <button onclick="showTab('profilo')">👤<br/>Profilo</button>
+  <div id="app">
+    <!-- contenuto dinamico qui -->
   </div>
+
+  <nav>
+    <button onclick="navigate('console')">Console</button>
+    <button onclick="navigate('notizie')">Notizie</button>
+    <button onclick="navigate('piani')">Piani</button>
+    <button onclick="navigate('profilo')">Profilo</button>
+  </nav>
 
   <script>
-    function showTab(id) {
-      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    let piano = localStorage.getItem("piano") || "Free con ADS";
+    let lingua = localStorage.getItem("lingua") || "Italiano";
+    let valuta = localStorage.getItem("valuta") || "EUR";
+
+    function navigate(sezione) {
+      document.getElementById("pageTitle").innerText = sezione.charAt(0).toUpperCase() + sezione.slice(1);
+      const app = document.getElementById("app");
+      if (sezione === "console") {
+        app.innerHTML = `
+          <h2>Benvenuto in Signalyx!</h2>
+          <p><strong>Piano attivo:</strong> ${piano}</p>
+          ${piano.includes("Free") ? `
+            <p>🔥 Pubblicità simulata: <em>“Scopri il Piano PRO con il 40% di sconto!”</em></p>
+            <p>📉 Segnale gratuito: BTC probabile rimbalzo su RSI 30 (supporto 59.000€)</p>
+            <p>🔒 Analisi avanzate disponibili con upgrade.</p>
+          ` : `
+            <p>📊 Grafico ciclico | 🌍 News geopolitiche | ✅ Previsioni AI disponibili</p>
+            <p>🧠 Omen Analysis attiva solo per Founder</p>
+          `}
+        `;
+      } else if (sezione === "notizie") {
+        app.innerHTML = `
+          <h2>Ultime notizie</h2>
+          <ul>
+            <li>🌍 Summit BRICS: possibile cambio valute estere</li>
+            <li>📉 FED: Tassi stabili fino a Q2 2026?</li>
+            <li>💰 ETF Spot Bitcoin: nuovi ingressi record</li>
+          </ul>
+        `;
+      } else if (sezione === "piani") {
+        app.innerHTML = `
+          <h2>Piani disponibili</h2>
+          <ul>
+            <li><strong>Free con ADS</strong> – 0€/mese</li>
+            <li><strong>Free senza ADS</strong> – 1,99€/mese</li>
+            <li><strong>Base</strong> – 9,99€/mese</li>
+            <li><strong>Pro</strong> – 24,99€/mese</li>
+            <li><strong>Elite</strong> – 49,99€/mese</li>
+            <li><strong>Verus (Istituzionale)</strong> – 149€/mese</li>
+          </ul>
+          <button class="upgrade" onclick="upgrade()">Esegui upgrade simulato</button>
+        `;
+      } else if (sezione === "profilo") {
+        app.innerHTML = `
+          <h2>Profilo utente</h2>
+          <p>Email: perrym@hotmail.it</p>
+          <p>Piano attuale: ${piano}</p>
+          <label>Lingua: 
+            <select onchange="setLingua(this.value)">
+              <option ${lingua==='Italiano'?'selected':''}>Italiano</option>
+              <option ${lingua==='English'?'selected':''}>English</option>
+            </select>
+          </label><br>
+          <label>Valuta: 
+            <select onchange="setValuta(this.value)">
+              <option ${valuta==='EUR'?'selected':''}>EUR</option>
+              <option ${valuta==='USD'?'selected':''}>USD</option>
+              <option ${valuta==='BTC'?'selected':''}>BTC</option>
+            </select>
+          </label>
+        `;
+      }
     }
+
+    function upgrade() {
+      piano = "Pro";
+      localStorage.setItem("piano", piano);
+      alert("Upgrade completato! Ora sei nel piano PRO.");
+      navigate("console");
+    }
+
+    function setLingua(val) {
+      lingua = val;
+      localStorage.setItem("lingua", val);
+      navigate("profilo");
+    }
+
+    function setValuta(val) {
+      valuta = val;
+      localStorage.setItem("valuta", val);
+      navigate("profilo");
+    }
+
+    // Avvia su console
+    setTimeout(() => {
+      navigate("console");
+    }, 2300);
   </script>
 </body>
 </html>
