@@ -1,128 +1,141 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Signalyx – Dashboard</title>
-<style>
-  body { margin:0; font-family:sans-serif; background:#121212; color:#EEE; }
-  header { padding:16px; text-align:center; background:#1F1F1F; }
-  .toolbar { position:fixed; bottom:0; width:100%; display:flex; background:#1F1F1F; }
-  .toolbar button { flex:1; padding:12px; color:#EEE; background:#2A2A2A; border:none; }
-  .toolbar button.active { background:#333; }
-  .container { padding-bottom:60px; }
-  section { display:none; padding:16px; }
-  section.active { display:block; }
-  .block { margin-bottom:20px; padding:16px; background:#1E1E1E; border-radius:8px; }
-  label, select { display:block; margin-bottom:8px; }
-  button.act { padding:6px 12px; margin-top:8px; background:#00C851; border:none; color:#FFF; cursor:pointer; border-radius:4px; }
-  #chart { width:100%; height:200px; background:#2A2A2A; border-radius:8px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signalyx – Think Less. Trade Best.</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d0d0d;
+      color: #ffffff;
+    }
+    header {
+      background-color: #111;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: bold;
+      border-bottom: 1px solid #333;
+    }
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem 0;
+      border-top: 1px solid #333;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    main {
+      padding: 1rem;
+      padding-bottom: 4rem;
+    }
+    select, input {
+      background-color: #222;
+      color: white;
+      border: 1px solid #444;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    .card {
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .button {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      padding: 0.75rem;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
 
-<header><h1>Signalyx – Dashboard</h1></header>
+  <header>Signalyx – Think Less. Trade Best.</header>
 
-<div class="container">
-  <section id="piani" class="active">
-    <div class="block">
-      <h2>I Tuoi Piani</h2>
-      <div id="listaPiani">
-        <!-- generato via JS -->
-      </div>
-    </div>
-  </section>
-
-  <section id="console">
-    <div class="block">
+  <main>
+    <div class="card">
       <h2>Profilo Utente</h2>
-      <label>Lingua:
-        <select id="selLingua"><option value="it">Italiano</option><option value="en">English</option><option value="es">Español</option></select>
-      </label>
-      <label>Valuta:
-        <select id="selValuta"><option value="EUR">EUR</option><option value="USD">USD</option></select>
-      </label>
+      <label for="language">Lingua</label>
+      <select id="language">
+        <option>Italiano</option>
+        <option>English</option>
+        <option>Español</option>
+        <option>Deutsch</option>
+        <option>Français</option>
+        <option>Русский</option>
+        <option>中文</option>
+        <option>العربية</option>
+      </select>
+
+      <label for="currency">Valuta</label>
+      <select id="currency">
+        <option>€ Euro</option>
+        <option>$ USD</option>
+        <option>£ GBP</option>
+        <option>¥ JPY</option>
+        <option>₿ Bitcoin</option>
+        <option>Ξ Ethereum</option>
+      </select>
+
+      <label for="plan">Piano Attivo</label>
+      <select id="plan">
+        <option>Free con ADS</option>
+        <option>Free senza ADS – 1,99€</option>
+        <option>Base – 9,99€</option>
+        <option>Pro – 24,99€</option>
+        <option>Elite – 49,99€</option>
+        <option>Verus – 149€</option>
+        <option>Verus Black – 299€</option>
+      </select>
+
+      <button class="button">Salva Preferenze</button>
     </div>
-    <div class="block">
+
+    <div class="card">
       <h2>Console</h2>
-      <div id="chart"></div>
-      <p><em>🔧 In futuro: espandi per modalità full‑screen</em></p>
+      <p>Grafico interattivo (simulato)</p>
+      <p>Ultimo Segnale: <strong>BTC Buy – Target 74.800€</strong></p>
     </div>
-    <div class="block">
-      <h2>Segnali del giorno</h2>
-      <ul id="segnali"></ul>
-    </div>
-    <div class="block">
-      <h2>Approfondimenti</h2>
-      <ul id="approf"></ul>
-    </div>
-  </section>
 
-  <section id="notizie">
-    <div class="block">
+    <div class="card">
       <h2>Notizie</h2>
-      <div>📰 Prossimamente: stream in tempo reale, AI news e geopolitica.</div>
+      <ul>
+        <li>📈 La BCE conferma il taglio dei tassi – 24 giugno 2025</li>
+        <li>🌐 Ethereum L2: Starknet domina il traffico DeFi</li>
+        <li>⚠️ Crisi geopolitica in Asia orientale: effetto su valute e oro</li>
+      </ul>
     </div>
-  </section>
-</div>
+  </main>
 
-<nav class="toolbar">
-  <button data-sec="piani" class="active">Piani</button>
-  <button data-sec="console">Console</button>
-  <button data-sec="notizie">Notizie</button>
-</nav>
-
-<script>
-const piani = [
-  { name: 'Free con ADS', price: 0 },
-  { name: 'Free (no ADS)', price: 1.99 },
-  { name: 'Base', price: 9.99 },
-  { name: 'Pro', price: 24.99 },
-  { name: 'Elite', price: 49.99 },
-  { name: 'Istituzionale (Verus)', price: 119 }
-];
-let current = null;
-
-function aggiornaPiani() {
-  const c = document.getElementById('listaPiani');
-  c.innerHTML = '';
-  piani.forEach((p,i)=>{
-    const div = document.createElement('div');
-    div.innerHTML = `<strong>${p.name}</strong> – €${p.price.toFixed(2)}  <button class="act" onclick="seleziona(${i})">Attiva</button>`;
-    c.appendChild(div);
-  });
-}
-
-function seleziona(i) {
-  current = i;
-  alert(`🎉 Piano selezionato: ${piani[i].name} (€${piani[i].price.toFixed(2)}/mese)`);
-}
-
-document.querySelectorAll('.toolbar button').forEach(btn=>{
-  btn.onclick = ()=> {
-    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-    document.querySelectorAll('.toolbar button').forEach(b=>b.classList.remove('active'));
-    document.getElementById(btn.dataset.sec).classList.add('active');
-    btn.classList.add('active');
-  };
-});
-
-function drawFakeChart() {
-  const chart = document.getElementById('chart');
-  chart.innerHTML = '<svg width="100%" height="100%" viewBox="0 0 300 100"><polyline fill="none" stroke="#00C851" stroke-width="2" points="0,70 50,65 100,70 150,55 200,60 250,40 300,20"/></svg>';
-}
-
-function loadConsoleData(){
-  const s = document.getElementById('segnali');
-  s.innerHTML = '<li>🚀 Compra Bitcoin a €30.000</li><li>📈 Vendi Azioni XYZ per +5%</li>';
-  const a = document.getElementById('approf');
-  a.innerHTML = '<li>🌎 Notizia geopolitica: summit clima G7</li><li>🤖 AI News: nuovo modello open‑source</li>';
-}
-
-aggiornaPiani();
-drawFakeChart();
-loadConsoleData();
-</script>
+  <nav>
+    <button onclick="alert('Vai ai Piani')">📊 Piani</button>
+    <button onclick="alert('Vai alla Console')">🧠 Console</button>
+    <button onclick="alert('Vai alle Notizie')">📰 Notizie</button>
+    <button onclick="alert('Profilo Utente')">👤 Profilo</button>
+  </nav>
 
 </body>
 </html>
