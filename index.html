@@ -2,78 +2,103 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Signalyx – Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Signalyx Beta – Dashboard</title>
   <style>
-    body { background: #111; color: #eee; font-family: sans-serif; padding: 20px }
-    .card { border-radius: 8px; background: #222; padding: 15px; margin-bottom: 15px }
-    .btn { padding: 8px 12px; background: #0f0; color: #000; border: none; cursor: pointer; }
+    body { font-family: sans-serif; margin:0; padding:0; background:#111; color:#eee; }
+    header { background:#222; padding:15px; text-align:center; font-size:1.4rem; }
+    .container { padding:20px; }
+    .card { background:#222; margin-bottom:15px; padding:15px; border-radius:8px; }
+    .card h2 { margin:0 0 10px; }
+    .btn { background:#0a0; color:#fff; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; }
+    .btn + .btn { margin-left:10px; }
+    .signal, .news { background:#181818; padding:10px; margin:10px 0; border-radius:4px; }
+    .ads { background:#333; padding:10px; margin:10px 0; text-align:center; color:#aaa; font-size:.9rem; }
   </style>
 </head>
 <body>
-  <h1>Signalyx – Dashboard</h1>
-  <p>Benvenuto, <strong id="userMail">utente</strong>!</p>
+  <header>
+    Signalyx – Dashboard
+    <div style="font-size:0.9rem; margin-top:5px;">
+      Benvenuto, <span id="userEmail">utente@test.it</span> – <span id="now"></span>
+    </div>
+  </header>
+  <div class="container">
+    <!-- Sezione Piani -->
+    <div id="plans">
+      <!-- I tuoi piani caricati via JavaScript -->
+    </div>
 
-  <div class="card" id="planFreeAds">
-    <h2>Free con ADS</h2><p>1 segnale/die + pubblicità.</p>
-    <button class="btn" disabled>Sei già qui</button>
-  </div>
-  <div class="card" id="planFreeNoAds">
-    <h2>Free (no ADS)</h2><p>1 segnale/die + pubblicità rimossa.</p>
-    <button class="btn" onclick="changePlan('FreeNoAds', 1.99)">Attiva</button>
-  </div>
-  <div class="card" id="planBase">
-    <h2>Base</h2><p>2 segnali/die su crypto, azioni, metalli. 9,99 €/mese</p>
-    <button class="btn" onclick="changePlan('Base', 9.99)">Attiva</button>
-  </div>
-  <div class="card" id="planPro">
-    <h2>Pro</h2><p>5 segnali/die + token + ETF/GTF. 24,99 €/mese</p>
-    <button class="btn" onclick="changePlan('Pro', 24.99)">Attiva</button>
-  </div>
-  <div class="card" id="planElite">
-    <h2>Elite</h2><p>Segnali illimitati su tutti gli asset. 49,99 €/mese</p>
-    <button class="btn" onclick="changePlan('Elite', 49.99)">Attiva</button>
-  </div>
-  <div class="card" id="planInstitutional">
-    <h2>Istituzionale (Verus)</h2>
-    <p>Crypto, azioni, titoli, token, ETF, metalli, geopolitica, clima, AI. 119 €/mese</p>
-    <button class="btn" onclick="changePlan('Verus', 119)">Attiva</button>
-  </div>
+    <!-- Sezione Simulazione ADS -->
+    <div id="adsSection"></div>
 
-  <div class="card">
-    <h2>Referral</h2>
-    <p>Il tuo codice invito: <strong id="refCode">ABC123</strong></p>
-    <button class="btn" onclick="enterReferral()">Inserisci codice amico</button>
+    <!-- Sezione Simulata: segnali + notizie -->
+    <h3>Contenuti giornalieri</h3>
+    <div id="signals"></div>
+    <div id="news"></div>
   </div>
 
   <script>
-    let currentPlan = 'FreeAds';
-    document.getElementById('userMail').innerText = 'test@hotmail.it';
+    // Ora italiana
+    setInterval(() => {
+      document.getElementById('now').textContent = new Date().toLocaleTimeString('it-IT');
+    }, 1000);
 
-    function changePlan(plan, price) {
-      currentPlan = plan;
-      alert('Piano selezionato: ' + plan + ' (' + price + ' €/mese simulati)');
-      updateUI();
+    // Email utente simulata
+    const userEmail = 'test@utente.it';
+    document.getElementById('userEmail').textContent = userEmail;
+
+    // Definizione piani
+    const plans = [
+      { id: 'freeAds', name: 'Free con ADS', desc: '1 segnale/die + pubblicità', price: '€0', ads: true },
+      { id: 'freeNoAds', name: 'Free (no ADS)', desc: '1 segnale/die + pubblicità rimossa', price: '€1,99/mese', ads: false },
+      { id: 'base', name: 'Base', desc: '2 segnali/die su crypto, azioni, metalli', price: '€9,99/mese' },
+      { id: 'pro', name: 'Pro', desc: '5 segnali/die + token + ETF/GTF', price: '€24,99/mese' },
+      { id: 'elite', name: 'Elite', desc: 'Segnali illimitati su tutti gli asset', price: '€49,99/mese' },
+      { id: 'istituzionale', name: 'Istituzionale (Verus)', desc: 'Crypto, azioni, titoli, token, ETF, metalli, geopolitica, clima, AI', price: '€119/mese' },
+    ];
+
+    let currentPlan = plans[0].id;
+
+    const plansContainer = document.getElementById('plans');
+    plans.forEach(p => {
+      const c = document.createElement('div');
+      c.className = 'card';
+      c.innerHTML = `
+        <h2>${p.name} - <small>${p.price}</small></h2>
+        <p>${p.desc}</p>
+        <button class="btn" id="btn-${p.id}">${p.id === currentPlan ? 'Rimani qui' : 'Attiva'}</button>
+      `;
+      plansContainer.appendChild(c);
+      document.getElementById(`btn-${p.id}`).onclick = () => {
+        currentPlan = p.id;
+        alert(`Piano selezionato: ${p.name} (${p.price}) – simulato`);
+        render();
+      };
+    });
+
+    // Simula contenuti
+    function render() {
+      const plan = plans.find(p => p.id === currentPlan);
+
+      const adsDiv = document.getElementById('adsSection');
+      if (plan.ads) {
+        adsDiv.innerHTML = `<div class="ads">🎬 Pubblicità leggera... <small>Rimuovila con "Free (no ADS)"</small></div>`;
+      } else {
+        adsDiv.innerHTML = '';
+      }
+
+      document.getElementById('signals').innerHTML = `
+        <div class="signal">🚀 Segnale oggi: Acquista Bitcoin a €30.000</div>
+        <div class="signal">📈 Segnale oggi: Vendi Azioni XYZ per +5%</div>
+      `;
+      document.getElementById('news').innerHTML = plan.id === 'istituzionale' ? `
+        <div class="news">🌍 Notizia geopolitica: summit clima G7</div>
+        <div class="news">🧠 AI news: nuovo modello open-source avanzato</div>
+      ` : '';
     }
 
-    function updateUI() {
-      document.querySelectorAll('.card').forEach(c => {
-        const id = c.id.replace('plan', '');
-        if (id === currentPlan) {
-          c.querySelector('button').innerText = 'Sei nel piano ' + id;
-          c.querySelector('button').disabled = true;
-        } else {
-          c.querySelector('button').innerText = 'Attiva';
-          c.querySelector('button').disabled = false;
-        }
-      });
-    }
-
-    function enterReferral(){
-      const code = prompt('Inserisci codice amico');
-      if (code) alert('Codice ' + code + ' registrato! (simulazione)');
-    }
-
-    updateUI();
+    render();
   </script>
 </body>
 </html>
