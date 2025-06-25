@@ -1,116 +1,128 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx Dashboard</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Signalyx – Dashboard</title>
+<style>
+  body { margin:0; font-family:sans-serif; background:#121212; color:#EEE; }
+  header { padding:16px; text-align:center; background:#1F1F1F; }
+  .toolbar { position:fixed; bottom:0; width:100%; display:flex; background:#1F1F1F; }
+  .toolbar button { flex:1; padding:12px; color:#EEE; background:#2A2A2A; border:none; }
+  .toolbar button.active { background:#333; }
+  .container { padding-bottom:60px; }
+  section { display:none; padding:16px; }
+  section.active { display:block; }
+  .block { margin-bottom:20px; padding:16px; background:#1E1E1E; border-radius:8px; }
+  label, select { display:block; margin-bottom:8px; }
+  button.act { padding:6px 12px; margin-top:8px; background:#00C851; border:none; color:#FFF; cursor:pointer; border-radius:4px; }
+  #chart { width:100%; height:200px; background:#2A2A2A; border-radius:8px; }
+</style>
 </head>
-<body class="bg-gray-900 text-gray-200 min-h-screen">
-  <header class="bg-black p-4 text-center text-2xl font-bold">
-    Signalyx – Dashboard
-  </header>
+<body>
 
-  <main class="p-4 space-y-6">
-    <!-- Profilo utente -->
-    <section id="profile" class="bg-gray-800 rounded-lg p-4 space-y-2">
-      <h2 class="text-xl font-semibold">Profilo utente</h2>
-      <div class="flex justify-between items-center">
-        <div>🌐 Lingua: <span id="lang">Italiano</span></div>
-        <button onclick="changeLang()" class="bg-green-500 px-3 py-1 rounded">Modifica</button>
+<header><h1>Signalyx – Dashboard</h1></header>
+
+<div class="container">
+  <section id="piani" class="active">
+    <div class="block">
+      <h2>I Tuoi Piani</h2>
+      <div id="listaPiani">
+        <!-- generato via JS -->
       </div>
-      <div class="flex justify-between items-center">
-        <div>💱 Valuta: <span id="currency">EUR</span></div>
-        <button onclick="changeCurrency()" class="bg-green-500 px-3 py-1 rounded">Modifica</button>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Console -->
-    <section id="console" class="bg-gray-800 rounded-lg p-4 space-y-4">
-      <h2 class="text-xl font-semibold">Console</h2>
-      <div id="chart" class="bg-gray-700 rounded p-2">
-        <canvas id="planeChart"></canvas>
-      </div>
-      <div>
-        <h3 class="font-semibold">📊 Segnali del giorno</h3>
-        <ul id="signals" class="list-disc list-inside space-y-1">
-          <li>🚀 Compra Bitcoin a €30.000</li>
-          <li>📉 Vendi Azioni XYZ per +5%</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-semibold">📎 Approfondimenti</h3>
-        <ul id="insights" class="list-disc list-inside space-y-1">
-          <li>🌍 Notizia geopolitica: summit clima G7</li>
-          <li>🤖 AI news: nuovo modello open‑source</li>
-        </ul>
-      </div>
-    </section>
+  <section id="console">
+    <div class="block">
+      <h2>Profilo Utente</h2>
+      <label>Lingua:
+        <select id="selLingua"><option value="it">Italiano</option><option value="en">English</option><option value="es">Español</option></select>
+      </label>
+      <label>Valuta:
+        <select id="selValuta"><option value="EUR">EUR</option><option value="USD">USD</option></select>
+      </label>
+    </div>
+    <div class="block">
+      <h2>Console</h2>
+      <div id="chart"></div>
+      <p><em>🔧 In futuro: espandi per modalità full‑screen</em></p>
+    </div>
+    <div class="block">
+      <h2>Segnali del giorno</h2>
+      <ul id="segnali"></ul>
+    </div>
+    <div class="block">
+      <h2>Approfondimenti</h2>
+      <ul id="approf"></ul>
+    </div>
+  </section>
 
-    <!-- Piani abbonamento -->
-    <section id="plans" class="bg-gray-800 rounded-lg p-4 space-y-2">
-      <h2 class="text-xl font-semibold">Piani di abbonamento</h2>
-      <ul id="planList" class="list-disc list-inside space-y-1">
-        <li>Free con ADS – 0 € <button onclick="selectPlan('Free ADS')" class="bg-green-500 px-2 py-1 rounded ml-2 text-xs">Attiva</button></li>
-        <li>Free (no ADS) – 1,99 € <button onclick="selectPlan('Free no ADS')" class="bg-green-500 px-2 py-1 rounded ml-2 text-xs">Attiva</button></li>
-        <li>Base – 9,99 € <button onclick="selectPlan('Base')" class="bg-green-500 px-2 py-1 rounded ml-2 text-xs">Attiva</button></li>
-        <li>Pro – 24,99 € <button onclick="selectPlan('Pro')" class="bg-green-500 px-2 py-1 rounded ml-2 text-xs">Attiva</button></li>
-        <li>Elite – 49,99 € <button onclick="selectPlan('Elite')" class="bg-green-500 px-2 py-1 rounded ml-2 text-xs">Attiva</button></li>
-        <li>Istituzionale (Verus) – 119 € <button onclick="selectPlan('Verus')" class="bg-green-500 px-2 py-1 rounded ml-2 text-xs">Attiva</button></li>
-      </ul>
-    </section>
+  <section id="notizie">
+    <div class="block">
+      <h2>Notizie</h2>
+      <div>📰 Prossimamente: stream in tempo reale, AI news e geopolitica.</div>
+    </div>
+  </section>
+</div>
 
-    <!-- Feedback -->
-    <section id="feedback" class="bg-gray-800 rounded-lg p-4 hidden">
-      <div id="feedbackText" class="text-center font-semibold"></div>
-      <button onclick="clearFeedback()" class="bg-red-600 px-3 py-1 rounded mt-2 block mx-auto">Chiudi</button>
-    </section>
-  </main>
+<nav class="toolbar">
+  <button data-sec="piani" class="active">Piani</button>
+  <button data-sec="console">Console</button>
+  <button data-sec="notizie">Notizie</button>
+</nav>
 
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // Chart iniziale
-    const ctx = document.getElementById('planeChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
-        datasets: [{
-          label: 'Valore portafoglio (€)',
-          data: [1000, 1020, 1010, 1050, 1030, 1100, 1150],
-          backgroundColor: 'rgba(16, 185, 129, 0.2)',
-          borderColor: 'rgba(16, 185, 129)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.3,
-          pointRadius: 4
-        }]
-      },
-      options: {
-        scales: {
-          y: { beginAtZero: false }
-        }
-      }
-    });
+<script>
+const piani = [
+  { name: 'Free con ADS', price: 0 },
+  { name: 'Free (no ADS)', price: 1.99 },
+  { name: 'Base', price: 9.99 },
+  { name: 'Pro', price: 24.99 },
+  { name: 'Elite', price: 49.99 },
+  { name: 'Istituzionale (Verus)', price: 119 }
+];
+let current = null;
 
-    function selectPlan(plan) {
-      document.getElementById('feedbackText').textContent = 
-        `🎉 Piano selezionato: ${plan}`;
-      document.getElementById('feedback').classList.remove('hidden');
-    }
-    function clearFeedback() {
-      document.getElementById('feedback').classList.add('hidden');
-    }
-    function changeLang() {
-      const l = prompt("Inserisci la lingua (es. Italiano, English, Español)");
-      if (l) document.getElementById('lang').textContent = l;
-    }
-    function changeCurrency() {
-      const c = prompt("Inserisci la valuta (es. EUR, USD, GBP)");
-      if (c) document.getElementById('currency').textContent = c;
-    }
-  </script>
+function aggiornaPiani() {
+  const c = document.getElementById('listaPiani');
+  c.innerHTML = '';
+  piani.forEach((p,i)=>{
+    const div = document.createElement('div');
+    div.innerHTML = `<strong>${p.name}</strong> – €${p.price.toFixed(2)}  <button class="act" onclick="seleziona(${i})">Attiva</button>`;
+    c.appendChild(div);
+  });
+}
+
+function seleziona(i) {
+  current = i;
+  alert(`🎉 Piano selezionato: ${piani[i].name} (€${piani[i].price.toFixed(2)}/mese)`);
+}
+
+document.querySelectorAll('.toolbar button').forEach(btn=>{
+  btn.onclick = ()=> {
+    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.toolbar button').forEach(b=>b.classList.remove('active'));
+    document.getElementById(btn.dataset.sec).classList.add('active');
+    btn.classList.add('active');
+  };
+});
+
+function drawFakeChart() {
+  const chart = document.getElementById('chart');
+  chart.innerHTML = '<svg width="100%" height="100%" viewBox="0 0 300 100"><polyline fill="none" stroke="#00C851" stroke-width="2" points="0,70 50,65 100,70 150,55 200,60 250,40 300,20"/></svg>';
+}
+
+function loadConsoleData(){
+  const s = document.getElementById('segnali');
+  s.innerHTML = '<li>🚀 Compra Bitcoin a €30.000</li><li>📈 Vendi Azioni XYZ per +5%</li>';
+  const a = document.getElementById('approf');
+  a.innerHTML = '<li>🌎 Notizia geopolitica: summit clima G7</li><li>🤖 AI News: nuovo modello open‑source</li>';
+}
+
+aggiornaPiani();
+drawFakeChart();
+loadConsoleData();
+</script>
+
 </body>
 </html>
