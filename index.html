@@ -1,99 +1,79 @@
-<!-- index.html aggiornato con piani, referral, ADS, multilingua e placeholder CPS -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Signalyx – Dashboard</title>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    const firebaseConfig = { /* ... */ };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    async function loadUserData(user) {
-      const uref = doc(db, "users", user.uid);
-      let udata = await getDoc(uref);
-      if (!udata.exists()) {
-        await setDoc(uref, { plan: "free_ads", referralCode: user.uid.substring(0,6), invited: [], cpsOptIn: true });
-        udata = await getDoc(uref);
-      }
-      return { uid: user.uid, ...udata.data() };
-    }
-
-    window.addEventListener("load", () => {
-      onAuthStateChanged(auth, async user => {
-        if (!user) return;
-        const profile = await loadUserData(user);
-        document.getElementById("username").innerText = user.email;
-        renderDashboard(profile);
-      });
-    });
-
-    function renderDashboard(user) {
-      // mostra dashboard, piano attivo, referral code
-      document.getElementById("referral-code").innerText = user.referralCode;
-      // placeholder ADS solo se free_ads
-      if (user.plan === "free_ads") {
-        document.getElementById("ads-placeholder").innerText = "► Pubblicità leggera qui";
-      }
-    }
-
-    function switchPlan(plan) {
-      const user = auth.currentUser;
-      if (!user) return;
-      setDoc(doc(db, "users", user.uid), { plan }, { merge: true });
-      alert("Piano cambiato in: " + plan);
-      location.reload();
-    }
-
-    function applyReferralCode() { /* ... */ }
-  </script>
   <style>
-    /* Stili essenziali per dashboard e piani */
-    body{font-family:Arial,sans-serif;color:#fff;background:#111;margin:0;padding:1rem;}
-    .plan{background:#222;padding:1rem;margin:1rem 0;border-radius:6px;}
-    button{background:#0b8;color:#000;border:none;padding:.5rem 1rem;border-radius:4px;cursor:pointer;}
-    button:hover{background:#0a7;}
+    body { background: #111; color: #eee; font-family: sans-serif; padding: 20px }
+    .card { border-radius: 8px; background: #222; padding: 15px; margin-bottom: 15px }
+    .btn { padding: 8px 12px; background: #0f0; color: #000; border: none; cursor: pointer; }
   </style>
 </head>
 <body>
   <h1>Signalyx – Dashboard</h1>
-  <div>Benvenuto, <span id="username">...</span></div>
-  <hr/>
-  <h2>I Tuoi Piani</h2>
-  <div class="plan">
-    <h3>Free con ADS</h3><p>1 segnale/die + pubblicità.</p>
-    <button onclick="switchPlan('free_ads')">Rimani qui</button>
+  <p>Benvenuto, <strong id="userMail">utente</strong>!</p>
+
+  <div class="card" id="planFreeAds">
+    <h2>Free con ADS</h2><p>1 segnale/die + pubblicità.</p>
+    <button class="btn" disabled>Sei già qui</button>
   </div>
-  <div class="plan">
-    <h3>Free (no ADS)</h3><p>1 segnale/die + pubblicità rimossa.</p>
-    <button onclick="switchPlan('free')">Attiva</button>
+  <div class="card" id="planFreeNoAds">
+    <h2>Free (no ADS)</h2><p>1 segnale/die + pubblicità rimossa.</p>
+    <button class="btn" onclick="changePlan('FreeNoAds', 1.99)">Attiva</button>
   </div>
-  <div class="plan">
-    <h3>Base</h3><p>2 segnali/die su crypto, azioni, metalli.</p>
-    <button onclick="switchPlan('base')">Attiva</button>
+  <div class="card" id="planBase">
+    <h2>Base</h2><p>2 segnali/die su crypto, azioni, metalli. 9,99 €/mese</p>
+    <button class="btn" onclick="changePlan('Base', 9.99)">Attiva</button>
   </div>
-  <div class="plan">
-    <h3>Pro</h3><p>5 segnali/die + token + ETF/GTF.</p>
-    <button onclick="switchPlan('pro')">Attiva</button>
+  <div class="card" id="planPro">
+    <h2>Pro</h2><p>5 segnali/die + token + ETF/GTF. 24,99 €/mese</p>
+    <button class="btn" onclick="changePlan('Pro', 24.99)">Attiva</button>
   </div>
-  <div class="plan">
-    <h3>Elite</h3><p>Segnali illimitati su tutti gli asset.</p>
-    <button onclick="switchPlan('elite')">Attiva</button>
+  <div class="card" id="planElite">
+    <h2>Elite</h2><p>Segnali illimitati su tutti gli asset. 49,99 €/mese</p>
+    <button class="btn" onclick="changePlan('Elite', 49.99)">Attiva</button>
   </div>
-  <div class="plan">
-    <h3>Istituzionale (Verus)</h3><p>Crypto, azioni, titoli, token, ETF, metalli, geopolitica, clima, AI</p>
-    <button onclick="switchPlan('verus')">Attiva</button>
+  <div class="card" id="planInstitutional">
+    <h2>Istituzionale (Verus)</h2>
+    <p>Crypto, azioni, titoli, token, ETF, metalli, geopolitica, clima, AI. 119 €/mese</p>
+    <button class="btn" onclick="changePlan('Verus', 119)">Attiva</button>
   </div>
-  <hr/>
-  <h2>Referral</h2>
-  <div>Il tuo codice invito (condividi e guadagna premi): <b id="referral-code">...</b></div>
-  <button onclick="applyReferralCode()">Inserisci codice amico</button>
-  <hr/>
-  <div id="ads-placeholder"></div>
+
+  <div class="card">
+    <h2>Referral</h2>
+    <p>Il tuo codice invito: <strong id="refCode">ABC123</strong></p>
+    <button class="btn" onclick="enterReferral()">Inserisci codice amico</button>
+  </div>
+
+  <script>
+    let currentPlan = 'FreeAds';
+    document.getElementById('userMail').innerText = 'test@hotmail.it';
+
+    function changePlan(plan, price) {
+      currentPlan = plan;
+      alert('Piano selezionato: ' + plan + ' (' + price + ' €/mese simulati)');
+      updateUI();
+    }
+
+    function updateUI() {
+      document.querySelectorAll('.card').forEach(c => {
+        const id = c.id.replace('plan', '');
+        if (id === currentPlan) {
+          c.querySelector('button').innerText = 'Sei nel piano ' + id;
+          c.querySelector('button').disabled = true;
+        } else {
+          c.querySelector('button').innerText = 'Attiva';
+          c.querySelector('button').disabled = false;
+        }
+      });
+    }
+
+    function enterReferral(){
+      const code = prompt('Inserisci codice amico');
+      if (code) alert('Codice ' + code + ' registrato! (simulazione)');
+    }
+
+    updateUI();
+  </script>
 </body>
 </html>
