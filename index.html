@@ -3,192 +3,134 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx – Think Less. Trade Best.</title>
+  <title>Signalyx Beta</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0d0d0d;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+    body { background-color: #0a0a0a; color: #fff; overflow: hidden; }
+    .splash {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: #000; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; z-index: 9999;
+      animation: fadeOut 2s ease 2s forwards;
     }
-    #splash {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background-color: #0d0d0d;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      animation: fadeOut 2.5s ease 2.5s forwards;
-      z-index: 1000;
+    .splash img {
+      width: 160px; margin-bottom: 20px;
+      animation: zoomIn 1s ease;
+    }
+    .splash p {
+      font-size: 1.2em; color: #aaa; opacity: 0.9;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
     @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+      to { opacity: 0; visibility: hidden; }
     }
-    #splash img {
-      width: 180px;
-      margin-bottom: 20px;
+    main { display: none; padding: 20px; }
+    .active { display: block; }
+    nav {
+      position: fixed; bottom: 0; left: 0;
+      width: 100%; background-color: #111;
+      display: flex; justify-content: space-around;
+      padding: 10px 0; border-top: 1px solid #222;
     }
-    #splash p {
-      font-size: 16px;
-      color: #ccc;
+    nav button {
+      background: none; border: none; color: #aaa;
+      font-size: 0.8em; cursor: pointer;
     }
-    header, footer {
-      text-align: center;
-      padding: 10px;
-    }
-    main {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-      text-align: center;
-    }
-    .tab {
-      display: none;
-    }
-    .tab.active {
-      display: block;
-    }
-    footer {
-      display: flex;
-      justify-content: space-around;
-      background-color: #1a1a1a;
-      border-top: 1px solid #333;
-    }
-    footer button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 14px;
-      padding: 10px;
-      flex: 1;
-    }
-    footer button.active {
-      font-weight: bold;
-      color: #00ff99;
-    }
-    .section-title {
-      font-size: 22px;
-      margin: 10px 0;
-    }
-    .card {
-      background-color: #1a1a1a;
-      padding: 15px;
-      margin: 10px auto;
-      border-radius: 8px;
-      max-width: 400px;
-      text-align: left;
-    }
-    .card h3 {
-      margin-top: 0;
-    }
-    .pricing {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .input-field {
-      background: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 4px;
-      padding: 8px;
-      margin-bottom: 10px;
-      color: white;
-      width: 100%;
+    nav button.active { color: #00ff9f; font-weight: bold; }
+
+    .section { display: none; }
+    .section.active { display: block; }
+    h2 { color: #00ff9f; margin-bottom: 10px; }
+    .card { background-color: #1b1b1b; padding: 15px; margin-bottom: 15px; border-radius: 10px; }
+    .label { color: #888; font-size: 0.9em; }
+
+    select, input {
+      background: #000; color: #fff; border: 1px solid #333; padding: 5px; width: 100%; margin-top: 5px; border-radius: 4px;
     }
   </style>
 </head>
 <body>
-
-  <div id="splash">
-    <img src="assets/logo.PNG" alt="Logo Signalyx"/>
+  <div class="splash">
+    <img src="./assets/logo.PNG" alt="Signalyx Logo">
     <p>Think Less. Trade Best.</p>
   </div>
 
-  <main>
-    <section id="dashboard" class="tab active">
-      <h2 class="section-title">Dashboard</h2>
-      <p>Benvenuto su Signalyx. Il cuore della tua operatività è qui.</p>
+  <main class="active">
+    <section id="segnali" class="section active">
+      <h2>Segnali</h2>
+      <div class="card"><b>BTC/USDT</b> - BUY (target: +4.2%)</div>
+      <div class="card"><b>ETH/USDT</b> - BUY (target: +3.1%)</div>
+      <div class="card"><b>AAPL</b> - HOLD (attendere breakout)</div>
+      <div class="card"><b>GOLD</b> - SELL (target: -2.5%)</div>
     </section>
 
-    <section id="console" class="tab">
-      <h2 class="section-title">Console</h2>
+    <section id="grafici" class="section">
+      <h2>Grafici</h2>
       <div class="card">
-        <h3>BTC/USD (simulato)</h3>
-        <img src="https://fakeimg.pl/400x200/202020/e0e0e0/?text=Grafico" width="100%" />
-        <p>Strumenti attivi: On-Chain ✓ | Ciclica ✓ | RSI ✗</p>
-      </div>
-    </section>
-
-    <section id="plans" class="tab">
-      <h2 class="section-title">Piani</h2>
-      <div class="pricing">
-        <div class="card"><h3>Free con ADS</h3><p>0€/mese</p></div>
-        <div class="card"><h3>Base</h3><p>9,99€/mese</p></div>
-        <div class="card"><h3>Pro</h3><p>24,99€/mese</p></div>
-        <div class="card"><h3>Elite</h3><p>49,99€/mese</p></div>
-        <div class="card"><h3>Verus (Istituzionale)</h3><p>149€/mese</p></div>
-      </div>
-    </section>
-
-    <section id="news" class="tab">
-      <h2 class="section-title">Notizie</h2>
-      <div class="card">
-        <h3>Crisi USA-Cina: tensione sui chip</h3>
-        <p>Il blocco export USA potrebbe impattare i mercati nei prossimi giorni.</p>
-      </div>
-      <div class="card">
-        <h3>ETF Bitcoin approvati</h3>
-        <p>Nuovi capitali in arrivo: possibile rally entro settimana?</p>
-      </div>
-    </section>
-
-    <section id="profile" class="tab">
-      <h2 class="section-title">Profilo</h2>
-      <div class="card">
-        <label>Lingua</label>
-        <select class="input-field">
-          <option>Italiano</option>
-          <option>English</option>
-          <option>Español</option>
+        <label class="label">Seleziona Asset:</label>
+        <select>
+          <option>BTC/USDT</option>
+          <option>ETH/USDT</option>
+          <option>AAPL</option>
+          <option>GOLD</option>
         </select>
-        <label>Valuta</label>
-        <select class="input-field">
-          <option>EUR</option>
-          <option>USD</option>
-          <option>BTC</option>
+        <p style="margin-top:10px;">[Grafico interattivo simulato]</p>
+        <p>Strumenti attivi: RSI, Media Mobile 20/50</p>
+      </div>
+    </section>
+
+    <section id="notizie" class="section">
+      <h2>Notizie</h2>
+      <div class="card">🌍 Crisi geopolitica in Europa dell’Est: impatto su EUR e Oro</div>
+      <div class="card">📊 AAPL rilascia trimestrale sopra le attese: +7% after-market</div>
+    </section>
+
+    <section id="console" class="section">
+      <h2>Console</h2>
+      <div class="card">Saldo Simulato: €12.300</div>
+      <div class="card">Ultimo segnale seguito: ETH - BUY</div>
+      <div class="card">Andamento ultimi 7 giorni: +4.9%</div>
+    </section>
+
+    <section id="profilo" class="section">
+      <h2>Profilo</h2>
+      <div class="card">
+        <label class="label">Lingua:</label>
+        <select><option>Italiano</option><option>English</option></select>
+        <label class="label">Valuta:</label>
+        <select><option>EUR</option><option>USD</option><option>BTC</option></select>
+      </div>
+      <div class="card">
+        <label class="label">Piano attivo:</label>
+        <select>
+          <option>Free con ADS</option>
+          <option>Base</option>
+          <option>Pro</option>
+          <option>Elite</option>
+          <option>Verus</option>
         </select>
-        <label>Piano attivo</label>
-        <input class="input-field" value="Free con ADS" disabled />
-        <button class="input-field">Aggiorna piano</button>
+        <p style="margin-top:10px;">Funzionalità simulate. Aggiorna per vedere i cambiamenti.</p>
       </div>
     </section>
   </main>
 
-  <footer>
-    <button onclick="switchTab('dashboard')" class="active">Console</button>
-    <button onclick="switchTab('plans')">Piani</button>
-    <button onclick="switchTab('news')">Notizie</button>
-    <button onclick="switchTab('profile')">Profilo</button>
-  </footer>
+  <nav>
+    <button onclick="show('segnali')" class="active">Segnali</button>
+    <button onclick="show('grafici')">Grafici</button>
+    <button onclick="show('notizie')">Notizie</button>
+    <button onclick="show('console')">Console</button>
+    <button onclick="show('profilo')">Profilo</button>
+  </nav>
 
   <script>
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      document.querySelectorAll('footer button').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('footer button').forEach(b => {
-        if (b.getAttribute('onclick').includes(tabId)) {
-          b.classList.add('active');
-        }
-      });
+    function show(id) {
+      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+      document.querySelector(`#${id}`).classList.add('active');
+      document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
     }
   </script>
 </body>
