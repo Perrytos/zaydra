@@ -2,153 +2,194 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Signalyx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signalyx – Think Less. Trade Best.</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0a0a0a;
-      color: white;
-      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d0d0d;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
     }
-    .splash {
+    #splash {
       position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      background-color: #0a0a0a;
+      background-color: #0d0d0d;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      opacity: 1;
-      animation: fadeOut 2s ease 3s forwards;
-      z-index: 10;
+      animation: fadeOut 2.5s ease 2.5s forwards;
+      z-index: 1000;
     }
-    .splash img {
-      width: 200px;
-      max-width: 80%;
-      margin-bottom: 20px;
-    }
-    .splash p {
-      font-size: 18px;
-      color: #ccc;
-      margin: 0;
-    }
-
     @keyframes fadeOut {
       to {
         opacity: 0;
         visibility: hidden;
       }
     }
-
-    .page {
-      padding-top: 50px;
+    #splash img {
+      width: 180px;
+      margin-bottom: 20px;
+    }
+    #splash p {
+      font-size: 16px;
+      color: #ccc;
+    }
+    header, footer {
+      text-align: center;
+      padding: 10px;
+    }
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .tab {
       display: none;
-      animation: fadeIn 1s ease forwards;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .tab.active {
+      display: block;
     }
-
-    h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 18px;
-      color: #ddd;
-    }
-
-    .navbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #111;
+    footer {
       display: flex;
       justify-content: space-around;
-      padding: 10px 0;
+      background-color: #1a1a1a;
       border-top: 1px solid #333;
     }
-
-    .navbar a {
+    footer button {
+      background: none;
+      border: none;
       color: white;
-      text-decoration: none;
       font-size: 14px;
+      padding: 10px;
+      flex: 1;
     }
-
-    .section {
-      display: none;
+    footer button.active {
+      font-weight: bold;
+      color: #00ff99;
     }
-
-    .section.active {
-      display: block;
+    .section-title {
+      font-size: 22px;
+      margin: 10px 0;
+    }
+    .card {
+      background-color: #1a1a1a;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 8px;
+      max-width: 400px;
+      text-align: left;
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    .pricing {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .input-field {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 8px;
+      margin-bottom: 10px;
+      color: white;
+      width: 100%;
     }
   </style>
 </head>
 <body>
 
-  <!-- Splash Screen -->
-  <div class="splash" id="splash">
-    <img src="assets/logo.PNG" alt="Signalyx Logo">
+  <div id="splash">
+    <img src="assets/logo.PNG" alt="Logo Signalyx"/>
     <p>Think Less. Trade Best.</p>
   </div>
 
-  <!-- Main App -->
-  <div class="page" id="main">
-    <div id="dashboard" class="section active">
-      <h1>Dashboard</h1>
+  <main>
+    <section id="dashboard" class="tab active">
+      <h2 class="section-title">Dashboard</h2>
       <p>Benvenuto su Signalyx. Il cuore della tua operatività è qui.</p>
-    </div>
-    <div id="console" class="section">
-      <h1>Console</h1>
-      <p>Strumenti interattivi in arrivo.</p>
-    </div>
-    <div id="plans" class="section">
-      <h1>Piani</h1>
-      <p>Scopri le offerte disponibili.</p>
-    </div>
-    <div id="news" class="section">
-      <h1>Notizie</h1>
-      <p>Ultime dal mondo finanziario.</p>
-    </div>
-    <div id="profile" class="section">
-      <h1>Profilo</h1>
-      <p>Gestisci le tue impostazioni e abbonamenti.</p>
-    </div>
-  </div>
+    </section>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <a href="#" onclick="showSection('console')">Console</a>
-    <a href="#" onclick="showSection('plans')">Piani</a>
-    <a href="#" onclick="showSection('news')">Notizie</a>
-    <a href="#" onclick="showSection('profile')">Profilo</a>
-  </div>
+    <section id="console" class="tab">
+      <h2 class="section-title">Console</h2>
+      <div class="card">
+        <h3>BTC/USD (simulato)</h3>
+        <img src="https://fakeimg.pl/400x200/202020/e0e0e0/?text=Grafico" width="100%" />
+        <p>Strumenti attivi: On-Chain ✓ | Ciclica ✓ | RSI ✗</p>
+      </div>
+    </section>
 
-  <!-- Script -->
+    <section id="plans" class="tab">
+      <h2 class="section-title">Piani</h2>
+      <div class="pricing">
+        <div class="card"><h3>Free con ADS</h3><p>0€/mese</p></div>
+        <div class="card"><h3>Base</h3><p>9,99€/mese</p></div>
+        <div class="card"><h3>Pro</h3><p>24,99€/mese</p></div>
+        <div class="card"><h3>Elite</h3><p>49,99€/mese</p></div>
+        <div class="card"><h3>Verus (Istituzionale)</h3><p>149€/mese</p></div>
+      </div>
+    </section>
+
+    <section id="news" class="tab">
+      <h2 class="section-title">Notizie</h2>
+      <div class="card">
+        <h3>Crisi USA-Cina: tensione sui chip</h3>
+        <p>Il blocco export USA potrebbe impattare i mercati nei prossimi giorni.</p>
+      </div>
+      <div class="card">
+        <h3>ETF Bitcoin approvati</h3>
+        <p>Nuovi capitali in arrivo: possibile rally entro settimana?</p>
+      </div>
+    </section>
+
+    <section id="profile" class="tab">
+      <h2 class="section-title">Profilo</h2>
+      <div class="card">
+        <label>Lingua</label>
+        <select class="input-field">
+          <option>Italiano</option>
+          <option>English</option>
+          <option>Español</option>
+        </select>
+        <label>Valuta</label>
+        <select class="input-field">
+          <option>EUR</option>
+          <option>USD</option>
+          <option>BTC</option>
+        </select>
+        <label>Piano attivo</label>
+        <input class="input-field" value="Free con ADS" disabled />
+        <button class="input-field">Aggiorna piano</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <button onclick="switchTab('dashboard')" class="active">Console</button>
+    <button onclick="switchTab('plans')">Piani</button>
+    <button onclick="switchTab('news')">Notizie</button>
+    <button onclick="switchTab('profile')">Profilo</button>
+  </footer>
+
   <script>
-    // Splash screen handler
-    setTimeout(() => {
-      document.getElementById('splash').style.display = 'none';
-      document.getElementById('main').style.display = 'block';
-    }, 4000);
-
-    // Navbar navigation
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      document.querySelectorAll('footer button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('footer button').forEach(b => {
+        if (b.getAttribute('onclick').includes(tabId)) {
+          b.classList.add('active');
+        }
       });
-      document.getElementById(id).classList.add('active');
     }
   </script>
-
 </body>
 </html>
