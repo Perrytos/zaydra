@@ -4,165 +4,133 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signalyx – Think Less. Trade Best.</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
   <style>
     body {
+      background-color: #0d0d0d;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #0e0e0e;
-      color: white;
+      padding: 0;
     }
-    #splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-color: #0e0e0e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      animation: fadeOut 1.5s ease 3s forwards;
-      z-index: 9999;
+    header, nav {
+      background-color: #111;
+      padding: 1rem;
+      text-align: center;
     }
-    #splash img {
-      width: 180px;
-      height: auto;
-      animation: zoomIn 1.8s ease;
+    header img {
+      max-height: 80px;
+      margin-bottom: 0.5rem;
     }
-    #slogan {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      color: #ccc;
-      opacity: 0;
-      animation: fadeInText 2s ease 1s forwards;
-    }
-    @keyframes zoomIn {
-      0% { transform: scale(0.3); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes fadeInText {
-      to { opacity: 1; }
-    }
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-    .container {
-      padding: 20px;
-    }
-    nav {
-      position: fixed;
-      bottom: 0; left: 0;
-      width: 100%;
-      background-color: #121212;
-      display: flex;
-      justify-content: space-around;
-      border-top: 1px solid #333;
-    }
-    nav button {
-      flex: 1;
-      padding: 15px;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 14px;
-    }
-    section {
-      display: none;
-    }
-    section.active {
-      display: block;
+    .section {
+      padding: 2rem 1rem;
     }
     .card {
       background-color: #1a1a1a;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      border: none;
+      color: #fff;
     }
-    .card h3 {
-      margin: 0 0 5px;
+    .btn-primary {
+      background-color: #03dac5;
+      border: none;
     }
-    .small {
-      font-size: 12px;
-      color: #aaa;
+    .nav-tabs .nav-link.active {
+      background-color: #03dac5;
+      color: #000;
+    }
+    .alert-cps {
+      background-color: #333;
+      border-left: 5px solid #ff9800;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .footer {
+      background-color: #111;
+      text-align: center;
+      padding: 1rem;
+      color: #999;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-<div id="splash">
-  <img src="assets/logo.PNG" alt="Signalyx Logo">
-  <div id="slogan">Think Less. Trade Best.</div>
-</div>
+<header>
+  <img src="assets/logo.PNG" alt="Signalyx Logo"/>
+  <h2>Signalyx – Think Less. Trade Best.</h2>
+</header>
 
-<div class="container">
-  <section id="piani" class="active">
-    <h2>Piani disponibili</h2>
-    <div class="card"><h3>Free con ADS</h3><p>0€/mese – Segnali base + pubblicità</p></div>
-    <div class="card"><h3>Base</h3><p>9,99€/mese – 1 segnale/giorno</p></div>
-    <div class="card"><h3>Pro</h3><p>24,99€/mese – Segnali completi + analisi</p></div>
-    <div class="card"><h3>Elite</h3><p>49,99€/mese – Tutti i segnali + strumenti</p></div>
-  </section>
-
-  <section id="segnali">
-    <h2>Segnali Attivi (Crypto)</h2>
-    <div class="card"><h3>BTC/USDT</h3><p>Buy Zone: 60.300 – 61.100<br>Target: 65.000<br><span class="small">Analisi tecnica + ciclica</span></p></div>
-    <div class="card"><h3>ETH/USDT</h3><p>Buy Zone: 3.250 – 3.400<br>Target: 3.800<br><span class="small">Supporto su RSI</span></p></div>
-    <h2>Segnali Attivi (Azioni)</h2>
-    <div class="card"><h3>Apple (AAPL)</h3><p>Buy above: 210$ – Target: 235$</p></div>
-    <div class="card"><h3>Tesla (TSLA)</h3><p>Buy above: 185$ – Target: 215$</p></div>
-    <h2>Metalli Preziosi</h2>
-    <div class="card"><h3>Oro (XAU/USD)</h3><p>Buy: 2.310$ – Target: 2.400$</p></div>
-  </section>
-
-  <section id="notizie">
-    <h2>Notizie</h2>
-    <div class="card"><h3>Bitcoin supera i 65.000$</h3><p>Analisti bullish in vista del Q3. Fonte: Investing</p></div>
-    <div class="card"><h3>Inflazione USA rallenta</h3><p>Fed conferma tassi fermi. Fonte: EU Finance</p></div>
-  </section>
-
-  <section id="console">
-    <h2>Grafico BTC</h2>
-    <div class="card">
-      <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1D&theme=dark"
-              style="width:100%;height:400px;border:0;"></iframe>
-    </div>
-  </section>
-
-  <section id="profilo">
-    <h2>Profilo</h2>
-    <div class="card"><strong>Email:</strong> perrym@hotmail.it</div>
-    <div class="card"><strong>Piano Attivo:</strong> Pro</div>
-    <div class="card">
-      <label for="lingua">Lingua:</label>
-      <select id="lingua">
-        <option>Italiano</option>
-        <option>English</option>
-        <option>Español</option>
-      </select><br><br>
-      <label for="valuta">Valuta:</label>
-      <select id="valuta">
-        <option>EUR</option>
-        <option>USD</option>
-        <option>BTC</option>
-      </select>
-    </div>
-  </section>
-</div>
-
-<nav>
-  <button onclick="mostra('piani')">Piani</button>
-  <button onclick="mostra('segnali')">Segnali</button>
-  <button onclick="mostra('notizie')">Notizie</button>
-  <button onclick="mostra('console')">Console</button>
-  <button onclick="mostra('profilo')">Profilo</button>
+<nav class="nav nav-tabs justify-content-center">
+  <a class="nav-link active" href="#">Dashboard</a>
+  <a class="nav-link" href="#piani">Piani</a>
+  <a class="nav-link" href="#segnali">Segnali</a>
+  <a class="nav-link" href="#grafici">Grafici</a>
+  <a class="nav-link" href="#insight">Insight</a>
+  <a class="nav-link" href="#contatti">Contattaci</a>
 </nav>
 
-<script>
-  function mostra(id) {
-    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-</script>
+<main class="section">
+  <div id="dashboard" class="container">
+    <h3>Benvenuto, Marco</h3>
+    <p>Piano attivo: <strong>PRO</strong> — <a href="#piani" class="btn btn-sm btn-primary">Cambia piano</a></p>
+
+    <div class="alert-cps">
+      🎯 <strong>Promo attiva:</strong> Sconto del 20% se paghi in cripto (RSI &lt; 30, media 200W positiva).
+    </div>
+
+    <h5>Console</h5>
+    <iframe src="https://s.tradingview.com/embed-widget/symbol-overview/?locale=it#{"symbols":[{"s":"BINANCE:BTCUSDT"}],"width":"100%","height":"300"}" width="100%" height="300" frameborder="0"></iframe>
+  </div>
+
+  <div id="piani" class="section">
+    <h4>Piani disponibili</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col"><div class="card p-3"><h5>Free (con ADS)</h5><p>Accesso limitato con annunci</p><p><strong>0€/mese</strong></p></div></div>
+      <div class="col"><div class="card p-3"><h5>Free (senza ADS)</h5><p>Accesso base senza annunci</p><p><strong>1,99€/mese</strong></p></div></div>
+      <div class="col"><div class="card p-3"><h5>Base</h5><p>1 segnale/giorno</p><p><strong>9,99€/mese</strong></p></div></div>
+      <div class="col"><div class="card p-3"><h5>Pro</h5><p>Accesso avanzato, segnali crypto e azioni</p><p><strong>24,99€/mese</strong></p></div></div>
+      <div class="col"><div class="card p-3"><h5>Elite</h5><p>Segnali + notizie premium + dashboard pro</p><p><strong>49,99€/mese</strong></p></div></div>
+      <div class="col"><div class="card p-3"><h5>Verus (Istituzionale)</h5><p>Accesso completo + Project Omen</p><p><strong>149€/mese</strong></p></div></div>
+    </div>
+  </div>
+
+  <div id="segnali" class="section">
+    <h4>📈 Segnali attivi</h4>
+    <ul>
+      <li><strong>BTC/USDT</strong> – Buy area 59.200-60.500 – Target 64.500 – Stop 58.200</li>
+      <li><strong>ETH/USDT</strong> – Accumulo zona 3.180 – Target 3.480 – Stop 3.040</li>
+      <li><strong>Gold (XAU/USD)</strong> – Long su breakout 2.380 – Target 2.460</li>
+    </ul>
+  </div>
+
+  <div id="grafici" class="section">
+    <h4>📊 Grafici & Strumenti</h4>
+    <iframe src="https://s.tradingview.com/embed-widget/advanced-chart/?symbol=BINANCE:BTCUSDT&theme=dark&studies=RSI;MA" width="100%" height="500" frameborder="0"></iframe>
+  </div>
+
+  <div id="insight" class="section">
+    <h4>🔍 Insight</h4>
+    <p>Contenuti esclusivi, alert, macro-cicli, analisi fondatore. Accessibili con piani Pro o superiori.</p>
+    <ul>
+      <li>📅 Halving Bitcoin: analisi impatto storico</li>
+      <li>📊 Flussi on-chain vs cicli macro</li>
+      <li>🔐 Project Omen attivo per fondatore (ore 11:40, 25 giugno)</li>
+    </ul>
+  </div>
+
+  <div id="contatti" class="section">
+    <h4>📬 Contattaci</h4>
+    <p>Hai bisogno di aiuto o vuoi inviare un suggerimento?</p>
+    <ul>
+      <li><strong>Supporto diretto:</strong> supporto@signalyx.ai</li>
+      <li><strong>Idee / proposte:</strong> suggerimenti@signalyx.ai</li>
+    </ul>
+  </div>
+</main>
+
+<footer class="footer">
+  Signalyx © 2025 – Tutti i diritti riservati.
+</footer>
 
 </body>
 </html>
