@@ -3,135 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx Beta</title>
+  <title>Signalyx – Think Less. Trade Best.</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
-    body { background-color: #0a0a0a; color: #fff; overflow: hidden; }
-    .splash {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-color: #000; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; z-index: 9999;
-      animation: fadeOut 2s ease 2s forwards;
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0e0e0e;
+      color: white;
     }
-    .splash img {
-      width: 160px; margin-bottom: 20px;
-      animation: zoomIn 1s ease;
+    #splash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: #0e0e0e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: fadeOut 1.5s ease 3s forwards;
+      z-index: 9999;
     }
-    .splash p {
-      font-size: 1.2em; color: #aaa; opacity: 0.9;
+    #splash img {
+      width: 180px;
+      height: auto;
+      animation: zoomIn 1.8s ease;
+    }
+    #slogan {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #ccc;
+      opacity: 0;
+      animation: fadeInText 2s ease 1s forwards;
     }
     @keyframes zoomIn {
-      from { transform: scale(0.7); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      0% { transform: scale(0.3); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeInText {
+      to { opacity: 1; }
     }
     @keyframes fadeOut {
       to { opacity: 0; visibility: hidden; }
     }
-    main { display: none; padding: 20px; }
-    .active { display: block; }
+    .container {
+      padding: 20px;
+    }
     nav {
-      position: fixed; bottom: 0; left: 0;
-      width: 100%; background-color: #111;
-      display: flex; justify-content: space-around;
-      padding: 10px 0; border-top: 1px solid #222;
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%;
+      background-color: #121212;
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid #333;
     }
     nav button {
-      background: none; border: none; color: #aaa;
-      font-size: 0.8em; cursor: pointer;
+      flex: 1;
+      padding: 15px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 14px;
     }
-    nav button.active { color: #00ff9f; font-weight: bold; }
-
-    .section { display: none; }
-    .section.active { display: block; }
-    h2 { color: #00ff9f; margin-bottom: 10px; }
-    .card { background-color: #1b1b1b; padding: 15px; margin-bottom: 15px; border-radius: 10px; }
-    .label { color: #888; font-size: 0.9em; }
-
-    select, input {
-      background: #000; color: #fff; border: 1px solid #333; padding: 5px; width: 100%; margin-top: 5px; border-radius: 4px;
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    .card {
+      background-color: #1a1a1a;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .card h3 {
+      margin: 0 0 5px;
+    }
+    .small {
+      font-size: 12px;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <div class="splash">
-    <img src="./assets/logo.PNG" alt="Signalyx Logo">
-    <p>Think Less. Trade Best.</p>
-  </div>
 
-  <main class="active">
-    <section id="segnali" class="section active">
-      <h2>Segnali</h2>
-      <div class="card"><b>BTC/USDT</b> - BUY (target: +4.2%)</div>
-      <div class="card"><b>ETH/USDT</b> - BUY (target: +3.1%)</div>
-      <div class="card"><b>AAPL</b> - HOLD (attendere breakout)</div>
-      <div class="card"><b>GOLD</b> - SELL (target: -2.5%)</div>
-    </section>
+<div id="splash">
+  <img src="assets/logo.PNG" alt="Signalyx Logo">
+  <div id="slogan">Think Less. Trade Best.</div>
+</div>
 
-    <section id="grafici" class="section">
-      <h2>Grafici</h2>
-      <div class="card">
-        <label class="label">Seleziona Asset:</label>
-        <select>
-          <option>BTC/USDT</option>
-          <option>ETH/USDT</option>
-          <option>AAPL</option>
-          <option>GOLD</option>
-        </select>
-        <p style="margin-top:10px;">[Grafico interattivo simulato]</p>
-        <p>Strumenti attivi: RSI, Media Mobile 20/50</p>
-      </div>
-    </section>
+<div class="container">
+  <section id="piani" class="active">
+    <h2>Piani disponibili</h2>
+    <div class="card"><h3>Free con ADS</h3><p>0€/mese – Segnali base + pubblicità</p></div>
+    <div class="card"><h3>Base</h3><p>9,99€/mese – 1 segnale/giorno</p></div>
+    <div class="card"><h3>Pro</h3><p>24,99€/mese – Segnali completi + analisi</p></div>
+    <div class="card"><h3>Elite</h3><p>49,99€/mese – Tutti i segnali + strumenti</p></div>
+  </section>
 
-    <section id="notizie" class="section">
-      <h2>Notizie</h2>
-      <div class="card">🌍 Crisi geopolitica in Europa dell’Est: impatto su EUR e Oro</div>
-      <div class="card">📊 AAPL rilascia trimestrale sopra le attese: +7% after-market</div>
-    </section>
+  <section id="segnali">
+    <h2>Segnali Attivi (Crypto)</h2>
+    <div class="card"><h3>BTC/USDT</h3><p>Buy Zone: 60.300 – 61.100<br>Target: 65.000<br><span class="small">Analisi tecnica + ciclica</span></p></div>
+    <div class="card"><h3>ETH/USDT</h3><p>Buy Zone: 3.250 – 3.400<br>Target: 3.800<br><span class="small">Supporto su RSI</span></p></div>
+    <h2>Segnali Attivi (Azioni)</h2>
+    <div class="card"><h3>Apple (AAPL)</h3><p>Buy above: 210$ – Target: 235$</p></div>
+    <div class="card"><h3>Tesla (TSLA)</h3><p>Buy above: 185$ – Target: 215$</p></div>
+    <h2>Metalli Preziosi</h2>
+    <div class="card"><h3>Oro (XAU/USD)</h3><p>Buy: 2.310$ – Target: 2.400$</p></div>
+  </section>
 
-    <section id="console" class="section">
-      <h2>Console</h2>
-      <div class="card">Saldo Simulato: €12.300</div>
-      <div class="card">Ultimo segnale seguito: ETH - BUY</div>
-      <div class="card">Andamento ultimi 7 giorni: +4.9%</div>
-    </section>
+  <section id="notizie">
+    <h2>Notizie</h2>
+    <div class="card"><h3>Bitcoin supera i 65.000$</h3><p>Analisti bullish in vista del Q3. Fonte: Investing</p></div>
+    <div class="card"><h3>Inflazione USA rallenta</h3><p>Fed conferma tassi fermi. Fonte: EU Finance</p></div>
+  </section>
 
-    <section id="profilo" class="section">
-      <h2>Profilo</h2>
-      <div class="card">
-        <label class="label">Lingua:</label>
-        <select><option>Italiano</option><option>English</option></select>
-        <label class="label">Valuta:</label>
-        <select><option>EUR</option><option>USD</option><option>BTC</option></select>
-      </div>
-      <div class="card">
-        <label class="label">Piano attivo:</label>
-        <select>
-          <option>Free con ADS</option>
-          <option>Base</option>
-          <option>Pro</option>
-          <option>Elite</option>
-          <option>Verus</option>
-        </select>
-        <p style="margin-top:10px;">Funzionalità simulate. Aggiorna per vedere i cambiamenti.</p>
-      </div>
-    </section>
-  </main>
+  <section id="console">
+    <h2>Grafico BTC</h2>
+    <div class="card">
+      <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1D&theme=dark"
+              style="width:100%;height:400px;border:0;"></iframe>
+    </div>
+  </section>
 
-  <nav>
-    <button onclick="show('segnali')" class="active">Segnali</button>
-    <button onclick="show('grafici')">Grafici</button>
-    <button onclick="show('notizie')">Notizie</button>
-    <button onclick="show('console')">Console</button>
-    <button onclick="show('profilo')">Profilo</button>
-  </nav>
+  <section id="profilo">
+    <h2>Profilo</h2>
+    <div class="card"><strong>Email:</strong> perrym@hotmail.it</div>
+    <div class="card"><strong>Piano Attivo:</strong> Pro</div>
+    <div class="card">
+      <label for="lingua">Lingua:</label>
+      <select id="lingua">
+        <option>Italiano</option>
+        <option>English</option>
+        <option>Español</option>
+      </select><br><br>
+      <label for="valuta">Valuta:</label>
+      <select id="valuta">
+        <option>EUR</option>
+        <option>USD</option>
+        <option>BTC</option>
+      </select>
+    </div>
+  </section>
+</div>
 
-  <script>
-    function show(id) {
-      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-      document.querySelector(`#${id}`).classList.add('active');
-      document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-    }
-  </script>
+<nav>
+  <button onclick="mostra('piani')">Piani</button>
+  <button onclick="mostra('segnali')">Segnali</button>
+  <button onclick="mostra('notizie')">Notizie</button>
+  <button onclick="mostra('console')">Console</button>
+  <button onclick="mostra('profilo')">Profilo</button>
+</nav>
+
+<script>
+  function mostra(id) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+</script>
+
 </body>
 </html>
