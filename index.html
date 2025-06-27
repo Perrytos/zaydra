@@ -2,135 +2,136 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2598120184569994"
+     crossorigin="anonymous"></script>
   <title>Signalyx – Think Less. Trade Best.</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
   <style>
     body {
-      background-color: #0d0d0d;
-      color: #f0f0f0;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
+      background-color: #0a0a0a;
+      color: #f0f0f0;
     }
-    header, nav {
-      background-color: #111;
-      padding: 1rem;
-      text-align: center;
+    .splash {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #000;
+      animation: fadeOut 2s ease 3s forwards;
     }
-    header img {
-      max-height: 80px;
-      margin-bottom: 0.5rem;
+    .splash img {
+      width: 150px;
     }
-    .section {
-      padding: 2rem 1rem;
-    }
-    .card {
-      background-color: #1a1a1a;
-      border: none;
-      color: #fff;
-    }
-    .btn-primary {
-      background-color: #03dac5;
-      border: none;
-    }
-    .nav-tabs .nav-link.active {
-      background-color: #03dac5;
-      color: #000;
-    }
-    .alert-cps {
-      background-color: #333;
-      border-left: 5px solid #ff9800;
-      padding: 1rem;
-      margin: 1rem 0;
-    }
-    .footer {
-      background-color: #111;
-      text-align: center;
-      padding: 1rem;
+    .splash h1 {
+      margin-top: 20px;
+      font-size: 1.4em;
       color: #999;
-      font-size: 0.9rem;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    .dashboard {
+      display: none;
+      padding: 20px;
+    }
+    .visible {
+      display: block !important;
+    }
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      background-color: #111;
+      border-top: 1px solid #333;
+    }
+    nav button {
+      flex: 1;
+      padding: 15px;
+      font-size: 1em;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    nav button:hover {
+      background-color: #222;
+    }
+    section {
+      display: none;
+      padding: 20px;
+    }
+    section.active {
+      display: block;
     }
   </style>
 </head>
 <body>
-
-<header>
-  <img src="assets/logo.PNG" alt="Signalyx Logo"/>
-  <h2>Signalyx – Think Less. Trade Best.</h2>
-</header>
-
-<nav class="nav nav-tabs justify-content-center">
-  <a class="nav-link active" href="#">Dashboard</a>
-  <a class="nav-link" href="#piani">Piani</a>
-  <a class="nav-link" href="#segnali">Segnali</a>
-  <a class="nav-link" href="#grafici">Grafici</a>
-  <a class="nav-link" href="#insight">Insight</a>
-  <a class="nav-link" href="#contatti">Contattaci</a>
-</nav>
-
-<main class="section">
-  <div id="dashboard" class="container">
-    <h3>Benvenuto, Marco</h3>
-    <p>Piano attivo: <strong>PRO</strong> — <a href="#piani" class="btn btn-sm btn-primary">Cambia piano</a></p>
-
-    <div class="alert-cps">
-      🎯 <strong>Promo attiva:</strong> Sconto del 20% se paghi in cripto (RSI &lt; 30, media 200W positiva).
-    </div>
-
-    <h5>Console</h5>
-    <iframe src="https://s.tradingview.com/embed-widget/symbol-overview/?locale=it#{"symbols":[{"s":"BINANCE:BTCUSDT"}],"width":"100%","height":"300"}" width="100%" height="300" frameborder="0"></iframe>
+  <div class="splash">
+    <img src="assets/logo.PNG" alt="Signalyx Logo">
+    <h1>Think Less. Trade Best.</h1>
   </div>
 
-  <div id="piani" class="section">
-    <h4>Piani disponibili</h4>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col"><div class="card p-3"><h5>Free (con ADS)</h5><p>Accesso limitato con annunci</p><p><strong>0€/mese</strong></p></div></div>
-      <div class="col"><div class="card p-3"><h5>Free (senza ADS)</h5><p>Accesso base senza annunci</p><p><strong>1,99€/mese</strong></p></div></div>
-      <div class="col"><div class="card p-3"><h5>Base</h5><p>1 segnale/giorno</p><p><strong>9,99€/mese</strong></p></div></div>
-      <div class="col"><div class="card p-3"><h5>Pro</h5><p>Accesso avanzato, segnali crypto e azioni</p><p><strong>24,99€/mese</strong></p></div></div>
-      <div class="col"><div class="card p-3"><h5>Elite</h5><p>Segnali + notizie premium + dashboard pro</p><p><strong>49,99€/mese</strong></p></div></div>
-      <div class="col"><div class="card p-3"><h5>Verus (Istituzionale)</h5><p>Accesso completo + Project Omen</p><p><strong>149€/mese</strong></p></div></div>
-    </div>
+  <div class="dashboard visible">
+    <section id="dashboard" class="active">
+      <h2>Dashboard</h2>
+      <p>Benvenuto, Marco. Piano attivo: <strong>PRO</strong> — <button onclick="alert('Cambio piano non ancora attivo')">Cambia piano</button></p>
+    </section>
+
+    <section id="piani">
+      <h2>Piani disponibili</h2>
+      <ul>
+        <li><strong>Free con ADS</strong>: 0€/mese</li>
+        <li><strong>Free senza ADS</strong>: 1,99€/mese</li>
+        <li><strong>PRO</strong>: 24,99€/mese</li>
+      </ul>
+    </section>
+
+    <section id="segnali">
+      <h2>Segnali</h2>
+      <p>BTC/USD → Buy Area 60.800$ - 61.300$</p>
+      <p>ETH/USD → Hold sotto 3.600$</p>
+    </section>
+
+    <section id="grafici">
+      <h2>Grafici</h2>
+      <iframe src="https://www.tradingview.com/embed-widget/symbol-overview/?symbols=COINBASE%3ABTCUSD&locale=it" width="100%" height="400"></iframe>
+    </section>
+
+    <section id="insight">
+      <h2>Insight</h2>
+      <p>Le balene stanno accumulando BTC nei range di 61k. Gli ETF stanno rallentando ma il Net Flow è positivo.</p>
+    </section>
+
+    <section id="contatti">
+      <h2>Contattaci</h2>
+      <p><strong>Supporto diretto</strong>: attivo via AI 24h</p>
+      <p><strong>Suggerimenti</strong>: invia un'email anonima al nostro sistema di idee.</p>
+    </section>
   </div>
 
-  <div id="segnali" class="section">
-    <h4>📈 Segnali attivi</h4>
-    <ul>
-      <li><strong>BTC/USDT</strong> – Buy area 59.200-60.500 – Target 64.500 – Stop 58.200</li>
-      <li><strong>ETH/USDT</strong> – Accumulo zona 3.180 – Target 3.480 – Stop 3.040</li>
-      <li><strong>Gold (XAU/USD)</strong> – Long su breakout 2.380 – Target 2.460</li>
-    </ul>
-  </div>
+  <nav>
+    <button onclick="showSection('dashboard')">Dashboard</button>
+    <button onclick="showSection('piani')">Piani</button>
+    <button onclick="showSection('segnali')">Segnali</button>
+    <button onclick="showSection('grafici')">Grafici</button>
+    <button onclick="showSection('insight')">Insight</button>
+    <button onclick="showSection('contatti')">Contattaci</button>
+  </nav>
 
-  <div id="grafici" class="section">
-    <h4>📊 Grafici & Strumenti</h4>
-    <iframe src="https://s.tradingview.com/embed-widget/advanced-chart/?symbol=BINANCE:BTCUSDT&theme=dark&studies=RSI;MA" width="100%" height="500" frameborder="0"></iframe>
-  </div>
+  <script>
+    setTimeout(() => {
+      document.querySelector('.splash').style.display = 'none';
+      document.querySelector('.dashboard').classList.add('visible');
+    }, 4000);
 
-  <div id="insight" class="section">
-    <h4>🔍 Insight</h4>
-    <p>Contenuti esclusivi, alert, macro-cicli, analisi fondatore. Accessibili con piani Pro o superiori.</p>
-    <ul>
-      <li>📅 Halving Bitcoin: analisi impatto storico</li>
-      <li>📊 Flussi on-chain vs cicli macro</li>
-      <li>🔐 Project Omen attivo per fondatore (ore 11:40, 25 giugno)</li>
-    </ul>
-  </div>
-
-  <div id="contatti" class="section">
-    <h4>📬 Contattaci</h4>
-    <p>Hai bisogno di aiuto o vuoi inviare un suggerimento?</p>
-    <ul>
-      <li><strong>Supporto diretto:</strong> supporto@signalyx.ai</li>
-      <li><strong>Idee / proposte:</strong> suggerimenti@signalyx.ai</li>
-    </ul>
-  </div>
-</main>
-
-<footer class="footer">
-  Signalyx © 2025 – Tutti i diritti riservati.
-</footer>
-
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
 </body>
 </html>
