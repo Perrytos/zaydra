@@ -4,122 +4,210 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signalyx – Think Less. Trade Best.</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" />
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0d1117;
-      color: #c9d1d9;
+      padding: 0;
     }
-    .splash {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-color: #0d1117;
-      animation: fadeOut 1.2s ease-in-out 2s forwards;
+    body {
+      background-color: #0e0e0e;
+      color: #fff;
+      padding-bottom: 60px;
     }
-    .splash img {
+    header {
+      text-align: center;
+      padding: 40px 10px 10px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    header img {
       width: 180px;
-      margin-bottom: 20px;
+      height: auto;
+      animation: zoomIn 1.8s ease-in-out;
+      border-radius: 0;
     }
-    .splash h1 {
+    header h1 {
       font-size: 22px;
-      font-weight: 500;
-      color: #58a6ff;
-    }
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-    .main-content {
-      display: none;
-      padding: 20px;
-    }
-    .active {
-      display: block !important;
+      margin-top: 8px;
+      opacity: 0.9;
     }
     nav {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background: #161b22;
+      background-color: #111;
       display: flex;
       justify-content: space-around;
-      border-top: 1px solid #30363d;
+      border-top: 1px solid #333;
+      padding: 10px 0;
     }
     nav button {
       background: none;
       border: none;
-      color: #c9d1d9;
-      padding: 15px;
+      color: #bbb;
       font-size: 14px;
+    }
+    nav button:hover {
+      color: #fff;
     }
     .section {
       display: none;
+      padding: 20px;
     }
-    .section.active {
+    .active {
       display: block;
     }
     h2 {
-      border-bottom: 1px solid #30363d;
-      padding-bottom: 10px;
+      margin-bottom: 10px;
+      font-size: 20px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 5px;
+    }
+    .card {
+      background: #1c1c1c;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 6px;
+    }
+    select {
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 6px;
+      margin-bottom: 15px;
+    }
+    a {
+      color: #00bcd4;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0 }
+      to { transform: scale(1); opacity: 1 }
     }
   </style>
 </head>
 <body>
-
-  <div class="splash" id="splash">
-    <img src="assets/logo.PNG" alt="Signalyx Logo">
+  <header>
+    <img src="assets/logo.PNG" alt="Logo Signalyx">
     <h1>Think Less. Trade Best.</h1>
+  </header>
+
+  <div class="section active" id="dashboard">
+    <h2>Dashboard</h2>
+    <p>Piano attivo: <strong>PRO</strong></p>
+    <p>Lingua: 
+      <select id="langSelect">
+        <option>Italiano</option>
+        <option>English</option>
+        <option>Español</option>
+        <option>Français</option>
+        <option>Deutsch</option>
+        <option>中文</option>
+        <option>Русский</option>
+        <option>عربي</option>
+      </select>
+    </p>
+    <p>Valuta: 
+      <select id="currencySelect">
+        <option>EUR</option>
+        <option>USD</option>
+        <option>GBP</option>
+        <option>BTC</option>
+        <option>ETH</option>
+        <option>USDT</option>
+      </select>
+    </p>
   </div>
 
-  <div class="main-content" id="mainContent">
-    <div id="dashboard" class="section active">
-      <h2>Dashboard</h2>
-      <p>Benvenuto su Signalyx. Qui troverai segnali, analisi e strumenti per investire meglio.</p>
+  <div class="section" id="signals">
+    <h2>Segnali</h2>
+    <div class="card">
+      <p><strong>BTC/USDT</strong></p>
+      <p>📈 Long • Ingresso: 63.200 • Target: 65.800 • SL: 61.900</p>
+      <p>Motivazione: RSI in crescita + supporto 62K + ripresa macro.</p>
     </div>
-    <div id="segnali" class="section">
-      <h2>Segnali</h2>
-      <p>📈 Segnale BTC: BUY — RSI 30 + Supporto Ciclico<br/>
-      Target: 72.400€ — Stop: 66.800€</p>
+    <div class="card">
+      <p><strong>GOLD/USD</strong></p>
+      <p>📉 Short • Ingresso: 2355 • Target: 2300 • SL: 2380</p>
+      <p>Motivazione: break-out al ribasso, inflazione stabile.</p>
     </div>
-    <div id="grafici" class="section">
-      <h2>Grafici</h2>
-      <iframe src="https://www.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1h&theme=dark" width="100%" height="400" frameborder="0"></iframe>
+  </div>
+
+  <div class="section" id="charts">
+    <h2>Grafici Reali</h2>
+    <p>
+      Asset: 
+      <select onchange="updateChart(this.value)">
+        <option value="BTCUSD">BTC</option>
+        <option value="ETHUSD">ETH</option>
+        <option value="AAPL">Apple</option>
+        <option value="XAUUSD">Oro</option>
+      </select>
+    </p>
+    <iframe id="tradingview" src="https://www.tradingview.com/embed-widget/mini-symbol-overview/?symbol=BITSTAMP:BTCUSD" width="100%" height="300" frameborder="0"></iframe>
+  </div>
+
+  <div class="section" id="news">
+    <h2>Notizie</h2>
+    <div class="card">
+      <p><strong>Bitcoin oltre i 64K</strong></p>
+      <p>Il mercato delle criptovalute si muove con entusiasmo...</p>
+      <a href="https://www.investing.com/news/" target="_blank">Apri notizia</a>
     </div>
-    <div id="notizie" class="section">
-      <h2>Notizie</h2>
-      <ul>
-        <li><b>Bitcoin:</b> Goldman Sachs rivede target 2025</li>
-        <li><b>Geopolitica:</b> Cresce la tensione in Asia Pacifico</li>
-      </ul>
+    <div class="card">
+      <p><strong>Gold sotto pressione</strong></p>
+      <p>I dati macro spingono l'oro verso livelli più bassi...</p>
+      <a href="https://www.investing.com/news/" target="_blank">Apri notizia</a>
     </div>
-    <div id="profilo" class="section">
-      <h2>Profilo</h2>
-      <p>Email: perrym@hotmail.it<br/>Piano Attivo: PRO<br/>Lingua: Italiano<br/>Valuta: EUR</p>
-    </div>
+  </div>
+
+  <div class="section" id="profile">
+    <h2>Profilo</h2>
+    <p>Email: <strong>perrym@hotmail.it</strong></p>
+    <p>Piano attivo: <strong>PRO</strong></p>
+    <p>Lingua: <span id="langStatus">Italiano</span></p>
+    <p>Valuta: <span id="currStatus">EUR</span></p>
+    <p><a href="#">Gestisci abbonamento</a></p>
+  </div>
+
+  <div class="section" id="contact">
+    <h2>Contattaci</h2>
+    <p><a href="mailto:support@signalyx.com">Supporto diretto</a></p>
+    <p><a href="mailto:idea@signalyx.com">Suggerimenti o idee</a></p>
   </div>
 
   <nav>
-    <button onclick="showSection('dashboard')">🏠 Dashboard</button>
-    <button onclick="showSection('segnali')">📊 Segnali</button>
-    <button onclick="showSection('grafici')">📈 Grafici</button>
-    <button onclick="showSection('notizie')">📰 Notizie</button>
-    <button onclick="showSection('profilo')">👤 Profilo</button>
+    <button onclick="showSection('dashboard')">🏠</button>
+    <button onclick="showSection('signals')">📊</button>
+    <button onclick="showSection('charts')">📈</button>
+    <button onclick="showSection('news')">📰</button>
+    <button onclick="showSection('profile')">👤</button>
   </nav>
 
   <script>
-    setTimeout(() => {
-      document.getElementById('splash').style.display = 'none';
-      document.getElementById('mainContent').classList.add('active');
-    }, 2200);
-
     function showSection(id) {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
-  </script>
 
+    function updateChart(asset) {
+      const src = `https://www.tradingview.com/embed-widget/mini-symbol-overview/?symbol=${asset}`;
+      document.getElementById('tradingview').src = src;
+    }
+
+    document.getElementById('langSelect').addEventListener('change', function() {
+      document.getElementById('langStatus').textContent = this.value;
+    });
+    document.getElementById('currencySelect').addEventListener('change', function() {
+      document.getElementById('currStatus').textContent = this.value;
+    });
+  </script>
 </body>
 </html>
