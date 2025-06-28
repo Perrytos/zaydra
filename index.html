@@ -4,61 +4,122 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signalyx – Think Less. Trade Best.</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="app.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    .splash {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #0d1117;
+      animation: fadeOut 1.2s ease-in-out 2s forwards;
+    }
+    .splash img {
+      width: 180px;
+      margin-bottom: 20px;
+    }
+    .splash h1 {
+      font-size: 22px;
+      font-weight: 500;
+      color: #58a6ff;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    .main-content {
+      display: none;
+      padding: 20px;
+    }
+    .active {
+      display: block !important;
+    }
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #161b22;
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid #30363d;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #c9d1d9;
+      padding: 15px;
+      font-size: 14px;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+    h2 {
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-  <!-- SPLASH SCREEN -->
-  <div id="splash">
-    <img src="assets/logo.PNG" alt="Signalyx Logo" />
+
+  <div class="splash" id="splash">
+    <img src="assets/logo.PNG" alt="Signalyx Logo">
     <h1>Think Less. Trade Best.</h1>
   </div>
 
-  <!-- NAVIGATION -->
+  <div class="main-content" id="mainContent">
+    <div id="dashboard" class="section active">
+      <h2>Dashboard</h2>
+      <p>Benvenuto su Signalyx. Qui troverai segnali, analisi e strumenti per investire meglio.</p>
+    </div>
+    <div id="segnali" class="section">
+      <h2>Segnali</h2>
+      <p>📈 Segnale BTC: BUY — RSI 30 + Supporto Ciclico<br/>
+      Target: 72.400€ — Stop: 66.800€</p>
+    </div>
+    <div id="grafici" class="section">
+      <h2>Grafici</h2>
+      <iframe src="https://www.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1h&theme=dark" width="100%" height="400" frameborder="0"></iframe>
+    </div>
+    <div id="notizie" class="section">
+      <h2>Notizie</h2>
+      <ul>
+        <li><b>Bitcoin:</b> Goldman Sachs rivede target 2025</li>
+        <li><b>Geopolitica:</b> Cresce la tensione in Asia Pacifico</li>
+      </ul>
+    </div>
+    <div id="profilo" class="section">
+      <h2>Profilo</h2>
+      <p>Email: perrym@hotmail.it<br/>Piano Attivo: PRO<br/>Lingua: Italiano<br/>Valuta: EUR</p>
+    </div>
+  </div>
+
   <nav>
-    <button onclick="navigate('dashboard')">Dashboard</button>
-    <button onclick="navigate('segnali')">Segnali</button>
-    <button onclick="navigate('grafici')">Grafici</button>
-    <button onclick="navigate('console')">Console</button>
-    <button onclick="navigate('profilo')">Profilo</button>
+    <button onclick="showSection('dashboard')">🏠 Dashboard</button>
+    <button onclick="showSection('segnali')">📊 Segnali</button>
+    <button onclick="showSection('grafici')">📈 Grafici</button>
+    <button onclick="showSection('notizie')">📰 Notizie</button>
+    <button onclick="showSection('profilo')">👤 Profilo</button>
   </nav>
 
-  <!-- CONTENUTI -->
-  <main id="content">
-    <!-- Le sezioni verranno caricate dinamicamente qui -->
-  </main>
-
-  <!-- SCRIPT -->
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      setTimeout(() => {
-        document.getElementById("splash").style.display = "none";
-        navigate("dashboard");
-      }, 2000);
-    });
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('mainContent').classList.add('active');
+    }, 2200);
 
-    function navigate(page) {
-      const content = document.getElementById("content");
-      content.innerHTML = `<h2>${page.toUpperCase()}</h2><p>Contenuto in caricamento...</p>`;
-      // Simula contenuti
-      switch (page) {
-        case 'dashboard':
-          content.innerHTML += "<p>Benvenuto su Signalyx. Dashboard personalizzata attiva.</p>";
-          break;
-        case 'segnali':
-          content.innerHTML += "<p><strong>Segnale BTC:</strong> BUY — RSI < 30, supporto storico confermato.</p>";
-          break;
-        case 'grafici':
-          content.innerHTML += "<iframe src='https://www.tradingview.com/chart/' width='100%' height='500'></iframe>";
-          break;
-        case 'console':
-          content.innerHTML += "<p>Strumenti tecnici: RSI, Fibonacci, Medie mobili. Coming soon.</p>";
-          break;
-        case 'profilo':
-          content.innerHTML += "<p>Email: perrym@hotmail.it<br>Piano: PRO</p>";
-          break;
-      }
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
   </script>
+
 </body>
 </html>
