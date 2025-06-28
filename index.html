@@ -1,213 +1,152 @@
+<!-- INDEX.HTML - VERSIONE AVANZATA SIGNALYX 100% -->
+<!-- Splash screen, logo animato -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signalyx – Think Less. Trade Best.</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
+    body {
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
     }
-    body {
-      background-color: #0e0e0e;
-      color: #fff;
-      padding-bottom: 60px;
+    #splash {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      animation: fadeOut 2s ease-in-out 3s forwards;
+      background-color: #0a0a0a;
     }
-    header {
-      text-align: center;
-      padding: 40px 10px 10px;
-      animation: fadeIn 2s ease-in-out;
-    }
-    header img {
+    #splash img {
       width: 180px;
       height: auto;
-      animation: zoomIn 1.8s ease-in-out;
-      border-radius: 0;
+      animation: zoomIn 1.5s ease-out;
     }
-    header h1 {
-      font-size: 22px;
-      margin-top: 8px;
-      opacity: 0.9;
+    #splash h1 {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-top: 12px;
     }
-    nav {
+    @keyframes zoomIn {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; display: none; }
+    }
+    #mainApp {
+      display: none;
+      padding-bottom: 60px;
+    }
+    .tab-content {
+      padding: 16px;
+    }
+    .nav-bottom {
       position: fixed;
       bottom: 0;
-      width: 100%;
-      background-color: #111;
+      left: 0;
+      right: 0;
+      background-color: #1a1a1a;
       display: flex;
       justify-content: space-around;
-      border-top: 1px solid #333;
       padding: 10px 0;
+      border-top: 1px solid #333;
     }
-    nav button {
+    .nav-bottom button {
       background: none;
       border: none;
-      color: #bbb;
+      color: #ccc;
       font-size: 14px;
     }
-    nav button:hover {
-      color: #fff;
-    }
-    .section {
-      display: none;
-      padding: 20px;
-    }
-    .active {
-      display: block;
-    }
-    h2 {
-      margin-bottom: 10px;
-      font-size: 20px;
-      border-bottom: 1px solid #333;
-      padding-bottom: 5px;
-    }
-    .card {
-      background: #1c1c1c;
-      margin-bottom: 15px;
-      padding: 15px;
-      border-radius: 6px;
-    }
-    select {
-      background: #222;
-      color: #fff;
-      border: 1px solid #444;
-      padding: 6px;
-      margin-bottom: 15px;
-    }
-    a {
-      color: #00bcd4;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0 }
-      to { opacity: 1 }
-    }
-
-    @keyframes zoomIn {
-      from { transform: scale(0.8); opacity: 0 }
-      to { transform: scale(1); opacity: 1 }
+    .nav-bottom button.active {
+      color: #00ff88;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="assets/logo.PNG" alt="Logo Signalyx">
-    <h1>Think Less. Trade Best.</h1>
-  </header>
 
-  <div class="section active" id="dashboard">
-    <h2>Dashboard</h2>
-    <p>Piano attivo: <strong>PRO</strong></p>
-    <p>Lingua: 
-      <select id="langSelect">
+<div id="splash">
+  <img src="assets/logo.PNG" alt="Signalyx Logo">
+  <h1>Think Less. Trade Best.</h1>
+</div>
+
+<div id="mainApp">
+  <div class="tab-content" id="content-area">
+    <div id="dashboard" style="display:block;">
+      <h2>Dashboard</h2>
+      <p>Benvenuto su Signalyx. Seleziona una sezione in basso per iniziare.</p>
+    </div>
+    <div id="signals" style="display:none;">
+      <h2>Segnali Attivi</h2>
+      <div class="card bg-dark text-white mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Bitcoin (BTC)</h5>
+          <p class="card-text">Segnale: Compra — RSI in zona ipervenduto, supporto 200MA mantenuto.</p>
+          <p class="card-text"><small>Prezzo di ingresso: $63,200 | Target: $68,500 | Stop: $60,800</small></p>
+        </div>
+      </div>
+    </div>
+    <div id="charts" style="display:none;">
+      <h2>Grafici</h2>
+      <iframe src="https://www.tradingview.com/embed-widget/symbol-overview/?locale=it&symbols=BTCUSD,ETHUSD,SPX500USD" width="100%" height="400" frameborder="0"></iframe>
+    </div>
+    <div id="news" style="display:none;">
+      <h2>Notizie</h2>
+      <ul>
+        <li><a href="https://www.investing.com/news/" target="_blank">Investing.com – Ultime Notizie</a></li>
+        <li><a href="https://cryptonews.com/news/" target="_blank">CryptoNews – Cripto aggiornamenti</a></li>
+      </ul>
+    </div>
+    <div id="profile" style="display:none;">
+      <h2>Profilo</h2>
+      <p>Email: perrym@hotmail.it</p>
+      <label for="lang">Lingua:</label>
+      <select id="lang">
         <option>Italiano</option>
         <option>English</option>
         <option>Español</option>
-        <option>Français</option>
-        <option>Deutsch</option>
-        <option>中文</option>
-        <option>Русский</option>
-        <option>عربي</option>
-      </select>
-    </p>
-    <p>Valuta: 
-      <select id="currencySelect">
+      </select><br/>
+      <label for="currency">Valuta:</label>
+      <select id="currency">
         <option>EUR</option>
         <option>USD</option>
-        <option>GBP</option>
         <option>BTC</option>
-        <option>ETH</option>
-        <option>USDT</option>
       </select>
-    </p>
-  </div>
-
-  <div class="section" id="signals">
-    <h2>Segnali</h2>
-    <div class="card">
-      <p><strong>BTC/USDT</strong></p>
-      <p>📈 Long • Ingresso: 63.200 • Target: 65.800 • SL: 61.900</p>
-      <p>Motivazione: RSI in crescita + supporto 62K + ripresa macro.</p>
-    </div>
-    <div class="card">
-      <p><strong>GOLD/USD</strong></p>
-      <p>📉 Short • Ingresso: 2355 • Target: 2300 • SL: 2380</p>
-      <p>Motivazione: break-out al ribasso, inflazione stabile.</p>
     </div>
   </div>
+</div>
 
-  <div class="section" id="charts">
-    <h2>Grafici Reali</h2>
-    <p>
-      Asset: 
-      <select onchange="updateChart(this.value)">
-        <option value="BTCUSD">BTC</option>
-        <option value="ETHUSD">ETH</option>
-        <option value="AAPL">Apple</option>
-        <option value="XAUUSD">Oro</option>
-      </select>
-    </p>
-    <iframe id="tradingview" src="https://www.tradingview.com/embed-widget/mini-symbol-overview/?symbol=BITSTAMP:BTCUSD" width="100%" height="300" frameborder="0"></iframe>
-  </div>
+<div class="nav-bottom">
+  <button onclick="showTab('dashboard')" class="active">Dashboard</button>
+  <button onclick="showTab('signals')">Segnali</button>
+  <button onclick="showTab('charts')">Grafici</button>
+  <button onclick="showTab('news')">Notizie</button>
+  <button onclick="showTab('profile')">Profilo</button>
+</div>
 
-  <div class="section" id="news">
-    <h2>Notizie</h2>
-    <div class="card">
-      <p><strong>Bitcoin oltre i 64K</strong></p>
-      <p>Il mercato delle criptovalute si muove con entusiasmo...</p>
-      <a href="https://www.investing.com/news/" target="_blank">Apri notizia</a>
-    </div>
-    <div class="card">
-      <p><strong>Gold sotto pressione</strong></p>
-      <p>I dati macro spingono l'oro verso livelli più bassi...</p>
-      <a href="https://www.investing.com/news/" target="_blank">Apri notizia</a>
-    </div>
-  </div>
+<script>
+  setTimeout(() => {
+    document.getElementById('splash').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+  }, 3500);
 
-  <div class="section" id="profile">
-    <h2>Profilo</h2>
-    <p>Email: <strong>perrym@hotmail.it</strong></p>
-    <p>Piano attivo: <strong>PRO</strong></p>
-    <p>Lingua: <span id="langStatus">Italiano</span></p>
-    <p>Valuta: <span id="currStatus">EUR</span></p>
-    <p><a href="#">Gestisci abbonamento</a></p>
-  </div>
-
-  <div class="section" id="contact">
-    <h2>Contattaci</h2>
-    <p><a href="mailto:support@signalyx.com">Supporto diretto</a></p>
-    <p><a href="mailto:idea@signalyx.com">Suggerimenti o idee</a></p>
-  </div>
-
-  <nav>
-    <button onclick="showSection('dashboard')">🏠</button>
-    <button onclick="showSection('signals')">📊</button>
-    <button onclick="showSection('charts')">📈</button>
-    <button onclick="showSection('news')">📰</button>
-    <button onclick="showSection('profile')">👤</button>
-  </nav>
-
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    function updateChart(asset) {
-      const src = `https://www.tradingview.com/embed-widget/mini-symbol-overview/?symbol=${asset}`;
-      document.getElementById('tradingview').src = src;
-    }
-
-    document.getElementById('langSelect').addEventListener('change', function() {
-      document.getElementById('langStatus').textContent = this.value;
+  function showTab(tabId) {
+    const tabs = ['dashboard', 'signals', 'charts', 'news', 'profile'];
+    tabs.forEach(id => {
+      document.getElementById(id).style.display = id === tabId ? 'block' : 'none';
     });
-    document.getElementById('currencySelect').addEventListener('change', function() {
-      document.getElementById('currStatus').textContent = this.value;
-    });
-  </script>
+    document.querySelectorAll('.nav-bottom button').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+</script>
+
 </body>
 </html>
