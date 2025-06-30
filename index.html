@@ -3,113 +3,207 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signalyx Login</title>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
-      authDomain: "signalyx-web.firebaseapp.com",
-      projectId: "signalyx-web",
-      storageBucket: "signalyx-web.appspot.com",
-      messagingSenderId: "276327742476",
-      appId: "1:276327742476:web:5fde294924542ddae10229",
-      measurementId: "G-9C6GY4132W"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const emailInput = document.getElementById("email");
-      const passwordInput = document.getElementById("password");
-      const registerBtn = document.getElementById("register");
-      const loginBtn = document.getElementById("login");
-      const logoutBtn = document.getElementById("logout");
-      const statusDiv = document.getElementById("status");
-
-      registerBtn.addEventListener("click", async () => {
-        try {
-          await createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
-        } catch (error) {
-          alert("Errore registrazione: " + error.message);
-        }
-      });
-
-      loginBtn.addEventListener("click", async () => {
-        try {
-          await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
-        } catch (error) {
-          alert("Errore login: " + error.message);
-        }
-      });
-
-      logoutBtn.addEventListener("click", async () => {
-        await signOut(auth);
-      });
-
-      onAuthStateChanged(auth, user => {
-        if (user) {
-          statusDiv.textContent = "✅ Utente loggato: " + user.email;
-        } else {
-          statusDiv.textContent = "❌ Nessun utente loggato.";
-        }
-      });
-    });
-  </script>
-
+  <title>Signalyx</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <style>
     body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #111;
       color: white;
-      font-family: Arial, sans-serif;
       text-align: center;
-      padding: 30px;
     }
-
-    input {
+    h1 {
+      margin-top: 40px;
+      font-size: 28px;
+    }
+    input, select {
       display: block;
       margin: 10px auto;
       padding: 10px;
+      font-size: 16px;
       width: 80%;
       max-width: 300px;
     }
-
     button {
-      margin: 10px;
       padding: 10px 20px;
-      font-weight: bold;
+      margin: 5px;
+      font-size: 16px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      color: white;
     }
-
-    #register { background-color: #007bff; color: white; }
-    #login { background-color: #28a745; color: white; }
-    #logout { background-color: #dc3545; color: white; }
-
-    h1 {
-      margin-bottom: 10px;
+    .btn-blue { background-color: #007bff; }
+    .btn-green { background-color: #28a745; }
+    .btn-red { background-color: #dc3545; }
+    .section {
+      display: none;
+      margin-top: 20px;
     }
-
-    .logo {
-      font-size: 24px;
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #222;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+    .nav button {
+      flex: 1;
+      background: none;
+      color: white;
+      font-size: 16px;
+    }
+    .active {
+      color: #00ff9f;
       font-weight: bold;
-      margin-bottom: 40px;
     }
   </style>
 </head>
 <body>
-  <div class="logo">🔐 Signalyx Test Login</div>
 
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="password" id="password" placeholder="Password" required>
+  <h1>🔐 Signalyx Test Login</h1>
 
-  <button id="register">Registrati</button>
-  <button id="login">Login</button>
-  <button id="logout">Logout</button>
+  <div id="auth-section">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button class="btn-blue" onclick="register()">Registrati</button>
+    <button class="btn-green" onclick="login()">Login</button>
+    <button class="btn-red" onclick="logout()">Logout</button>
+  </div>
 
-  <p id="status">🔄 Verifica stato utente...</p>
+  <p id="user-info" style="margin-top: 20px;"></p>
+
+  <div id="dashboard" class="section">
+    <h2>📊 Dashboard</h2>
+    <p>Benvenuto su Signalyx. Qui vedrai segnali e analisi.</p>
+  </div>
+
+  <div id="piani" class="section">
+    <h2>💼 Piani</h2>
+    <select id="plan-select">
+      <option value="free">Free con ADS</option>
+      <option value="free_no_ads">Free senza ADS</option>
+      <option value="pro">PRO</option>
+    </select>
+    <button onclick="savePlan()">Salva Piano</button>
+  </div>
+
+  <div id="segnali" class="section">
+    <h2>📈 Segnali</h2>
+    <p>(Integrazione reale nella prossima fase)</p>
+  </div>
+
+  <div id="notizie" class="section">
+    <h2>📰 Notizie</h2>
+    <p>(Feed news in arrivo...)</p>
+  </div>
+
+  <div id="profilo" class="section">
+    <h2>👤 Profilo</h2>
+    <label for="lang">Lingua:</label>
+    <select id="lang">
+      <option value="it">Italiano</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+    <label for="currency">Valuta:</label>
+    <select id="currency">
+      <option value="eur">EUR</option>
+      <option value="usd">USD</option>
+      <option value="gbp">GBP</option>
+    </select>
+    <button onclick="savePreferences()">Salva Preferenze</button>
+  </div>
+
+  <div class="nav">
+    <button onclick="show('dashboard')">🏠</button>
+    <button onclick="show('piani')">💼</button>
+    <button onclick="show('segnali')">📈</button>
+    <button onclick="show('notizie')">📰</button>
+    <button onclick="show('profilo')">👤</button>
+  </div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
+    authDomain: "signalyx-web.firebaseapp.com",
+    projectId: "signalyx-web",
+    storageBucket: "signalyx-web.appspot.com",
+    messagingSenderId: "276327742476",
+    appId: "1:276327742476:web:5fde294924542ddae10229",
+    measurementId: "G-9C6GY4132W"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  function register() {
+    const email = emailEl.value;
+    const password = passwordEl.value;
+    auth.createUserWithEmailAndPassword(email, password).catch(alert);
+  }
+
+  function login() {
+    const email = emailEl.value;
+    const password = passwordEl.value;
+    auth.signInWithEmailAndPassword(email, password).catch(alert);
+  }
+
+  function logout() {
+    auth.signOut();
+  }
+
+  const emailEl = document.getElementById('email');
+  const passwordEl = document.getElementById('password');
+  const userInfo = document.getElementById('user-info');
+
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      userInfo.innerHTML = "✅ Utente loggato: " + user.email;
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
+    } else {
+      userInfo.innerHTML = "";
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    }
+  });
+
+  function show(section) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    document.getElementById(section).style.display = 'block';
+  }
+
+  function savePreferences() {
+    const lang = document.getElementById("lang").value;
+    const currency = document.getElementById("currency").value;
+    const user = auth.currentUser;
+    if (user) {
+      db.collection("users").doc(user.uid).set({
+        language: lang,
+        currency: currency
+      }, { merge: true });
+      alert("Preferenze salvate");
+    }
+  }
+
+  function savePlan() {
+    const plan = document.getElementById("plan-select").value;
+    const user = auth.currentUser;
+    if (user) {
+      db.collection("users").doc(user.uid).set({
+        plan: plan
+      }, { merge: true });
+      alert("Piano aggiornato");
+    }
+  }
+
+</script>
+
 </body>
 </html>
