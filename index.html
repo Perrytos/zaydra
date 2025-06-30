@@ -1,120 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SignalX Beta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signalyx – Think Less. Trade Best.</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"/>
   <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#1a1a2e; color:#ececec; }
-    header { display:flex; justify-content: space-between; align-items:center; background:#16213e; padding:10px 20px; }
-    header img { height:40px; }
-    header select { padding:5px; }
-    nav { display:flex; background:#0f3460; }
-    nav button { flex:1; padding:15px; border:none; background:#0f3460; color:#ececec; cursor:pointer; transition:background .3s; }
-    nav button.active, nav button:hover { background:#533483; }
-    main { padding:20px; }
-    .hidden { display:none; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0e0e0e;
+      color: white;
+    }
+    .splash {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #0e0e0e;
+      animation: fadeOut 1s ease-in 3s forwards;
+    }
+    .splash img {
+      width: 180px;
+    }
+    .splash h1 {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      color: #aaa;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    .app {
+      display: none;
+      padding: 20px;
+    }
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #333;
+    }
+    .nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 0.9rem;
+    }
+    .section {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 500px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <img src="assets/logo.png" alt="SignalX Logo" />
-    <select id="langSelect">
-      <option value="it">🇮🇹 Italiano</option>
-      <option value="en">🇬🇧 English</option>
-      <option value="es">🇪🇸 Español</option>
-    </select>
-  </header>
+  <div class="splash" id="splash">
+    <img src="assets/logo.PNG" alt="Signalyx Logo"/>
+    <h1>Think Less. Trade Best.</h1>
+  </div>
 
-  <nav>
-    <button data-page="dashboard" class="active"></button>
-    <button data-page="charts"></button>
-    <button data-page="signals"></button>
-    <button data-page="news"></button>
-    <button data-page="profile"></button>
-  </nav>
+  <div class="app" id="app">
+    <div class="section active" id="dashboard">
+      <h2>Dashboard</h2>
+      <p>Piano: <strong>PRO</strong></p>
+      <p>Email: <strong>perrym@hotmail.it</strong></p>
+    </div>
 
-  <main>
-    <section id="dashboardPage">
-      <h1 data-i18n="dashboard_title"></h1>
-      <p data-i18n="dashboard_welcome"></p>
-    </section>
-    <section id="chartsPage" class="hidden">
-      <h1 data-i18n="charts_title"></h1>
-      <p>🔧 Grafico dimostrativo qui</p>
-    </section>
-    <section id="signalsPage" class="hidden">
-      <h1 data-i18n="signals_title"></h1>
-      <p>🔧 Segnali demo con motivazione.</p>
-    </section>
-    <section id="newsPage" class="hidden">
-      <h1 data-i18n="news_title"></h1>
-      <p>🔧 Notizie vere integrate da feed RSS/News API.</p>
-    </section>
-    <section id="profilePage" class="hidden">
-      <h1 data-i18n="profile_title"></h1>
-      <p data-i18n="profile_info"></p>
-    </section>
-  </main>
+    <div class="section" id="signals">
+      <h2>Segnali Reali</h2>
+      <p>BTC: Long – Supporto su RSI + Notizie bullish</p>
+      <p>ETH: Neutral – Attendere rottura resistenza</p>
+    </div>
+
+    <div class="section" id="charts">
+      <h2>Grafici</h2>
+      <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1H&theme=dark"></iframe>
+    </div>
+
+    <div class="section" id="news">
+      <h2>Notizie</h2>
+      <ul>
+        <li><a href="https://www.investing.com/news/cryptocurrency-news" target="_blank">Crypto: Mercato in ripresa</a></li>
+        <li><a href="https://finance.yahoo.com" target="_blank">Wall Street chiude positiva</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="profile">
+      <h2>Profilo</h2>
+      <label>Lingua:
+        <select id="langSelect">
+          <option value="it">Italiano</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+      </label><br/><br/>
+      <label>Valuta:
+        <select id="currencySelect">
+          <option value="EUR">€ EUR</option>
+          <option value="USD">$ USD</option>
+          <option value="GBP">£ GBP</option>
+          <option value="BTC">₿ BTC</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button onclick="showSection('dashboard')">🏠</button>
+    <button onclick="showSection('signals')">📈</button>
+    <button onclick="showSection('charts')">📊</button>
+    <button onclick="showSection('news')">📰</button>
+    <button onclick="showSection('profile')">👤</button>
+  </div>
 
   <script>
-    const translations = {
-      it: {
-        dashboard_button: "Dashboard", charts_button: "Grafici", signals_button: "Segnali",
-        news_button: "Notizie", profile_button: "Profilo",
-        dashboard_title: "Benvenuto su SignalX", dashboard_welcome: "Questa è la tua dashboard.",
-        charts_title: "Grafici", signals_title: "Segnali", news_title: "Notizie",
-        profile_title: "Il tuo profilo", profile_info: "Modifica lingua, valuta e altre impostazioni."
-      },
-      en: {
-        dashboard_button: "Dashboard", charts_button: "Charts", signals_button: "Signals",
-        news_button: "News", profile_button: "Profile",
-        dashboard_title: "Welcome to SignalX", dashboard_welcome: "This is your dashboard.",
-        charts_title: "Charts", signals_title: "Signals", news_title: "News",
-        profile_title: "Your Profile", profile_info: "Edit language, currency, and settings."
-      },
-      es: {
-        dashboard_button: "Tablero", charts_button: "Gráficos", signals_button: "Señales",
-        news_button: "Noticias", profile_button: "Perfil",
-        dashboard_title: "Bienvenido a SignalX", dashboard_welcome: "Este es tu tablero.",
-        charts_title: "Gráficos", signals_title: "Señales", news_title: "Noticias",
-        profile_title: "Tu Perfil", profile_info: "Edita idioma, moneda y ajustes."
-      }
-    };
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+    }, 3000);
 
-    // Cambia lingua e aggiorna interface
-    function setLanguage(lang) {
-      localStorage.setItem("lang", lang);
-      document.documentElement.lang = lang;
-      document.getElementById("langSelect").value = lang;
-
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        el.textContent = translations[lang][key] || key;
-      });
-
-      document.querySelectorAll("nav button").forEach(btn => {
-        const pageKey = btn.getAttribute("data-page") + "_button";
-        btn.textContent = translations[lang][pageKey] || btn.getAttribute("data-page");
-      });
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
 
-    // Attivazione pagine di navigazione
-    document.querySelectorAll("nav button").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        document.querySelectorAll("main section").forEach(sec => sec.classList.add("hidden"));
-        document.getElementById(btn.getAttribute("data-page") + "Page").classList.remove("hidden");
-      });
+    document.getElementById('langSelect').addEventListener('change', function() {
+      alert("Lingua cambiata in: " + this.options[this.selectedIndex].text + " (simulazione)");
     });
 
-    document.getElementById("langSelect").addEventListener("change", e => {
-      setLanguage(e.target.value);
+    document.getElementById('currencySelect').addEventListener('change', function() {
+      alert("Valuta cambiata in: " + this.options[this.selectedIndex].text + " (simulazione)");
     });
-
-    const savedLang = localStorage.getItem("lang") || navigator.language.slice(0,2);
-    setLanguage(savedLang in translations ? savedLang : "en");
   </script>
 </body>
 </html>
