@@ -5,109 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signalyx – Think Less. Trade Best.</title>
 
-    <!-- ✅ Google AdSense Verification Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2598120184569994" crossorigin="anonymous"></script>
+    <!-- ✅ AdSense Verification -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2598120184569994"
+     crossorigin="anonymous"></script>
 
-    <!-- Stili base -->
     <style>
       body {
         margin: 0;
-        font-family: "Segoe UI", sans-serif;
+        font-family: 'Segoe UI', sans-serif;
         background-color: #0d1117;
         color: #fff;
       }
-      .splash {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background-color: #0d1117;
-        animation: fadeOut 2s ease-in-out forwards;
-        animation-delay: 2s;
-      }
-      .splash img {
-        max-width: 240px;
-        animation: zoomIn 1.5s ease;
-      }
-      @keyframes zoomIn {
-        from {
-          transform: scale(0.6);
-          opacity: 0;
-        }
-        to {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-      @keyframes fadeOut {
-        to {
-          opacity: 0;
-          visibility: hidden;
-        }
-      }
-      .main {
-        display: none;
-        padding: 20px;
-        animation: fadeIn 1s ease forwards;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
+      header, footer {
+        background-color: #161b22;
+        padding: 15px;
+        text-align: center;
       }
       .section {
-        margin-bottom: 30px;
+        padding: 20px;
       }
-      .section h2 {
+      h1, h2 {
         color: #00ffcc;
+      }
+      a {
+        color: #00ffcc;
+        text-decoration: none;
       }
       .btn {
         background-color: #00ffcc;
         color: #000;
         padding: 10px 20px;
         border: none;
-        cursor: pointer;
         border-radius: 6px;
+        cursor: pointer;
+      }
+      iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
       }
     </style>
   </head>
   <body>
-    <!-- Splash screen -->
-    <div class="splash" id="splash">
-      <img src="assets/logo.PNG" alt="Signalyx Logo" />
+    <header>
+      <h1>Signalyx – Think Less. Trade Best.</h1>
+    </header>
+
+    <div class="section">
+      <h2>Chi siamo</h2>
+      <p>Signalyx è una piattaforma avanzata di analisi e segnali finanziari. Il nostro obiettivo è offrire agli utenti strumenti professionali per prendere decisioni consapevoli su criptovalute, azioni e mercati globali. Forniamo accesso a dati reali, grafici, notizie e indicatori di trading, tutto in un’unica app moderna e accessibile.</p>
     </div>
 
-    <!-- Main App -->
-    <div class="main" id="main">
-      <h1>Benvenuto su Signalyx</h1>
-
-      <div class="section">
-        <h2>💳 Piani disponibili</h2>
-        <ul>
-          <li>Free con ADS – 0€</li>
-          <li>Free senza ADS – 1,99€</li>
-          <li>PRO – 24,99€</li>
-          <li>Elite – 49,99€</li>
-          <li>Verus – 149,99€</li>
-        </ul>
-        <button class="btn" onclick="checkoutStripe()">Acquista piano PRO</button>
-      </div>
-
-      <div class="section">
-        <h2>📈 Grafico BTC</h2>
-        <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Europe/Rome&withdateranges=1" width="100%" height="400" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
-      </div>
-
-      <div class="section">
-        <h2>📰 Notizie reali</h2>
-        <p><a href="https://www.investing.com/news/cryptocurrency-news/" target="_blank" style="color:#00ffcc;">Apri notizie su Investing.com →</a></p>
-      </div>
+    <div class="section">
+      <h2>Piani disponibili</h2>
+      <ul>
+        <li>Free con ADS – 0€</li>
+        <li>Free senza ADS – 1,99€</li>
+        <li>PRO – 24,99€</li>
+        <li>Elite – 49,99€</li>
+        <li>Verus – 149,99€</li>
+      </ul>
+      <button class="btn" onclick="checkoutStripe()">Acquista piano PRO</button>
     </div>
 
-    <!-- Stripe Checkout -->
+    <div class="section">
+      <h2>Grafico BTC</h2>
+      <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1D&theme=dark&style=1&timezone=Europe/Rome"></iframe>
+    </div>
+
+    <div class="section">
+      <h2>Notizie recenti</h2>
+      <p><a href="https://www.investing.com/news/cryptocurrency-news/" target="_blank">Leggi le notizie su Investing.com →</a></p>
+    </div>
+        <div class="section">
+      <h2>Contattaci</h2>
+      <p>Per supporto o suggerimenti puoi scriverci a: <a href="mailto:perrym@hotmail.it">perrym@hotmail.it</a></p>
+      <form>
+        <input type="text" placeholder="Il tuo nome" style="width: 100%; margin-bottom: 10px; padding: 10px;" />
+        <input type="email" placeholder="La tua email" style="width: 100%; margin-bottom: 10px; padding: 10px;" />
+        <textarea placeholder="Il tuo messaggio" style="width: 100%; height: 100px; padding: 10px;"></textarea>
+        <br /><br />
+        <button class="btn" type="submit">Invia</button>
+      </form>
+    </div>
+
+    <div class="section">
+      <h2>Privacy & Termini</h2>
+      <p>L'utilizzo di Signalyx è soggetto alle nostre politiche di privacy e condizioni d'uso. I dati raccolti sono trattati in conformità al GDPR. Nessuna informazione viene condivisa con terze parti senza consenso.</p>
+    </div>
+
+    <footer>
+      <p>© Signalyx 2025 – Tutti i diritti riservati</p>
+    </footer>
+
+    <!-- Stripe -->
     <script src="https://js.stripe.com/v3/"></script>
     <script>
       function checkoutStripe() {
@@ -119,13 +110,6 @@
           cancelUrl: "https://signalyx-web.vercel.app/cancel",
         });
       }
-
-      window.onload = () => {
-        setTimeout(() => {
-          document.getElementById("splash").style.display = "none";
-          document.getElementById("main").style.display = "block";
-        }, 2200);
-      };
     </script>
   </body>
 </html>
