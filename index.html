@@ -9,17 +9,31 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2598120184569994"
      crossorigin="anonymous"></script>
 
+    <!-- ✅ Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+
     <style>
       body {
         margin: 0;
         font-family: 'Segoe UI', sans-serif;
         background-color: #0d1117;
-        color: #fff;
+        color: #ffffff;
       }
       header, footer {
         background-color: #161b22;
-        padding: 15px;
         text-align: center;
+        padding: 15px;
+      }
+      nav {
+        background-color: #21262d;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+      }
+      nav a {
+        color: #00ffcc;
+        text-decoration: none;
+        font-weight: bold;
       }
       .section {
         padding: 20px;
@@ -39,10 +53,22 @@
         border-radius: 6px;
         cursor: pointer;
       }
-      iframe {
-        width: 100%;
-        height: 400px;
-        border: none;
+      .locked {
+        opacity: 0.3;
+        pointer-events: none;
+      }
+      .highlight {
+        background-color: #1e2228;
+        padding: 15px;
+        border-left: 4px solid #00ffcc;
+        margin-bottom: 20px;
+      }
+      .asset {
+        display: inline-block;
+        background-color: #1e2228;
+        margin: 5px;
+        padding: 10px;
+        border-radius: 6px;
       }
     </style>
   </head>
@@ -50,14 +76,18 @@
     <header>
       <h1>Signalyx – Think Less. Trade Best.</h1>
     </header>
-
-    <div class="section">
-      <h2>Chi siamo</h2>
-      <p>Signalyx è una piattaforma avanzata di analisi e segnali finanziari. Il nostro obiettivo è offrire agli utenti strumenti professionali per prendere decisioni consapevoli su criptovalute, azioni e mercati globali. Forniamo accesso a dati reali, grafici, notizie e indicatori di trading, tutto in un’unica app moderna e accessibile.</p>
-    </div>
-
-    <div class="section">
-      <h2>Piani disponibili</h2>
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#segnali">Segnali</a>
+      <a href="#grafici">Grafici</a>
+      <a href="#console">Console</a>
+      <a href="#profilo">Profilo</a>
+    </nav>
+        <div class="section" id="dashboard">
+      <h2>📊 Dashboard</h2>
+      <div class="highlight">
+        Benvenuto nella tua console personale di investimento. Accedi alle sezioni per segnali, analisi tecniche, grafici e contenuti premium in base al tuo piano attivo.
+      </div>
       <ul>
         <li>Free con ADS – 0€</li>
         <li>Free senza ADS – 1,99€</li>
@@ -68,38 +98,102 @@
       <button class="btn" onclick="checkoutStripe()">Acquista piano PRO</button>
     </div>
 
-    <div class="section">
-      <h2>Grafico BTC</h2>
-      <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1D&theme=dark&style=1&timezone=Europe/Rome"></iframe>
+    <div class="section" id="project-omen" style="display:none;">
+      <h2>🧠 Project Omen – Console Fondatore</h2>
+      <p>Benvenuto nella console predittiva privata. Questa sezione mostra anomalie globali, flussi di capitale, segnali non pubblici e pattern multipli aggregati.</p>
+      <ul>
+        <li>🔺 Tendenza anomala in aumento sui volumi di BTC</li>
+        <li>🌍 Convergenza flussi istituzionali su oro e obbligazionario USA</li>
+        <li>🌪️ Attenzione: evento climatico previsto in Asia, potenziale impatto su beni agricoli</li>
+      </ul>
     </div>
 
-    <div class="section">
-      <h2>Notizie recenti</h2>
-      <p><a href="https://www.investing.com/news/cryptocurrency-news/" target="_blank">Leggi le notizie su Investing.com →</a></p>
+    <script>
+      // Mostra Project Omen solo se email = fondatore
+      const utenteEmail = "perrym@hotmail.it"; // simulata
+      if (utenteEmail === "perrym@hotmail.it") {
+        document.getElementById("project-omen").style.display = "block";
+      }
+    </script>
+        <div class="section" id="segnali">
+      <h2>📡 Segnali di mercato</h2>
+
+      <div>
+        <h3>Segnali disponibili (Piano Free)</h3>
+        <div class="asset">BTC → Segnale: HOLD | RSI: 42</div>
+        <div class="asset">ETH → Segnale: BUY | RSI: 35</div>
+      </div>
+
+      <div class="locked">
+        <h3>PRO / Elite / Verus</h3>
+        <div class="asset">SOL → Segnale: BUY | MACD positivo</div>
+        <div class="asset">XRP → Segnale: SELL | Resistenza forte</div>
+        <div class="asset">MATIC → Segnale: BUY | Pattern doppio minimo</div>
+        <div class="asset">Oro → Segnale: STRONG BUY | Crisi geopolitica</div>
+        <div class="asset">Nasdaq → SELL | Rischio recessione</div>
+      </div>
+
+      <p><i>Sblocca segnali completi con il piano PRO o superiore</i></p>
     </div>
-        <div class="section">
-      <h2>Contattaci</h2>
-      <p>Per supporto o suggerimenti puoi scriverci a: <a href="mailto:perrym@hotmail.it">perrym@hotmail.it</a></p>
+
+    <div class="section" id="grafici">
+      <h2>📈 Grafici in tempo reale</h2>
+      <div class="highlight">Visualizza l'andamento degli asset più importanti. Strumenti tecnici integrati.</div>
+
+      <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1D&theme=dark&style=1&timezone=Europe/Rome" height="400"></iframe>
+      <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:ETHUSDT&interval=1D&theme=dark&style=1&timezone=Europe/Rome" height="400"></iframe>
+      <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=1D&theme=dark&style=1&timezone=Europe/Rome" height="400"></iframe>
+      <iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NDX&interval=1D&theme=dark&style=1&timezone=Europe/Rome" height="400"></iframe>
+    </div>
+        <div class="section" id="console">
+      <h2>🧮 Console Tecnica Avanzata</h2>
+
+      <div>
+        <input type="text" placeholder="Cerca asset es: BTC, GOLD, TSLA" style="width: 100%; padding: 10px; border-radius: 6px; border: none; margin-bottom: 10px;" />
+        <p>📊 Seleziona un asset per analizzare RSI, Fibonacci, Medie Mobili, e altro.</p>
+      </div>
+
+      <div class="locked">
+        <h3>Strumenti tecnici (PRO+)</h3>
+        <ul>
+          <li>✅ RSI dinamico</li>
+          <li>✅ Fibonacci interattivo</li>
+          <li>✅ MA200 + MACD</li>
+        </ul>
+        <p><i>Strumenti tecnici disponibili solo per utenti PRO, Elite o Verus.</i></p>
+      </div>
+    </div>
+        <div class="section" id="profilo">
+      <h2>👤 Profilo utente</h2>
+      <ul>
+        <li>Email: perrym@hotmail.it</li>
+        <li>Piano attivo: PRO</li>
+        <li>Lingua: Italiano 🇮🇹</li>
+        <li>Valuta: Euro (€)</li>
+        <li>Accesso: illimitato</li>
+      </ul>
+    </div>
+
+    <div class="section" id="contatti">
+      <h2>📬 Contattaci</h2>
+      <p>Hai bisogno di supporto o vuoi inviarci un’idea? Scrivi a <a href="mailto:perrym@hotmail.it">perrym@hotmail.it</a></p>
       <form>
-        <input type="text" placeholder="Il tuo nome" style="width: 100%; margin-bottom: 10px; padding: 10px;" />
-        <input type="email" placeholder="La tua email" style="width: 100%; margin-bottom: 10px; padding: 10px;" />
-        <textarea placeholder="Il tuo messaggio" style="width: 100%; height: 100px; padding: 10px;"></textarea>
-        <br /><br />
-        <button class="btn" type="submit">Invia</button>
+        <input type="text" placeholder="Il tuo nome" style="width:100%;padding:10px;margin-bottom:10px;" />
+        <input type="email" placeholder="Email" style="width:100%;padding:10px;margin-bottom:10px;" />
+        <textarea placeholder="Messaggio" style="width:100%;height:100px;padding:10px;"></textarea><br /><br />
+        <button class="btn">Invia</button>
       </form>
     </div>
 
     <div class="section">
-      <h2>Privacy & Termini</h2>
-      <p>L'utilizzo di Signalyx è soggetto alle nostre politiche di privacy e condizioni d'uso. I dati raccolti sono trattati in conformità al GDPR. Nessuna informazione viene condivisa con terze parti senza consenso.</p>
+      <h2>🔐 Privacy & Termini</h2>
+      <p>L'utilizzo di Signalyx è soggetto a termini e condizioni. I dati sono protetti secondo il GDPR. Nessuna informazione viene condivisa con terzi senza consenso.</p>
     </div>
 
     <footer>
       <p>© Signalyx 2025 – Tutti i diritti riservati</p>
     </footer>
 
-    <!-- Stripe -->
-    <script src="https://js.stripe.com/v3/"></script>
     <script>
       function checkoutStripe() {
         const stripe = Stripe("pk_live_51RekFcFvd0M0giTBqPtQK9o7MJqixhPiv5M4PUtkPhCpwMA21CsEDrOtEMGuyOdpuECyYAneilnavkqNFP9jeeIO00KSKbVNCN");
