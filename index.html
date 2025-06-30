@@ -1,244 +1,158 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signalyx – Think Less. Trade Best.</title>
-  <link rel="icon" href="assets/logo.PNG" type="image/png">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap">
   <style>
     body {
-      background-color: #0b0f1a;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0c10;
+      color: #ffffff;
     }
-    .splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #0b0f1a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      animation: fadeOut 2.5s forwards;
-    }
-    .splash img {
-      width: 180px;
-      animation: zoomIn 1.5s ease-out;
-    }
-    .splash-text {
-      font-size: 20px;
-      margin-top: 10px;
-      color: #ccc;
+    header, footer {
+      background-color: #1f2833;
+      padding: 15px;
       text-align: center;
     }
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      90% { opacity: 0.9; }
-      100% { opacity: 0; visibility: hidden; }
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #1f2833;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
     }
-    @keyframes zoomIn {
-      0% { transform: scale(0.6); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+    nav a {
+      color: #66fcf1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .section {
+      padding: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    .card {
+      background: #1e1e2f;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+    select {
+      background: #0b0c10;
+      color: #fff;
+      border: 1px solid #66fcf1;
+      padding: 5px;
+      margin: 5px;
+      border-radius: 4px;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 400px;
     }
   </style>
 </head>
+
 <body>
-  <div class="splash">
-    <div>
-      <img src="assets/logo.PNG" alt="Signalyx Logo" />
-      <div class="splash-text">Think Less. Trade Best.</div>
+  <header>
+    <img src="assets/logo.PNG" alt="Signalyx Logo" style="max-width: 180px;">
+    <h1>Think Less. Trade Best.</h1>
+  </header>
+
+  <div class="section" id="dashboard">
+    <h2>Console Attiva</h2>
+    <select id="assetSelect">
+      <option value="BTCUSDT">Bitcoin (BTC)</option>
+      <option value="ETHUSDT">Ethereum (ETH)</option>
+      <option value="XAUUSD">Oro (XAU)</option>
+      <option value="NDX">Nasdaq</option>
+    </select>
+    <iframe id="tradingView" src="https://www.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1H&theme=dark"></iframe>
+  </div>
+
+  <div class="section" id="signals" class="hidden">
+    <h2>Segnali Reali</h2>
+    <div class="card">📈 BTC: Compra confermato (RSI basso + ciclica favorevole)</div>
+    <div class="card">📉 ETH: Attenzione! Breakout negativo in corso</div>
+    <div class="card">💰 Oro: Forte supporto tecnico in area 2300</div>
+    <div class="card">📊 Nasdaq: Tendenza positiva confermata da volume</div>
+  </div>
+
+  <div class="section" id="news" class="hidden">
+    <h2>Notizie Finanziarie</h2>
+    <div class="card">
+      <strong>Crisi geopolitica in Asia spinge l'oro</strong><br>
+      <a href="https://www.investing.com/news/" target="_blank" style="color:#66fcf1;">Leggi su Investing.com</a>
+    </div>
+    <div class="card">
+      <strong>Bitcoin sopra i 70k: cosa aspettarsi?</strong><br>
+      <a href="https://cointelegraph.com" target="_blank" style="color:#66fcf1;">Vai su CoinTelegraph</a>
     </div>
   </div>
-    <nav class="navbar fixed-bottom navbar-dark bg-dark d-flex justify-content-around">
-    <button class="btn btn-outline-light" onclick="showSection('dashboard')">🏠</button>
-    <button class="btn btn-outline-light" onclick="showSection('signals')">📊</button>
-    <button class="btn btn-outline-light" onclick="showSection('charts')">📈</button>
-    <button class="btn btn-outline-light" onclick="showSection('news')">📰</button>
-    <button class="btn btn-outline-light" onclick="showSection('profile')">👤</button>
+
+  <div class="section" id="profile" class="hidden">
+    <h2>Profilo</h2>
+    <p>Email: <span id="userEmail">user@signalyx.app</span></p>
+    <p>Piano Attivo: <strong>Pro</strong></p>
+    <label for="langSelect">Lingua:</label>
+    <select id="langSelect">
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="es">🇪🇸 Español</option>
+    </select>
+  </div>
+
+  <nav>
+    <a href="#" onclick="show('dashboard')">Console</a>
+    <a href="#" onclick="show('signals')">Segnali</a>
+    <a href="#" onclick="show('news')">Notizie</a>
+    <a href="#" onclick="show('profile')">Profilo</a>
   </nav>
 
-  <div class="container py-4" id="dashboard" style="display:block;">
-    <h2>Benvenuto su Signalyx</h2>
-    <p>La tua console di trading intelligente</p>
-    <div class="row mb-3">
-      <div class="col">
-        <label for="language">Lingua</label>
-        <select id="language" class="form-select" onchange="setLanguage(this.value)">
-          <option value="it">🇮🇹 Italiano</option>
-          <option value="en">🇬🇧 English</option>
-          <option value="es">🇪🇸 Español</option>
-        </select>
-      </div>
-      <div class="col">
-        <label for="currency">Valuta</label>
-        <select id="currency" class="form-select" onchange="setCurrency(this.value)">
-          <option value="EUR">EUR €</option>
-          <option value="USD">USD $</option>
-          <option value="GBP">GBP £</option>
-          <option value="BTC">BTC ₿</option>
-        </select>
-      </div>
-    </div>
-  </div>
+  <footer>
+    <p>&copy; 2025 Signalyx – Tutti i diritti riservati.</p>
+  </footer>
 
-  <div class="container py-4" id="signals" style="display:none;">
-    <h3>📊 Segnali Reali (BTC & ETH)</h3>
-    <div class="card my-2">
-      <div class="card-body">
-        <h5 class="card-title">BTC/USD</h5>
-        <p class="card-text">🟢 Segnale: Compra (supporto su $61.200, RSI neutro, MACD positivo)</p>
-        <p class="text-muted small">Fonte: analisi tecnica + on-chain</p>
-      </div>
-    </div>
-    <div class="card my-2">
-      <div class="card-body">
-        <h5 class="card-title">ETH/USD</h5>
-        <p class="card-text">🟡 Segnale: Attendi (resistenza forte su $3.580)</p>
-        <p class="text-muted small">Fonte: struttura ciclica + volatilità</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="container py-4" id="charts" style="display:none;">
-    <h3>📈 Grafico in tempo reale</h3>
-    <div class="tradingview-widget-container">
-      <div id="tradingview_btc"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-      <script type="text/javascript">
-        new TradingView.widget({
-          "width": "100%",
-          "height": 420,
-          "symbol": "BINANCE:BTCUSDT",
-          "interval": "30",
-          "timezone": "Europe/Rome",
-          "theme": "dark",
-          "style": "1",
-          "locale": "it",
-          "toolbar_bg": "#f1f3f6",
-          "enable_publishing": false,
-          "hide_side_toolbar": false,
-          "container_id": "tradingview_btc"
-        });
-      </script>
-    </div>
-  </div>
-    <div class="container py-4" id="news" style="display:none;">
-    <h3>📰 Notizie Finanziarie</h3>
-    <ul class="list-group">
-      <li class="list-group-item">
-        <a href="https://www.investing.com/news/cryptocurrency-news" target="_blank">
-          🪙 Bitcoin oscilla sotto i 62.000$ dopo decisione FED
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a href="https://www.coindesk.com/" target="_blank">
-          📈 Ethereum avanza dopo aggiornamento Dencun
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a href="https://www.finanzaonline.com/notizie" target="_blank">
-          🌍 Tensioni geopolitiche e mercati globali
-        </a>
-      </li>
-    </ul>
-    <p class="text-muted mt-2">Fonte: Investing.com, CoinDesk, FinanzaOnline</p>
-  </div>
-
-  <div class="container py-4" id="profile" style="display:none;">
-    <h3>👤 Profilo Utente</h3>
-    <p>Email utente: <span id="userEmail">perrym@hotmail.it</span></p>
-    <p>Piano attivo: <strong>Pro</strong></p>
-    <p>Lingua attuale: <span id="langDisplay">Italiano</span></p>
-    <p>Valuta: <span id="currDisplay">EUR (€)</span></p>
-    <hr />
-    <h5>📨 Contattaci</h5>
-    <ul class="list-group">
-      <li class="list-group-item">
-        <a href="mailto:marco@signalyx.com?subject=Suggerimento">💡 Suggerimenti / Idee</a>
-      </li>
-      <li class="list-group-item">
-        <a href="mailto:support@signalyx.com?subject=Supporto">🛠️ Supporto diretto</a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- 🔒 Sezione nascosta Founder (Project Omen) -->
-  <div id="omen" style="display:none;">
-    <h4>👁 Project Omen – Console Riservata</h4>
-    <p>Movimenti di capitale globali rilevati: <strong>+2,4%</strong></p>
-    <p>Anomalia algoritmica (asset: XRP): <strong>🔴 warning</strong></p>
-    <p>Indice predittivo (metalli preziosi): <strong>↑ +6.2%</strong> nelle prossime 48h</p>
-  </div>
-
-  <!-- ✅ Script: Cambio lingua e valuta -->
   <script>
-    function showSection(id) {
-      const sections = ['dashboard', 'signals', 'charts', 'news', 'profile'];
-      sections.forEach(sec => document.getElementById(sec).style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+    function show(id) {
+      document.querySelectorAll('.section').forEach(el => el.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
     }
 
-    function setLanguage(code) {
-      const map = { it: 'Italiano', en: 'English', es: 'Español' };
-      document.getElementById('langDisplay').innerText = map[code];
-    }
+    const assetSelect = document.getElementById('assetSelect');
+    const tradingView = document.getElementById('tradingView');
+    assetSelect.addEventListener('change', () => {
+      const val = assetSelect.value;
+      tradingView.src = `https://www.tradingview.com/widgetembed/?symbol=BINANCE:${val}&interval=1H&theme=dark`;
+    });
 
-    function setCurrency(cur) {
-      const map = { EUR: 'EUR (€)', USD: 'USD ($)', GBP: 'GBP (£)', BTC: 'BTC (₿)' };
-      document.getElementById('currDisplay').innerText = map[cur];
-    }
+    const langSelect = document.getElementById('langSelect');
+    langSelect.addEventListener('change', () => {
+      alert("Cambio lingua attivo: le etichette saranno tradotte nella versione successiva!");
+    });
   </script>
 
-  <!-- 🔥 Firebase (già integrato) -->
+  <!-- Firebase Setup -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
     const firebaseConfig = {
       apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
       authDomain: "signalyx-web.firebaseapp.com",
       projectId: "signalyx-web",
-      storageBucket: "signalyx-web.firebasestorage.app",
+      storageBucket: "signalyx-web.appspot.com",
       messagingSenderId: "276327742476",
       appId: "1:276327742476:web:5fde294924542ddae10229",
       measurementId: "G-9C6GY4132W"
     };
-
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-  </script>
-    <!-- 🔷 Splash Screen -->
-  <div id="splash" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000; color:#fff; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999;">
-    <img src="assets/logo.PNG" alt="Signalyx Logo" style="width:180px; margin-bottom:20px;" />
-    <h2 style="font-weight:300;">Think Less. Trade Best.</h2>
-  </div>
-
-  <!-- 🔚 Footer -->
-  <footer style="background-color:#111; color:#aaa; text-align:center; padding:20px; font-size:14px;">
-    © 2025 Signalyx Inc. – Tutti i diritti riservati.<br />
-    <a href="#" onclick="alert('Privacy Policy in aggiornamento')" style="color:#999;">Privacy Policy</a> •
-    <a href="#" onclick="alert('Termini in aggiornamento')" style="color:#999;">Termini di Servizio</a>
-  </footer>
-
-  <!-- 🔧 Script finale: Splash, navigazione, init -->
-  <script>
-    // Splash screen delay
-    window.onload = function() {
-      setTimeout(() => {
-        document.getElementById("splash").style.display = "none";
-        showSection('dashboard'); // default
-        setLanguage('it');
-        setCurrency('EUR');
-      }, 1800);
-    };
-
-    // Bottom menu nav
-    function navigateTo(id) {
-      showSection(id);
-    }
   </script>
 </body>
 </html>
