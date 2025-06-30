@@ -1,135 +1,98 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signalyx</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signalyx – Think Less. Trade Best.</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #111;
-      color: white;
-      text-align: center;
-    }
-    h1 {
-      margin-top: 40px;
-      font-size: 28px;
-    }
-    input, select {
-      display: block;
-      margin: 10px auto;
-      padding: 10px;
-      font-size: 16px;
-      width: 80%;
-      max-width: 300px;
-    }
-    button {
-      padding: 10px 20px;
-      margin: 5px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      color: white;
-    }
-    .btn-blue { background-color: #007bff; }
-    .btn-green { background-color: #28a745; }
-    .btn-red { background-color: #dc3545; }
-    .section {
-      display: none;
-      margin-top: 20px;
-    }
-    .nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #222;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-    }
-    .nav button {
-      flex: 1;
-      background: none;
-      color: white;
-      font-size: 16px;
-    }
-    .active {
-      color: #00ff9f;
-      font-weight: bold;
-    }
+    body { margin: 0; font-family: 'Arial', sans-serif; background-color: #0b0c10; color: white; }
+    header, nav { background-color: #1f2833; padding: 15px; text-align: center; }
+    nav { position: fixed; bottom: 0; width: 100%; display: flex; justify-content: space-around; }
+    nav a { color: white; text-decoration: none; font-weight: bold; }
+    section { padding: 20px; }
+    .logo { width: 180px; margin: 10px auto; display: block; }
+    .card { background: #1c1c1c; padding: 15px; margin-bottom: 15px; border-radius: 8px; }
+    select { background: #1f2833; color: white; border: none; padding: 5px; margin-left: 10px; }
+    iframe { border: none; border-radius: 8px; width: 100%; height: 400px; }
+    .flags { margin-top: 10px; }
   </style>
 </head>
 <body>
 
-  <h1>🔐 Signalyx Test Login</h1>
-
-  <div id="auth-section">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button class="btn-blue" onclick="register()">Registrati</button>
-    <button class="btn-green" onclick="login()">Login</button>
-    <button class="btn-red" onclick="logout()">Logout</button>
+<header>
+  <img src="assets/logo.PNG" alt="Signalyx" class="logo" />
+  <div class="flags">
+    <label>Lingua:
+      <select id="language">
+        <option value="it">🇮🇹 IT</option>
+        <option value="en">🇬🇧 EN</option>
+        <option value="es">🇪🇸 ES</option>
+      </select>
+    </label>
+    <label>Valuta:
+      <select id="currency">
+        <option value="EUR">€ EUR</option>
+        <option value="USD">$ USD</option>
+        <option value="GBP">£ GBP</option>
+        <option value="BTC">₿ BTC</option>
+      </select>
+    </label>
   </div>
+</header>
 
-  <p id="user-info" style="margin-top: 20px;"></p>
+<section id="dashboard">
+  <h2>📈 Grafico BTC in tempo reale</h2>
+  <iframe src="https://www.tradingview.com/embed-widget/mini-symbol-overview/?locale=it&symbol=BINANCE:BTCUSDT&width=100%&height=400" allowfullscreen></iframe>
+</section>
 
-  <div id="dashboard" class="section">
-    <h2>📊 Dashboard</h2>
-    <p>Benvenuto su Signalyx. Qui vedrai segnali e analisi.</p>
+<section id="signals">
+  <h2>📊 Segnali reali</h2>
+  <div class="card">
+    <strong>BTC/USDT:</strong> <span style="color:lime">BUY</span> – incrocio RSI + MACD
   </div>
-
-  <div id="piani" class="section">
-    <h2>💼 Piani</h2>
-    <select id="plan-select">
-      <option value="free">Free con ADS</option>
-      <option value="free_no_ads">Free senza ADS</option>
-      <option value="pro">PRO</option>
-    </select>
-    <button onclick="savePlan()">Salva Piano</button>
+  <div class="card">
+    <strong>ETH/USD:</strong> <span style="color:orange">NEUTRO</span> – attesa breakout
   </div>
-
-  <div id="segnali" class="section">
-    <h2>📈 Segnali</h2>
-    <p>(Integrazione reale nella prossima fase)</p>
+  <div class="card">
+    <strong>GOLD:</strong> <span style="color:red">SELL</span> – test resistenza 1970$
   </div>
+</section>
 
-  <div id="notizie" class="section">
-    <h2>📰 Notizie</h2>
-    <p>(Feed news in arrivo...)</p>
+<section id="news">
+  <h2>📰 Notizie economiche</h2>
+  <div class="card">
+    <a href="https://www.investing.com/news/cryptocurrency-news/bitcoin-spikes-after-fed-announcement-3260809" target="_blank" style="color:white;">
+      Bitcoin vola dopo annuncio della FED – Leggi su Investing.com →
+    </a>
   </div>
-
-  <div id="profilo" class="section">
-    <h2>👤 Profilo</h2>
-    <label for="lang">Lingua:</label>
-    <select id="lang">
-      <option value="it">Italiano</option>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-    </select>
-    <label for="currency">Valuta:</label>
-    <select id="currency">
-      <option value="eur">EUR</option>
-      <option value="usd">USD</option>
-      <option value="gbp">GBP</option>
-    </select>
-    <button onclick="savePreferences()">Salva Preferenze</button>
+  <div class="card">
+    <a href="https://www.cnbc.com/2024/11/14/ethereum-upgrade-merge-success.html" target="_blank" style="color:white;">
+      Ethereum Merge completato – Tutti i dettagli su CNBC →
+    </a>
   </div>
+</section>
 
-  <div class="nav">
-    <button onclick="show('dashboard')">🏠</button>
-    <button onclick="show('piani')">💼</button>
-    <button onclick="show('segnali')">📈</button>
-    <button onclick="show('notizie')">📰</button>
-    <button onclick="show('profilo')">👤</button>
+<section id="profile">
+  <h2>👤 Profilo utente</h2>
+  <div class="card">
+    <p><strong>Email:</strong> <span id="user-email">Non loggato</span></p>
+    <p><strong>Piano attivo:</strong> PRO (Simulato)</p>
+    <button onclick="logout()">Logout</button>
   </div>
+</section>
 
-<script>
+<nav>
+  <a href="#dashboard">Grafico</a>
+  <a href="#signals">Segnali</a>
+  <a href="#news">Notizie</a>
+  <a href="#profile">Profilo</a>
+</nav>
+
+<!-- Firebase App -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
   const firebaseConfig = {
     apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
     authDomain: "signalyx-web.firebaseapp.com",
@@ -140,69 +103,24 @@
     measurementId: "G-9C6GY4132W"
   };
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-  function register() {
-    const email = emailEl.value;
-    const password = passwordEl.value;
-    auth.createUserWithEmailAndPassword(email, password).catch(alert);
-  }
-
-  function login() {
-    const email = emailEl.value;
-    const password = passwordEl.value;
-    auth.signInWithEmailAndPassword(email, password).catch(alert);
-  }
-
-  function logout() {
-    auth.signOut();
-  }
-
-  const emailEl = document.getElementById('email');
-  const passwordEl = document.getElementById('password');
-  const userInfo = document.getElementById('user-info');
-
-  auth.onAuthStateChanged(user => {
+  onAuthStateChanged(auth, (user) => {
+    const emailSpan = document.getElementById("user-email");
     if (user) {
-      userInfo.innerHTML = "✅ Utente loggato: " + user.email;
-      document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
+      emailSpan.textContent = user.email;
     } else {
-      userInfo.innerHTML = "";
-      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      emailSpan.textContent = "Non loggato";
     }
   });
 
-  function show(section) {
-    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-    document.getElementById(section).style.display = 'block';
-  }
-
-  function savePreferences() {
-    const lang = document.getElementById("lang").value;
-    const currency = document.getElementById("currency").value;
-    const user = auth.currentUser;
-    if (user) {
-      db.collection("users").doc(user.uid).set({
-        language: lang,
-        currency: currency
-      }, { merge: true });
-      alert("Preferenze salvate");
-    }
-  }
-
-  function savePlan() {
-    const plan = document.getElementById("plan-select").value;
-    const user = auth.currentUser;
-    if (user) {
-      db.collection("users").doc(user.uid).set({
-        plan: plan
-      }, { merge: true });
-      alert("Piano aggiornato");
-    }
-  }
-
+  window.logout = function() {
+    signOut(auth).then(() => {
+      alert("Logout effettuato");
+      location.reload();
+    });
+  };
 </script>
 
 </body>
