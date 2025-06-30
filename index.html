@@ -1,304 +1,115 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx – Think Less. Trade Best.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signalyx Login</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
+      authDomain: "signalyx-web.firebaseapp.com",
+      projectId: "signalyx-web",
+      storageBucket: "signalyx-web.appspot.com",
+      messagingSenderId: "276327742476",
+      appId: "1:276327742476:web:5fde294924542ddae10229",
+      measurementId: "G-9C6GY4132W"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const registerBtn = document.getElementById("register");
+      const loginBtn = document.getElementById("login");
+      const logoutBtn = document.getElementById("logout");
+      const statusDiv = document.getElementById("status");
+
+      registerBtn.addEventListener("click", async () => {
+        try {
+          await createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+        } catch (error) {
+          alert("Errore registrazione: " + error.message);
+        }
+      });
+
+      loginBtn.addEventListener("click", async () => {
+        try {
+          await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+        } catch (error) {
+          alert("Errore login: " + error.message);
+        }
+      });
+
+      logoutBtn.addEventListener("click", async () => {
+        await signOut(auth);
+      });
+
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          statusDiv.textContent = "✅ Utente loggato: " + user.email;
+        } else {
+          statusDiv.textContent = "❌ Nessun utente loggato.";
+        }
+      });
+    });
+  </script>
+
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
       background-color: #111;
-      color: #f2f2f2;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
     }
-    #splash {
-      position: fixed;
-      background: #000;
-      width: 100%;
-      height: 100%;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    #splash img {
-      width: 180px;
-      margin-bottom: 20px;
-    }
-    #splash h1 {
-      font-size: 20px;
-      opacity: 0.8;
-    }
-    nav {
-      display: flex;
-      justify-content: space-around;
-      background: #1c1c1c;
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 998;
-    }
-    nav button {
-      background: #333;
-      border: none;
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    section {
-      display: none;
-      padding: 20px;
-    }
-    section.active {
+
+    input {
       display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 80%;
+      max-width: 300px;
     }
-    .card {
-      background: #222;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 8px;
-    }
-    .title {
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #90caf9;
-    }
-    .small {
-      font-size: 13px;
-      color: #aaa;
-    }
-    select {
-      background: #1c1c1c;
-      color: white;
-      padding: 5px;
-      margin: 5px;
-      border: 1px solid #555;
-      border-radius: 4px;
-    }
-    .upgrade {
-      background: #4caf50;
-      color: white;
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-weight: bold;
       border: none;
-      padding: 8px 12px;
-      margin-top: 10px;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
+    }
+
+    #register { background-color: #007bff; color: white; }
+    #login { background-color: #28a745; color: white; }
+    #logout { background-color: #dc3545; color: white; }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 40px;
     }
   </style>
 </head>
 <body>
+  <div class="logo">🔐 Signalyx Test Login</div>
 
-  <div id="splash">
-    <img src="assets/logo.PNG" alt="Signalyx Logo" />
-    <h1>Think Less. Trade Best.</h1>
-  </div>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Password" required>
 
-  <nav>
-    <button onclick="showSection('dashboard')">Dashboard</button>
-    <button onclick="showSection('segnali')">Segnali</button>
-    <button onclick="showSection('grafici')">Grafici</button>
-    <button onclick="showSection('console')">Console</button>
-    <button onclick="showSection('notizie')">Notizie</button>
-    <button onclick="showSection('piani')">Piani</button>
-    <button onclick="showSection('profilo')">Profilo</button>
-    <button onclick="showSection('insight')">Insight</button>
-    <button onclick="showSection('contattaci')">Contattaci</button>
-  </nav>
+  <button id="register">Registrati</button>
+  <button id="login">Login</button>
+  <button id="logout">Logout</button>
 
-  <!-- Dashboard -->
-  <section id="dashboard" class="active">
-    <h2>Benvenuto su Signalyx</h2>
-    <p class="small">Sistema attivo. Piani, segnali e dati aggiornati in tempo reale.</p>
-  </section>
-
-  <!-- Segnali -->
-  <section id="segnali">
-    <div class="card">
-      <div class="title">Segnali Cripto</div>
-      <p>BTC → Buy area tra $59.200 e $61.100 (RSI + On-Chain)</p>
-      <p>ETH → Attendere rottura $3.620 per buy con SL $3.540</p>
-    </div>
-    <div class="card">
-      <div class="title">Segnali Azioni</div>
-      <p>Apple (AAPL) → Pullback su $207 valido per long</p>
-      <p>Tesla (TSLA) → Possibile short sotto $178</p>
-    </div>
-    <div class="card">
-      <div class="title">Metalli Preziosi</div>
-      <p>Oro (XAU) → Supporto critico a $2.292 – Attesa breakout</p>
-    </div>
-  </section>
-
-  <!-- Grafici -->
-  <section id="grafici">
-    <div class="card">
-      <div class="title">Grafico BTC/USDT (Realtime)</div>
-      <iframe src="https://www.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1h&theme=dark" width="100%" height="400"></iframe>
-    </div>
-  </section>
-
-  <!-- Console -->
-  <section id="console">
-    <div class="card">
-      <div class="title">Console Analitica</div>
-      <p>Seleziona asset, timeframe e attiva indicatori:</p>
-      <select>
-        <option>BTC</option>
-        <option>ETH</option>
-        <option>SP500</option>
-        <option>Oro</option>
-      </select>
-    </div>
-  </section>
-
-  <!-- Notizie -->
-  <section id="notizie">
-    <div class="card">
-      <div class="title">Ultime Notizie</div>
-      <p><a href="https://it.investing.com/news/" target="_blank">Vai alle notizie su Investing.com →</a></p>
-    </div>
-  </section>
-
-  <!-- Piani -->
-  <section id="piani">
-    <div class="card">
-      <div class="title">Free con ADS – €0</div>
-      <p>Accesso limitato + pubblicità</p>
-    </div>
-    <div class="card">
-      <div class="title">Free senza ADS – €1.99/mese</div>
-      <p>Stesse funzioni senza pubblicità</p>
-      <button class="upgrade">Attiva</button>
-    </div>
-    <div class="card">
-      <div class="title">PRO – €24.99/mese</div>
-      <p>Segnali avanzati, console tecnica, grafici pro</p>
-      <button class="upgrade">Attiva</button>
-    </div>
-    <div class="card">
-      <div class="title">Elite – €49.99/mese</div>
-      <p>Tutti i segnali + strategie avanzate</p>
-      <button class="upgrade">Attiva</button>
-    </div>
-    <div class="card">
-      <div class="title">Verus – €149/mese</div>
-      <p>Segnali + console globale + AI predittiva</p>
-      <button class="upgrade">Attiva</button>
-    </div>
-  </section>
-
-  <!-- Profilo -->
-  <section id="profilo">
-    <div class="card">
-      <div class="title">Profilo Utente</div>
-      <p>Email: perrym@hotmail.it</p>
-      <label>Lingua:</label>
-      <select>
-        <option>Italiano</option>
-        <option>English</option>
-        <option>Español</option>
-      </select>
-      <label>Valuta:</label>
-      <select>
-        <option>EUR</option>
-        <option>USD</option>
-        <option>GBP</option>
-        <option>BTC</option>
-      </select>
-    </div>
-  </section>
-
-  <!-- Insight -->
-  <section id="insight">
-    <div class="card">
-      <div class="title">Insight Esclusivi</div>
-      <p>Strategie mensili, ciclo dei mercati, news geopolitiche. Solo piani PRO+</p>
-    </div>
-  </section>
-
-  <!-- Contattaci -->
-  <section id="contattaci">
-    <div class="card">
-      <div class="title">Contattaci</div>
-      <p>Supporto diretto: bot AI integrato (in arrivo)</p>
-      <p>Suggerimenti: invia a supporto@signalyx.ai</p>
-    </div>
-  </section>
-
-  <script>
-    setTimeout(() => {
-      document.getElementById("splash").style.display = "none";
-    }, 1500);
-
-    function showSection(id) {
-      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-    }
-  </script>
+  <p id="status">🔄 Verifica stato utente...</p>
 </body>
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-
-<!-- Form UI per login/registrazione -->
-<div id="auth-section" style="padding:20px; max-width:400px; margin:auto; background:#111; color:#fff; border-radius:8px;">
-  <h2>🔐 Signalyx Test Login</h2>
-
-  <input type="email" id="email" placeholder="Email" style="width:100%;margin-bottom:10px;padding:8px;border-radius:5px;">
-  <input type="password" id="password" placeholder="Password" style="width:100%;margin-bottom:10px;padding:8px;border-radius:5px;">
-  
-  <button onclick="signUp()" style="width:100%;padding:10px;margin-bottom:10px;">Registrati</button>
-  <button onclick="login()" style="width:100%;padding:10px;margin-bottom:10px;">Login</button>
-  <button onclick="logout()" style="width:100%;padding:10px;margin-bottom:10px;background:#800;">Logout</button>
-  
-  <div id="user-info" style="margin-top:20px;"></div>
-</div>
-
-<!-- Firebase Config e Funzioni -->
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyDrO-ZMruU5NnrzKOpZP3nZHDAz8bR3ZMI",
-    authDomain: "signalyx-web.firebaseapp.com",
-    projectId: "signalyx-web",
-    storageBucket: "signalyx-web.appspot.com",
-    messagingSenderId: "121292264072",
-    appId: "1:121292264072:web:cf86841da5d1271cbd96aa"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  // Monitor login state
-  auth.onAuthStateChanged(user => {
-    const info = document.getElementById('user-info');
-    if (user) {
-      info.innerHTML = `👤 Loggato come: <b>${user.email}</b>`;
-    } else {
-      info.innerHTML = "Nessun utente loggato.";
-    }
-  });
-
-  // Login
-  function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    auth.signInWithEmailAndPassword(email, password)
-      .catch(error => alert("Errore login: " + error.message));
-  }
-
-  // Registrazione
-  function signUp() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    auth.createUserWithEmailAndPassword(email, password)
-      .catch(error => alert("Errore registrazione: " + error.message));
-  }
-
-  // Logout
-  function logout() {
-    auth.signOut();
-  }
-</script>
 </html>
