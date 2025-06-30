@@ -1,177 +1,131 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signalyx</title>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signalyx – Think Less. Trade Best.</title>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDrbEbEolB-hMyj4teEc_er7KGeQZCkFhA",
-      authDomain: "signalyx-web.firebaseapp.com",
-      projectId: "signalyx-web",
-      storageBucket: "signalyx-web.appspot.com",
-      messagingSenderId: "276327742476",
-      appId: "1:276327742476:web:5fde294924542ddae10229",
-      measurementId: "G-9C6GY4132W"
-    };
+    <!-- ✅ Google AdSense Verification Code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2598120184569994" crossorigin="anonymous"></script>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    window.onload = () => {
-      const emailInput = document.getElementById("email");
-      const passwordInput = document.getElementById("password");
-      const loginButton = document.getElementById("login");
-      const registerButton = document.getElementById("register");
-      const logoutButton = document.getElementById("logout");
-      const statusText = document.getElementById("status");
-
-      registerButton.onclick = () => {
-        createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-          .then(() => alert("Registrazione completata"))
-          .catch(error => alert(error.message));
-      };
-
-      loginButton.onclick = () => {
-        signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-          .catch(error => alert(error.message));
-      };
-
-      logoutButton.onclick = () => {
-        signOut(auth);
-      };
-
-      onAuthStateChanged(auth, user => {
-        if (user) {
-          statusText.innerText = `✅ Utente loggato: ${user.email}`;
-        } else {
-          statusText.innerText = "❌ Nessun utente loggato";
+    <!-- Stili base -->
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background-color: #0d1117;
+        color: #fff;
+      }
+      .splash {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #0d1117;
+        animation: fadeOut 2s ease-in-out forwards;
+        animation-delay: 2s;
+      }
+      .splash img {
+        max-width: 240px;
+        animation: zoomIn 1.5s ease;
+      }
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.6);
+          opacity: 0;
         }
-      });
-    };
-  </script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #111;
-      color: #fff;
-      text-align: center;
-    }
-    .container {
-      padding: 40px 20px;
-      max-width: 500px;
-      margin: auto;
-    }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 30px;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      font-size: 1rem;
-      border-radius: 5px;
-      border: none;
-    }
-    .btn {
-      padding: 12px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .btn-green { background: #28a745; color: #fff; }
-    .btn-blue { background: #007bff; color: #fff; }
-    .btn-red { background: #dc3545; color: #fff; }
-    .section {
-      margin-top: 40px;
-      padding: 20px;
-      background: #222;
-      border-radius: 10px;
-    }
-    select {
-      padding: 10px;
-      margin: 10px;
-      border-radius: 5px;
-    }
-    iframe {
-      margin-top: 20px;
-      border-radius: 10px;
-      width: 100%;
-      height: 400px;
-      border: none;
-    }
-    footer {
-      margin-top: 50px;
-      font-size: 0.9rem;
-      color: #888;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>🔐 Signalyx Test Login</h1>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
-    <div>
-      <button id="register" class="btn btn-blue">Registrati</button>
-      <button id="login" class="btn btn-green">Login</button>
-      <button id="logout" class="btn btn-red">Logout</button>
-    </div>
-    <p id="status">⏳ Verifica login...</p>
-
-    <div class="section">
-      <h2>📈 Grafico BTC/USDT</h2>
-      <iframe src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?symbol=BINANCE:BTCUSDT&locale=it#%7B%22theme%22%3A%22dark%22%7D" allowtransparency="true"></iframe>
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+      .main {
+        display: none;
+        padding: 20px;
+        animation: fadeIn 1s ease forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .section {
+        margin-bottom: 30px;
+      }
+      .section h2 {
+        color: #00ffcc;
+      }
+      .btn {
+        background-color: #00ffcc;
+        color: #000;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Splash screen -->
+    <div class="splash" id="splash">
+      <img src="assets/logo.PNG" alt="Signalyx Logo" />
     </div>
 
-    <div class="section">
-      <h2>🧠 Selezione Lingua / Valuta</h2>
-      <label for="lang">Lingua:</label>
-      <select id="lang">
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="es">🇪🇸 Español</option>
-      </select>
-      <label for="currency">Valuta:</label>
-      <select id="currency">
-        <option value="EUR">€ EUR</option>
-        <option value="USD">$ USD</option>
-        <option value="GBP">£ GBP</option>
-        <option value="BTC">₿ BTC</option>
-      </select>
+    <!-- Main App -->
+    <div class="main" id="main">
+      <h1>Benvenuto su Signalyx</h1>
+
+      <div class="section">
+        <h2>💳 Piani disponibili</h2>
+        <ul>
+          <li>Free con ADS – 0€</li>
+          <li>Free senza ADS – 1,99€</li>
+          <li>PRO – 24,99€</li>
+          <li>Elite – 49,99€</li>
+          <li>Verus – 149,99€</li>
+        </ul>
+        <button class="btn" onclick="checkoutStripe()">Acquista piano PRO</button>
+      </div>
+
+      <div class="section">
+        <h2>📈 Grafico BTC</h2>
+        <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Europe/Rome&withdateranges=1" width="100%" height="400" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+      </div>
+
+      <div class="section">
+        <h2>📰 Notizie reali</h2>
+        <p><a href="https://www.investing.com/news/cryptocurrency-news/" target="_blank" style="color:#00ffcc;">Apri notizie su Investing.com →</a></p>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>📢 Segnali Attivi</h2>
-      <ul style="text-align:left;">
-        <li>🔵 BTC: Segnale BUY confermato (supporto 61.200$)</li>
-        <li>🟠 ETH: Attesa breakout sopra 3.600$</li>
-        <li>🟣 SOL: Segnale LONG sopra 140$</li>
-        <li>🟢 MATIC: Inversione possibile zona 0.58$</li>
-        <li>🟡 TON: Attesa rottura 8.50$ per nuovo target</li>
-        <li>🔴 Oro (XAU): Supporto chiave 2.300$</li>
-        <li>🔵 Nasdaq (NDX): Tenuta 19.000 critica</li>
-      </ul>
-    </div>
+    <!-- Stripe Checkout -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      function checkoutStripe() {
+        const stripe = Stripe("pk_live_51RekFcFvd0M0giTBqPtQK9o7MJqixhPiv5M4PUtkPhCpwMA21CsEDrOtEMGuyOdpuECyYAneilnavkqNFP9jeeIO00KSKbVNCN");
+        stripe.redirectToCheckout({
+          lineItems: [{ price: "price_xxx_REPLACE_ME", quantity: 1 }],
+          mode: "subscription",
+          successUrl: "https://signalyx-web.vercel.app/success",
+          cancelUrl: "https://signalyx-web.vercel.app/cancel",
+        });
+      }
 
-    <div class="section">
-      <h2>📬 Contattaci</h2>
-      <p>💬 Supporto diretto (in futuro con AI)</p>
-      <p>💡 Suggerimenti/idee: <a href="mailto:perrym@hotmail.it">Invia email</a></p>
-    </div>
-
-    <footer>
-      Signalyx – Think Less. Trade Best. <br/>
-      Powered by Firebase · TradingView · Vercel
-    </footer>
-  </div>
-</body>
+      window.onload = () => {
+        setTimeout(() => {
+          document.getElementById("splash").style.display = "none";
+          document.getElementById("main").style.display = "block";
+        }, 2200);
+      };
+    </script>
+  </body>
 </html>
