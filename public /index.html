@@ -3,216 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Zaydra – Piattaforma di segnali reali, analisi e AI per investimenti intelligenti.">
-  <meta name="keywords" content="Zaydra, trading, AI, segnali, criptovalute, azioni, metalli, dashboard, investimenti">
-  <meta name="author" content="Zaydra">
-  <title>Zaydra – Signals & AI</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="manifest.json" />
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-  <script src="lang.js" defer></script>
-  <script src="main.dart.js" defer></script>
-  <script src="flutter.js" defer></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBwURx2uEbXrRg9bCaLe0rhuWn3lOV0734",
-      authDomain: "zaydra.firebaseapp.com",
-      projectId: "zaydra",
-      storageBucket: "zaydra.firebasestorage.app",
-      messagingSenderId: "298282622397",
-      appId: "1:298282622397:web:07f91d6278707a7c4346d4",
-      measurementId: "G-WGQXVPHV56"
-    };
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-  </script>
+  <meta name="description" content="Zaydra - Analisi reali su cripto, azioni, metalli e altro ancora." />
+  <meta name="google-adsense-account" content="ca-pub-xxxxxxxxxxxxxxxx" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Zaydra - Home</title>
 </head>
 <body>
-  <div id="splash">
-    <img src="assets/logo_transparente_zaydra.png" alt="Zaydra Splash Logo" class="splash-logo">
-  </div>
-
   <header>
-    <div class="logo">
-      <a href="index.html">
-        <img src="assets/z_logo.png" alt="Zaydra Z Logo" class="z-icon">
-      </a>
+    <div class="top-bar">
+      <a href="index.html"><img src="/assets/logo-z.png" alt="Zaydra Logo" class="logo-mini"></a>
+      <nav>
+        <a href="login.html">Login</a>
+        <a href="register.html">Registrati</a>
+        <a href="reset-password.html">Reset Password</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="contatti.html">Contatti</a>
+      </nav>
+      <select id="language-selector">
+        <option value="en">EN</option>
+        <option value="it">IT</option>
+        <option value="es">ES</option>
+      </select>
     </div>
-    <nav>
-      <ul>
-        <li><button class="lang-select" data-lang="it">🇮🇹</button></li>
-        <li><button class="lang-select" data-lang="en">🇬🇧</button></li>
-        <li><button class="lang-select" data-lang="es">🇪🇸</button></li>
-      </ul>
-    </nav>
   </header>
 
   <main>
-    <section class="welcome">
-      <h1 data-translate="welcome">Welcome to Zaydra</h1>
-      <p data-translate="loading">Loading...</p>
-    </section>
-
-    <section class="auth">
-      <div class="auth-container">
-        <h2 data-translate="login">Login</h2>
-        <input type="email" id="login-email" placeholder="Email" />
-        <input type="password" id="login-password" placeholder="Password" />
-        <button id="login-btn" data-translate="login">Login</button>
-        <p><a href="#" id="reset-password">Reset Password</a></p>
+    <section class="hero">
+      <img src="/assets/logo-full.png" alt="Zaydra" class="logo-full" />
+      <h1 id="welcome-text">Benvenuto su Zaydra</h1>
+      <p id="subtitle">La piattaforma AI per analisi finanziarie reali e segnali avanzati.</p>
+      <div class="cta-buttons">
+        <a href="login.html" class="btn">Accedi</a>
+        <a href="register.html" class="btn">Registrati</a>
       </div>
-      <div class="auth-container">
-        <h2 data-translate="register">Register</h2>
-        <input type="email" id="register-email" placeholder="Email" />
-        <input type="password" id="register-password" placeholder="Password" />
-        <button id="register-btn" data-translate="register">Register</button>
+    </section>
+        <section class="features">
+      <h2 id="features-title">Cosa offre Zaydra</h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <h3>Criptovalute</h3>
+          <p>Dati e segnali reali da CoinGecko. Nessun contenuto finto.</p>
+        </div>
+        <div class="feature">
+          <h3>Azioni</h3>
+          <p>Prezzi in tempo reale da Alpha Vantage (es. AAPL, TSLA).</p>
+        </div>
+        <div class="feature">
+          <h3>Metalli</h3>
+          <p>Valori reali di oro, argento e altri metalli preziosi.</p>
+        </div>
+        <div class="feature">
+          <h3>Analisi AI</h3>
+          <p>Report automatici su asset specifici nei piani premium.</p>
+        </div>
+        <div class="feature">
+          <h3>Multi-lingua</h3>
+          <p>Supporto per Italiano, Inglese, Spagnolo, Francese, Arabo, Cinese e altro.</p>
+        </div>
+        <div class="feature">
+          <h3>Dashboard personale</h3>
+          <p>Accesso a contenuti riservati in base al tuo piano attivo.</p>
+        </div>
       </div>
     </section>
 
     <section class="plans">
-      <h2 data-translate="plans">Our Plans</h2>
-      <div class="plan-list">
-        <div class="plan-card">
-          <h3>Free + ADS</h3>
-          <p>€0/mese</p>
-        </div>
-        <div class="plan-card">
-          <h3>Free</h3>
-          <p>€1,99/mese</p>
-        </div>
-        <div class="plan-card">
-          <h3>Base</h3>
-          <p>€9,99/mese</p>
-        </div>
-        <div class="plan-card">
-          <h3>Pro</h3>
-          <p>€29,99/mese</p>
-        </div>
-      </div>
+      <h2 id="plans-title">Piani disponibili</h2>
+      <ul class="plan-list">
+        <li><strong>Free (con ADS)</strong>: €0</li>
+        <li><strong>Free (senza ADS)</strong>: €1,99</li>
+        <li><strong>Base</strong>: €9,99/mese</li>
+        <li><strong>Pro</strong>: €29,99/mese</li>
+        <li><strong>Elite</strong>: €59,99/mese</li>
+        <li><strong>Verus</strong>: €119/mese</li>
+        <li><strong>Verus Infinity</strong>: €149+/mese</li>
+      </ul>
     </section>
-
-    <section class="dashboard">
-      <h2 data-translate="dashboard">Dashboard</h2>
-      <div id="user-info">
-        <p id="welcome-user">Welcome, user@example.com</p>
-      </div>
-      <div id="signals">
-        <h3 data-translate="realtime_signals">Real-time Signals</h3>
-        <ul id="signal-list">
-          <!-- Signals fetched dynamically -->
-        </ul>
-      </div>
-    </section>
-
-    <section class="market">
-      <h2 data-translate="markets">Markets</h2>
-
-      <div class="market-category">
-        <h3>Top 3 Stocks (Alpha Vantage)</h3>
-        <ul id="stocks-list">
-          <!-- Data via Alpha Vantage -->
-        </ul>
-      </div>
-
-      <div class="market-category">
-        <h3>Top 3 Cryptos (CoinGecko)</h3>
-        <ul id="crypto-list">
-          <!-- Data via CoinGecko -->
-        </ul>
-      </div>
-
-      <div class="market-category">
-        <h3>Metals (Gold & Silver)</h3>
-        <ul id="metals-list">
-          <!-- Data via MetalpriceAPI -->
-        </ul>
-      </div>
-    </section>
-
-    <footer>
-      <p>&copy; 2025 Zaydra. All rights reserved.</p>
-      <a href="/privacy.html" data-translate="privacy">Privacy</a> |
-      <a href="/contatti.html" data-translate="contact">Contattaci</a>
+        <footer>
+      <p>&copy; 2025 Zaydra. Tutti i diritti riservati.</p>
+      <p><a href="privacy.html">Privacy</a> | <a href="contatti.html">Contatti</a></p>
     </footer>
 
-    <!-- AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
 
-    <!-- Firebase Auth -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyBwURx2uEbXrRg9bCaLe0rhuWn3lOV0734",
-        authDomain: "zaydra.firebaseapp.com",
-        projectId: "zaydra",
-        storageBucket: "zaydra.firebasestorage.app",
-        messagingSenderId: "298282622397",
-        appId: "1:298282622397:web:07f91d6278707a7c4346d4",
-        measurementId: "G-WGQXVPHV56"
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-
-      onAuthStateChanged(auth, (user) => {
-        const welcome = document.getElementById('welcome-user');
-        if (user) {
-          welcome.textContent = `Welcome, ${user.email}`;
-        } else {
-          window.location.href = "/login.html";
-        }
-      });
-
-      function logout() {
-        signOut(auth).then(() => window.location.href = "/login.html");
-      }
-    </script>
-
-    <!-- Traduzioni -->
+    <!-- Script Firebase -->
+    <script src="firebase.js"></script>
+    <!-- Script Auth -->
+    <script src="auth.js"></script>
+    <!-- Script Lingue -->
     <script src="lang.js"></script>
+    <!-- Script Flutter/Extra -->
+    <script src="flutter.js"></script>
+    <script src="main.dart.js"></script>
 
-    <!-- Script dinamici -->
+    <!-- Cambio Lingua + Valuta -->
     <script>
-      // Alpha Vantage API per azioni
-      fetch("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=NZJUAHG3WQVEKJ1K")
-        .then(response => response.json())
-        .then(data => {
-          const list = document.getElementById("stocks-list");
-          const item = document.createElement("li");
-          item.textContent = "MSFT - Ultimo prezzo: " + Object.values(data["Time Series (5min)"])[0]["1. open"];
-          list.appendChild(item);
-        });
-
-      // CoinGecko per crypto
-      fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=eur")
-        .then(res => res.json())
-        .then(data => {
-          const list = document.getElementById("crypto-list");
-          Object.entries(data).forEach(([coin, price]) => {
-            const item = document.createElement("li");
-            item.textContent = `${coin.toUpperCase()}: €${price.eur}`;
-            list.appendChild(item);
-          });
-        });
-
-      // MetalPrice API (oro + argento)
-      fetch("https://metalpriceapi.com/api/v1/latest?base=EUR&symbols=XAU,XAG&apikey=demo")
-        .then(res => res.json())
-        .then(data => {
-          const list = document.getElementById("metals-list");
-          const gold = document.createElement("li");
-          gold.textContent = `Oro: €${data.rates.XAU}`;
-          const silver = document.createElement("li");
-          silver.textContent = `Argento: €${data.rates.XAG}`;
-          list.appendChild(gold);
-          list.appendChild(silver);
-        });
+      document.getElementById("language-select").addEventListener("change", function () {
+        const lang = this.value;
+        localStorage.setItem("language", lang);
+        location.reload();
+      });
+      const savedLang = localStorage.getItem("language");
+      if (savedLang) {
+        document.getElementById("language-select").value = savedLang;
+        loadLanguage(savedLang); // richiede funzione da lang.js
+      }
     </script>
   </body>
 </html>
