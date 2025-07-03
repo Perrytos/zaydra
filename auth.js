@@ -1,9 +1,6 @@
-// auth.js
+// auth.js – Gestione login, registrazione e reset password
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-// Configurazione Firebase
+// Inizializza Firebase (config.js o direttamente qui)
 const firebaseConfig = {
   apiKey: "AIzaSyBwURx2uEbXrRg9bCaLe0rhuWn3lOV0734",
   authDomain: "zaydra.firebaseapp.com",
@@ -13,50 +10,70 @@ const firebaseConfig = {
   appId: "1:298282622397:web:07f91d6278707a7c4346d4",
   measurementId: "G-WGQXVPHV56"
 };
+firebase.initializeApp(firebaseConfig);
 
-// Inizializza Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// Firebase Auth
+const auth = firebase.auth();
 
-// LOGIN
-document.getElementById("login-btn").addEventListener("click", () => {
-  const email = document.getElementById("login-email").value;
-  const password = document.getElementById("login-password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      window.location.href = "/dashboard.html"; // oppure index se già dentro
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
-});
-
-// REGISTRAZIONE
-document.getElementById("register-btn").addEventListener("click", () => {
-  const email = document.getElementById("register-email").value;
-  const password = document.getElementById("register-password").value;
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Account creato con successo!");
-      window.location.href = "/dashboard.html";
-    })
-    .catch((error) => {
-      alert("Errore nella registrazione: " + error.message);
-    });
-});
-
-// RESET PASSWORD
-document.getElementById("reset-password").addEventListener("click", () => {
-  const email = prompt("Inserisci la tua email per il reset della password:");
-  if (email) {
-    sendPasswordResetEmail(auth, email)
+// Login
+const loginBtn = document.getElementById("login-btn");
+if (loginBtn) {
+  loginBtn.addEventListener("click", () => {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+    auth.signInWithEmailAndPassword(email, password)
       .then(() => {
-        alert("Email di reset inviata!");
+        window.location.href = "/dashboard.html";
       })
-      .catch((error) => {
+      .catch(error => {
+        alert("Login failed: " + error.message);
+      });
+  });
+}
+
+// Registrazione
+const registerBtn = document.getElementById("register-btn");
+if (registerBtn) {
+  registerBtn.addEventListener("click", () => {
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        alert("Registrazione completata!");
+        window.location.href = "/dashboard.html";
+      })
+      .catch(error => {
+        alert("Errore registrazione: " + error.message);
+      });
+  });
+}
+
+// Reset Password
+const resetLink = document.getElementById("reset-link");
+if (resetLink) {
+  resetLink.addEventListener("click", () => {
+    const email = document.getElementById("reset-email").value;
+    if (!email) {
+      alert("Inserisci un indirizzo email valido.");
+      return;
+    }
+    auth.sendPasswordResetEmail(email)
+      .then(() => {
+        alert("Email per reset inviata.");
+        window.location.href = "/login.html";
+      })
+      .catch(error => {
         alert("Errore: " + error.message);
       });
-  }
-});
+  });
+}
+
+// Logout
+const logoutBtn = document.getElementById("logout-btn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    auth.signOut().then(() => {
+      window.location.href = "/login.html";
+    });
+  });
+}
