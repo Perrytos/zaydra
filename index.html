@@ -1,120 +1,138 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Zaydra - Segnali AI per azioni, criptovalute e metalli preziosi">
-  <title>Zaydra</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Zaydra - Segnali AI per azioni, crypto, metalli.">
+  <title>Zaydra - Segnali AI</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Perrytos/zaydra/main/assets/logo-z.PNG" />
   <style>
     body {
-      background-color: #111;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      padding-top: 70px;
-    }
-    .navbar {
+      margin: 0;
+      font-family: Arial, sans-serif;
       background-color: #000;
+      color: #fff;
     }
-    .navbar-brand img {
+    header {
+      background-color: #111;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav a {
+      color: #00ff99;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .logo {
       height: 40px;
     }
-    .lang-flag {
-      width: 25px;
-      height: auto;
-      margin-left: 10px;
-      cursor: pointer;
+    .lang-select {
+      background: #222;
+      color: #fff;
+      border: 1px solid #00ff99;
+      padding: 0.3rem;
+      border-radius: 5px;
+    }
+    .main-content {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
     }
     .section {
-      padding: 60px 20px;
-      text-align: center;
+      margin-bottom: 2rem;
     }
-    .btn-primary {
-      background-color: #00ff9d;
+    .plans ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+    }
+    .login-btn {
+      background-color: #00ff99;
+      color: black;
+      padding: 0.5rem 1rem;
       border: none;
-      color: #000;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
     }
-    .btn-primary:hover {
-      background-color: #00cc7a;
+    .flag {
+      width: 20px;
+      height: auto;
+      margin-right: 5px;
     }
     footer {
-      padding: 20px;
       text-align: center;
-      background-color: #000;
-      color: #666;
+      padding: 2rem;
+      background: #111;
+      margin-top: 4rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#"><img src="assets/logo-z.png" alt="Zaydra Logo"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item"><a class="nav-link" href="#segnali">Segnali</a></li>
-          <li class="nav-item"><a class="nav-link" href="#piani">Piani</a></li>
-          <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
-        </ul>
-        <div class="d-flex align-items-center">
-          <img src="assets/it.png" class="lang-flag" onclick="changeLanguage('it')">
-          <img src="assets/en.png" class="lang-flag" onclick="changeLanguage('en')">
-          <img src="assets/es.png" class="lang-flag" onclick="changeLanguage('es')">
-        </div>
-        <a href="#" class="btn btn-primary ms-3">Login / Registrati</a>
-      </div>
-    </div>
-  </nav>
-
-  <header class="section">
-    <img src="assets/logo-transparent.png" alt="Zaydra Transparent Logo" class="img-fluid mb-4" style="max-height: 120px;">
-    <h1 id="welcome">Benvenuto su Zaydra</h1>
-    <p id="tagline">La tua piattaforma AI per segnali su azioni, cripto e metalli preziosi.</p>
-    <a href="#piani" class="btn btn-primary mt-3">Scopri i piani</a>
+  <header>
+    <img src="https://raw.githubusercontent.com/Perrytos/zaydra/main/assets/logo-z.PNG" alt="Zaydra Logo" class="logo" />
+    <nav>
+      <a href="#segnali">Segnali</a>
+      <a href="#piani">Piani</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#contatti">Contatti</a>
+      <select class="lang-select">
+        <option value="it" selected>🇮🇹 IT</option>
+        <option value="en">🇬🇧 EN</option>
+        <option value="es">🇪🇸 ES</option>
+        <option value="de">🇩🇪 DE</option>
+        <option value="fr">🇫🇷 FR</option>
+        <option value="ar">🇸🇦 AR</option>
+        <option value="ru">🇷🇺 RU</option>
+        <option value="zh">🇨🇳 ZH</option>
+      </select>
+    </nav>
+    <button class="login-btn" onclick="location.href='login.html'">Login / Registrati</button>
   </header>
 
-  <section class="section bg-dark" id="segnali">
-    <h2>Segnali di investimento</h2>
-    <p id="signals-loading">Caricamento azioni...<br>Caricamento criptovalute...<br>Caricamento metalli preziosi...</p>
-  </section>
+  <main class="main-content">
+    <section class="section">
+      <h1>Benvenuto su Zaydra</h1>
+      <p>La tua piattaforma intelligente per segnali su azioni, crypto e metalli preziosi.</p>
+    </section>
 
-  <section class="section" id="piani">
-    <h2>Piani</h2>
-    <ul class="list-unstyled">
-      <li>Free con pubblicità - 0€</li>
-      <li>Free senza pubblicità - 1.99€</li>
-      <li>Base - 9.99€/mese</li>
-      <li>Pro - 29.99€/mese</li>
-      <li>Elite - 59.99€/mese</li>
-      <li>Verus - 119€/mese</li>
-      <li>Verus Infinity - 149€/mese</li>
-    </ul>
-  </section>
+    <section class="section" id="segnali">
+      <h2>Segnali di investimento</h2>
+      <p>🔄 Caricamento azioni...</p>
+      <p>🔄 Caricamento criptovalute...</p>
+      <p>🔄 Caricamento metalli preziosi...</p>
+    </section>
 
-  <section class="section bg-dark" id="dashboard">
-    <h2>Dashboard</h2>
-    <p>Accedi alla tua area riservata per gestire abbonamenti, preferenze e segnali personalizzati.</p>
-  </section>
+    <section class="section plans" id="piani">
+      <h2>Piani</h2>
+      <ul>
+        <li>Free con pubblicità - 0€</li>
+        <li>Free senza pubblicità - 1.99€</li>
+        <li>Base - 9.99€/mese</li>
+        <li>Pro - 29.99€/mese</li>
+        <li>Elite - 59.99€/mese</li>
+        <li>Verus - 119€/mese</li>
+        <li>Verus Infinity - 149€/mese</li>
+      </ul>
+    </section>
 
-  <section class="section" id="contatti">
-    <h2>Contatti</h2>
-    <p>Email: <a href="mailto:info@zaydra.com" class="text-white">info@zaydra.com</a></p>
-  </section>
+    <section class="section" id="dashboard">
+      <h2>Dashboard personale</h2>
+      <p>Accedi per visualizzare i tuoi segnali personalizzati, storico, analisi e impostazioni avanzate.</p>
+    </section>
+
+    <section class="section" id="contatti">
+      <h2>Contatti</h2>
+      <p>Per supporto, scrivici dalla tua area riservata. Nessun dato sensibile è esposto pubblicamente.</p>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 Zaydra. Tutti i diritti riservati.
+    © 2025 Zaydra – Tutti i diritti riservati. Powered by AI.
   </footer>
 
-  <script>
-    function changeLanguage(lang) {
-      alert("Cambio lingua in: " + lang);
-      // Qui puoi integrare i file di traduzione reali se necessario
-    }
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
