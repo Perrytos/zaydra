@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Accedi alla tua area personale su Zaydra.">
-  <meta name="keywords" content="Login, Zaydra, accesso, segnali, trading">
-  <meta name="author" content="Zaydra">
+  <meta name="description" content="Login - Zaydra: Accedi alla piattaforma AI per segnali e analisi di mercato.">
   <title>Zaydra – Login</title>
   <link rel="stylesheet" href="../styles.css" />
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="../firebase.js"></script>
-  <script src="../auth.js" defer></script>
   <script src="../lang.js" defer></script>
+  <script src="../firebase.js" defer></script>
+  <script src="../auth.js" defer></script>
 </head>
 <body>
   <header>
     <div class="logo">
-      <a href="/index.html">
+      <a href="index.html">
         <img src="../assets/z_logo.png" alt="Zaydra Logo" class="z-icon">
       </a>
     </div>
@@ -37,16 +33,17 @@
         <input type="email" id="login-email" placeholder="Email" />
         <input type="password" id="login-password" placeholder="Password" />
         <button id="login-btn" data-translate="login">Login</button>
-        <p><a href="#" id="reset-password" data-translate="reset">Reset Password</a></p>
-        <p><a href="/register.html" data-translate="register">Non hai un account? Registrati</a></p>
+        <p><a href="#" id="reset-password" data-translate="reset_password">Reset Password</a></p>
+        <p data-translate="no_account">Non hai un account?</p>
+        <a href="register.html" data-translate="register_here">Registrati qui</a>
       </div>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 Zaydra. All rights reserved.</p>
-    <a href="/privacy.html" data-translate="privacy">Privacy</a> |
-    <a href="/contatti.html" data-translate="contact">Contattaci</a>
+    <a href="privacy.html" data-translate="privacy">Privacy</a> |
+    <a href="contatti.html" data-translate="contact">Contattaci</a>
   </footer>
 </body>
 </html>
