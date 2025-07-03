@@ -1,138 +1,99 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Zaydra - Segnali AI per azioni, crypto, metalli.">
-  <title>Zaydra - Segnali AI</title>
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Perrytos/zaydra/main/assets/logo-z.PNG" />
+  <title>Zaydra</title>
+  <link rel="icon" href="assets/logo-z.PNG" />
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-    }
-    header {
-      background-color: #111;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    nav a {
-      color: #00ff99;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .logo {
-      height: 40px;
-    }
-    .lang-select {
-      background: #222;
-      color: #fff;
-      border: 1px solid #00ff99;
-      padding: 0.3rem;
-      border-radius: 5px;
-    }
-    .main-content {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-    }
-    .section {
-      margin-bottom: 2rem;
-    }
-    .plans ul {
-      list-style-type: disc;
-      padding-left: 2rem;
-    }
-    .login-btn {
-      background-color: #00ff99;
-      color: black;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .flag {
-      width: 20px;
-      height: auto;
-      margin-right: 5px;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #111;
-      margin-top: 4rem;
-      color: #777;
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    header, nav, section, footer { margin-bottom: 20px; }
+    nav a { margin-right: 10px; }
+    img.logo { max-width: 200px; display: block; margin-bottom: 20px; }
+    .flag { width: 30px; cursor: pointer; margin-right: 10px; }
+    #dashboard, #user-plan, #signals, #logout-button { display: none; }
   </style>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
 <body>
   <header>
-    <img src="https://raw.githubusercontent.com/Perrytos/zaydra/main/assets/logo-z.PNG" alt="Zaydra Logo" class="logo" />
+    <img src="assets/logo-transparent.PNG" alt="Zaydra Transparent Logo" class="logo" />
     <nav>
-      <a href="#segnali">Segnali</a>
-      <a href="#piani">Piani</a>
-      <a href="#dashboard">Dashboard</a>
-      <a href="#contatti">Contatti</a>
-      <select class="lang-select">
-        <option value="it" selected>🇮🇹 IT</option>
-        <option value="en">🇬🇧 EN</option>
-        <option value="es">🇪🇸 ES</option>
-        <option value="de">🇩🇪 DE</option>
-        <option value="fr">🇫🇷 FR</option>
-        <option value="ar">🇸🇦 AR</option>
-        <option value="ru">🇷🇺 RU</option>
-        <option value="zh">🇨🇳 ZH</option>
-      </select>
+      <a href="#signals">Segnali</a>
+      <a href="#plans">Piani</a>
+      <a href="#dashboard" id="dashboard-link">Dashboard</a>
+      <a href="contatti.html">Contatti</a>
     </nav>
-    <button class="login-btn" onclick="location.href='login.html'">Login / Registrati</button>
+    <div>
+      <img src="https://flagcdn.com/w40/it.png" class="flag" onclick="setLanguage('it')" />
+      <img src="https://flagcdn.com/w40/gb.png" class="flag" onclick="setLanguage('en')" />
+      <img src="https://flagcdn.com/w40/es.png" class="flag" onclick="setLanguage('es')" />
+    </div>
   </header>
 
-  <main class="main-content">
-    <section class="section">
-      <h1>Benvenuto su Zaydra</h1>
-      <p>La tua piattaforma intelligente per segnali su azioni, crypto e metalli preziosi.</p>
-    </section>
+  <section id="welcome">
+    <h1>Benvenuto su Zaydra</h1>
+    <p>La tua piattaforma AI per segnali su azioni, cripto e metalli preziosi.</p>
+  </section>
 
-    <section class="section" id="segnali">
-      <h2>Segnali di investimento</h2>
-      <p>🔄 Caricamento azioni...</p>
-      <p>🔄 Caricamento criptovalute...</p>
-      <p>🔄 Caricamento metalli preziosi...</p>
-    </section>
+  <section id="signals">
+    <h2>Segnali di investimento</h2>
+    <p id="stocks">Caricamento azioni...</p>
+    <p id="cryptos">Caricamento criptovalute...</p>
+    <p id="metals">Caricamento metalli preziosi...</p>
+  </section>
 
-    <section class="section plans" id="piani">
-      <h2>Piani</h2>
-      <ul>
-        <li>Free con pubblicità - 0€</li>
-        <li>Free senza pubblicità - 1.99€</li>
-        <li>Base - 9.99€/mese</li>
-        <li>Pro - 29.99€/mese</li>
-        <li>Elite - 59.99€/mese</li>
-        <li>Verus - 119€/mese</li>
-        <li>Verus Infinity - 149€/mese</li>
-      </ul>
-    </section>
+  <section id="plans">
+    <h2>Piani</h2>
+    <ul>
+      <li>Free con pubblicità - 0€</li>
+      <li>Free senza pubblicità - 1.99€</li>
+      <li>Base - 9.99€/mese</li>
+    </ul>
+  </section>
 
-    <section class="section" id="dashboard">
-      <h2>Dashboard personale</h2>
-      <p>Accedi per visualizzare i tuoi segnali personalizzati, storico, analisi e impostazioni avanzate.</p>
-    </section>
+  <section id="dashboard">
+    <h2>Dashboard personale</h2>
+    <p>Benvenuto nella tua area riservata.</p>
+    <button id="logout-button" onclick="logout()">Logout</button>
+  </section>
 
-    <section class="section" id="contatti">
-      <h2>Contatti</h2>
-      <p>Per supporto, scrivici dalla tua area riservata. Nessun dato sensibile è esposto pubblicamente.</p>
-    </section>
-  </main>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_FIREBASE_API_KEY",
+      authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+      projectId: "YOUR_FIREBASE_PROJECT_ID",
+      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+      appId: "YOUR_FIREBASE_APP_ID"
+    };
 
-  <footer>
-    © 2025 Zaydra – Tutti i diritti riservati. Powered by AI.
-  </footer>
+    firebase.initializeApp(firebaseConfig);
 
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById("dashboard").style.display = "block";
+        document.getElementById("logout-button").style.display = "inline-block";
+      }
+    });
+
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        location.reload();
+      });
+    }
+
+    function setLanguage(lang) {
+      alert("Lingua impostata: " + lang);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("stocks").innerText = "Azioni caricate.";
+      document.getElementById("cryptos").innerText = "Criptovalute caricate.";
+      document.getElementById("metals").innerText = "Metalli preziosi caricati.";
+    });
+  </script>
 </body>
 </html>
