@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Registrazione - Zaydra: Iscriviti alla piattaforma AI per segnali e analisi di mercato.">
+  <title>Zaydra – Register</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../lang.js" defer></script>
+  <script src="../firebase.js" defer></script>
+  <script src="../auth.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="../assets/z_logo.png" alt="Zaydra Logo" class="z-icon">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><button class="lang-select" data-lang="it">🇮🇹</button></li>
+        <li><button class="lang-select" data-lang="en">🇬🇧</button></li>
+        <li><button class="lang-select" data-lang="es">🇪🇸</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="auth">
+      <div class="auth-container">
+        <h2 data-translate="register">Register</h2>
+        <input type="email" id="register-email" placeholder="Email" />
+        <input type="password" id="register-password" placeholder="Password" />
+        <button id="register-btn" data-translate="register">Register</button>
+        <p data-translate="already_account">Hai già un account?</p>
+        <a href="login.html" data-translate="login_here">Accedi qui</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Zaydra. All rights reserved.</p>
+    <a href="privacy.html" data-translate="privacy">Privacy</a> |
+    <a href="contatti.html" data-translate="contact">Contattaci</a>
+  </footer>
+</body>
+</html>
