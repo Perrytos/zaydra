@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Dashboard Zaydra - Area riservata">
+  <meta name="author" content="Zaydra">
+  <title>Zaydra – Dashboard</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBwURx2uEbXrRg9bCaLe0rhuWn3lOV0734",
+      authDomain: "zaydra.firebaseapp.com",
+      projectId: "zaydra",
+      storageBucket: "zaydra.firebasestorage.app",
+      messagingSenderId: "298282622397",
+      appId: "1:298282622397:web:07f91d6278707a7c4346d4",
+      measurementId: "G-WGQXVPHV56"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("welcome-user").textContent = `Bentornato, ${user.email}`;
+      } else {
+        window.location.href = "/index.html"; // 🔒 redirect se non loggato
+      }
+    });
+
+    window.logout = () => signOut(auth).then(() => window.location.href = "/index.html");
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="/index.html"><img src="/assets/z_logo.png" alt="Zaydra Logo" class="z-icon"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><button onclick="logout()">🔓 Logout</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="dashboard">
+      <h1>La tua dashboard Zaydra</h1>
+      <p id="welcome-user">Caricamento...</p>
+
+      <h2>📡 Segnali attivi</h2>
+      <ul id="signals-list">
+        <li>BTC/USDT – RSI: 72 – MACD: Bullish crossover</li>
+        <li>NASDAQ – Fibonacci target in avvicinamento</li>
+        <li>ORO – Supporto tecnico confermato a €1920</li>
+      </ul>
+
+      <p style="margin-top:2rem;">🚧 Sezione in aggiornamento. Presto avrai strumenti interattivi, analisi personalizzate, dati AI e molto altro.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Zaydra. Tutti i diritti riservati.</p>
+    <a href="/privacy.html">Privacy</a> |
+    <a href="/contatti.html">Contattaci</a>
+  </footer>
+</body>
+</html>
