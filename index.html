@@ -2,98 +2,90 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zaydra</title>
-  <link rel="icon" href="assets/logo-z.PNG" />
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    header, nav, section, footer { margin-bottom: 20px; }
-    nav a { margin-right: 10px; }
-    img.logo { max-width: 200px; display: block; margin-bottom: 20px; }
-    .flag { width: 30px; cursor: pointer; margin-right: 10px; }
-    #dashboard, #user-plan, #signals, #logout-button { display: none; }
-  </style>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-adsense-account" content="ca-pub-0000000000000000">
+    <title>Zaydra – Intelligenza per Investire</title>
+    <link rel="icon" href="logo-zaydra.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header>
-    <img src="assets/logo-transparent.PNG" alt="Zaydra Transparent Logo" class="logo" />
-    <nav>
-      <a href="#signals">Segnali</a>
-      <a href="#plans">Piani</a>
-      <a href="#dashboard" id="dashboard-link">Dashboard</a>
-      <a href="contatti.html">Contatti</a>
-    </nav>
-    <div>
-      <img src="https://flagcdn.com/w40/it.png" class="flag" onclick="setLanguage('it')" />
-      <img src="https://flagcdn.com/w40/gb.png" class="flag" onclick="setLanguage('en')" />
-      <img src="https://flagcdn.com/w40/es.png" class="flag" onclick="setLanguage('es')" />
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <img src="logo-trasparente.png" alt="Zaydra Logo" class="splash-logo" />
     </div>
-  </header>
 
-  <section id="welcome">
-    <h1>Benvenuto su Zaydra</h1>
-    <p>La tua piattaforma AI per segnali su azioni, cripto e metalli preziosi.</p>
-  </section>
+    <!-- Navbar -->
+    <header>
+        <div class="top-bar">
+            <img src="Z-icon.png" alt="Home" id="home-button" />
+            <div id="lang-select">
+                <select id="language-dropdown" onchange="changeLanguage()">
+                    <option value="it">🇮🇹</option>
+                    <option value="en">🇬🇧</option>
+                    <option value="es">🇪🇸</option>
+                    <option value="fr">🇫🇷</option>
+                    <option value="de">🇩🇪</option>
+                    <option value="ar">🇸🇦</option>
+                    <option value="ru">🇷🇺</option>
+                    <option value="zh">🇨🇳</option>
+                </select>
+            </div>
+        </div>
+    </header>
 
-  <section id="signals">
-    <h2>Segnali di investimento</h2>
-    <p id="stocks">Caricamento azioni...</p>
-    <p id="cryptos">Caricamento criptovalute...</p>
-    <p id="metals">Caricamento metalli preziosi...</p>
-  </section>
+    <!-- Hero Section -->
+    <section id="hero">
+        <img src="zaydra-logo-completo.png" alt="Zaydra Logo Completo" />
+        <h1>Investi con Intelligenza</h1>
+        <p>Segnali reali, analisi reali, dati reali.</p>
+        <a href="#dashboard" class="cta-button">Vai alla Dashboard</a>
+    </section>
 
-  <section id="plans">
-    <h2>Piani</h2>
-    <ul>
-      <li>Free con pubblicità - 0€</li>
-      <li>Free senza pubblicità - 1.99€</li>
-      <li>Base - 9.99€/mese</li>
-    </ul>
-  </section>
+    <!-- Dashboard Section (iniziale) -->
+    <section id="dashboard">
+        <h2>Dashboard Personale</h2>
+        <p>Effettua il login per accedere ai tuoi segnali personalizzati.</p>
+        <button onclick="location.href='login.html'">Accedi / Registrati</button>
+    </section>
 
-  <section id="dashboard">
-    <h2>Dashboard personale</h2>
-    <p>Benvenuto nella tua area riservata.</p>
-    <button id="logout-button" onclick="logout()">Logout</button>
-  </section>
+    <!-- Grafici esempio -->
+    <section id="markets">
+        <h2>Mercati in tempo reale</h2>
+        <canvas id="cryptoChart" width="400" height="200"></canvas>
+        <canvas id="stockChart" width="400" height="200"></canvas>
+        <canvas id="metalChart" width="400" height="200"></canvas>
+    </section>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_FIREBASE_API_KEY",
-      authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-      projectId: "YOUR_FIREBASE_PROJECT_ID",
-      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
-      appId: "YOUR_FIREBASE_APP_ID"
-    };
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Zaydra. Tutti i diritti riservati.</p>
+        <a href="privacy.html">Privacy</a> | <a href="contatti.html">Contatti</a>
+    </footer>
 
-    firebase.initializeApp(firebaseConfig);
+    <!-- Firebase config -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
 
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        document.getElementById("dashboard").style.display = "block";
-        document.getElementById("logout-button").style.display = "inline-block";
-      }
-    });
+        const firebaseConfig = {
+            apiKey: "AIzaSyBwURx2uEbXrRg9bCaLe0rhuWn3lOV0734",
+            authDomain: "zaydra.firebaseapp.com",
+            projectId: "zaydra",
+            storageBucket: "zaydra.firebasestorage.app",
+            messagingSenderId: "298282622397",
+            appId: "1:298282622397:web:07f91d6278707a7c4346d4",
+            measurementId: "G-WGQXVPHV56"
+        };
 
-    function logout() {
-      firebase.auth().signOut().then(() => {
-        location.reload();
-      });
-    }
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
 
-    function setLanguage(lang) {
-      alert("Lingua impostata: " + lang);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("stocks").innerText = "Azioni caricate.";
-      document.getElementById("cryptos").innerText = "Criptovalute caricate.";
-      document.getElementById("metals").innerText = "Metalli preziosi caricati.";
-    });
-  </script>
+    <!-- Scripts -->
+    <script src="firebase.js"></script>
+    <script src="charts.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
