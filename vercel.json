@@ -1,11 +1,11 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/public/index.html" },
-    { "source": "/login", "destination": "/public/login.html" },
-    { "source": "/register", "destination": "/public/register.html" },
-    { "source": "/dashboard", "destination": "/public/dashboard.html" },
-    { "source": "/privacy", "destination": "/public/privacy.html" },
-    { "source": "/contatti", "destination": "/public/contatti.html" },
-    { "source": "/reset-password", "destination": "/public/reset-password.html" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/register", "destination": "/register.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/contatti", "destination": "/contatti.html" },
+    { "source": "/reset-password", "destination": "/reset-password.html" }
   ]
 }
